@@ -1,0 +1,13 @@
+@import '../../../globalStyles.scss';
+
+footer {
+  padding: 32px;
+  display: flex;
+  gap: 16px;
+  opacity: 1;
+  transition: opacity 1s ease-in-out 500ms;
+  margin-bottom: 16px;
+  a {
+    text-decoration: none;
+  }
+}

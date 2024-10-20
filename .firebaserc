@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "join-with-angular": {
+      "hosting": {
+        "joinwithangular": [
+          "join-with-angular"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "join-with-angular"
+  }
+}

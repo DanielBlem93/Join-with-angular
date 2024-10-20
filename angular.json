@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "JoinWithAngular": {
+    "joinwithangular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -62,10 +62,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "JoinWithAngular:build:production"
+              "buildTarget": "joinwithangular:build:production"
             },
             "development": {
-              "buildTarget": "JoinWithAngular:build:development"
+              "buildTarget": "joinwithangular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -73,7 +73,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "JoinWithAngular:build"
+            "buildTarget": "joinwithangular:build"
           }
         },
         "test": {
@@ -94,8 +94,28 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "joinwithangular:build:production",
+              "serveTarget": "joinwithangular:serve:production"
+            },
+            "development": {
+              "buildTarget": "joinwithangular:build:development",
+              "serveTarget": "joinwithangular:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

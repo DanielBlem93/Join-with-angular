@@ -1,0 +1,122 @@
+// Hauptfarben
+$background-white: #f6f7f8;
+$background-dark: #2a3647;
+$background-dark-active: #091931;
+$font-color-not-active: #cdcdcd;
+$background-dark-hover: #2a3d59;
+$background-grey-hover: #d1d1d1;
+// Farbe für Dropdown
+$lightblue: #8aa4ff;
+$red: #ff0000;
+$green: #2ad300;
+$orange: #ff8a00;
+$purple: #e200be;
+$darkblue: #0038ff;
+// Schriftfarben
+$white: rgba(251, 251, 251);
+$black: rgba(0, 0, 0);
+$icon: rgb(168, 168, 168);
+// Hintergrundfarben
+$darkblue: #2a3647;
+$lightgrey: rgb(246, 247, 248);
+$ligthblue: rgb(41, 171, 226);
+// Button-Farben
+$darkblueblue: rgb(9, 25, 49);
+// Prio-Farben
+$prio-red: #ff3d00;
+$prio-orange: #ffa800;
+$prio-green: #7ae229;
+
+/* -----------------helpers------------------- */
+
+.display-none {
+  display: none !important;
+}
+
+.opacity {
+  opacity: 1 !important;
+}
+
+.opacity-none {
+  opacity: 0 !important;
+}
+
+/* --------------fontstyles---------------- */
+
+.typo2Body {
+  font-family: "Inter";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19.2px;
+}
+
+.typo2BodyV2 {
+  font-family: "Inter";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.typo2t1 {
+  font-family: "Inter";
+  font-size: 61px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 73.2px;
+}
+
+.inputTextStyle {
+  font-family: "Inter";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.txtBlack {
+  color: $black;
+}
+
+.txtWhite {
+  color: $white;
+}
+
+.txtGrey {
+  color: $icon;
+}
+
+// ---------------------Buttons------------------
+
+button {
+  cursor: pointer;
+}
+
+.signup-btn {
+  width: 145px;
+  height: 51px;
+  font-size: 21px;
+  font-weight: 700;
+
+  &:hover {
+    background-color: #29abe2;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.btn-login {
+  width: 91px;
+  height: 51px;
+
+  &:hover {
+    background: $ligthblue;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.btnTextStyle {
+  font-family: "Inter";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+}

@@ -1,0 +1,7 @@
+@import '../mixin.scss';
+
+#router-outlet{
+@include dFlex();
+width: 100vw;
+height: 100%;
+}

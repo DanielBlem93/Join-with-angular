@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "joinwithangular",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}
