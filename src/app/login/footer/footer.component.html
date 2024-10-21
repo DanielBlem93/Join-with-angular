@@ -1,8 +1,8 @@
 <footer>
-  <a href="privacy_policy.html"
+  <a *ngIf="router.url !== '/singUp'" href="privacy_policy.html"
     ><span class="typo2Body txtGrey">Privacy Policy</span></a
   >
-  <a href="privacy_policy.html"
+  <a *ngIf="router.url !== '/singUp'" href="privacy_policy.html"
     ><span class="typo2Body txtGrey">Legal notice</span></a
   >
 </footer>

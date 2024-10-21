@@ -3,11 +3,12 @@
 @import "../../globalStyles.scss";
 
 #login-container {
+  @include dFlex($justify: space-between, $fDirection: column);
   width: 100%;
   height: 100vh;
-  @include dFlex($justify: space-between, $fDirection: column);
   background-color: $background-white;
 }
+
 app-header {
   width: 100%;
 }
@@ -33,12 +34,12 @@ h1 {
 /*  move Image----------------- */
 
 .img-container-mobile {
+  display: none;
+  // display: flex;
   position: absolute;
   top: calc(50% - 117px);
   left: calc(50% - 137px);
   width: 100px;
-  // display: flex;
-  display: none;
   opacity: 0;
   transition: all 1s ease-in-out 500ms;
   z-index: 101;
@@ -62,7 +63,7 @@ h1 {
   }
 }
 
-/* helpers------------------- */
+
 
 .form-container {
   display: flex;
@@ -70,26 +71,21 @@ h1 {
 }
 
 .login-form {
-  opacity: 1;
-  transition: opacity 1s ease-in-out 500ms;
-
   display: inline-flex;
-  padding: 36px 109px;
   flex-direction: column;
   align-items: center;
+  
+  opacity: 1;
+  padding: 36px 109px;
   gap: 24px;
-
   border-radius: 30px;
   background: $white;
-
   box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+  transition: opacity 1s ease-in-out 500ms;
 }
 
 .input-headline {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
+  @include dFlex($fDirection: column, $gap: 16px );
 }
 
 button {
@@ -130,18 +126,13 @@ input {
 }
 
 .login-remember {
+  @include dFlex($fDirection: row,$justify:space-between, $gap: 10px );
   width: 335px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
 }
 
 .login-chackbox {
+  @include dFlex();
   width: 146px;
-  display: flex;
-  flex-direction: row;
 }
 
 .login-chakbox-insert {
@@ -162,10 +153,7 @@ label {
 
 .login-submit {
   width: 335px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
+  @include dFlex($fDirection: row,$justify:space-evenly);
 }
 
 .login-guest {
@@ -177,31 +165,7 @@ label {
   padding: 4px 16px;
 }
 
-.sign-up-form {
-  position: relative;
-  width: 652px;
-  height: 557px;
-  display: flex;
-  padding: 36px 109px;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  border-radius: 30px;
-  background: $white;
-  box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
-}
 
-.signup-btn {
-  width: 145px;
-  height: 51px;
-  font-size: 21px;
-  font-weight: 700;
-
-  &:hover {
-    background-color: #29abe2;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  }
-}
 
 @keyframes slideInFromRight {
   0% {
@@ -217,37 +181,14 @@ label {
   animation: slideInFromRight 1s;
 }
 
-.form-hr {
-  width: 150px;
-  height: 3px;
-  border-radius: 3px;
-  background-color: #29abe2;
-  border: none;
-}
-
-.hr {
-  width: 150px;
-  height: 3px;
-  border-radius: 3px;
-  background-color: #29abe2;
-  border: none;
-}
-
-.back {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  cursor: pointer;
-}
-
 .forgot-password {
-  position: relative;
-  width: 826px;
   display: inline-flex;
-  padding: 36px 109px;
   flex-direction: column;
   align-items: center;
   gap: 24px;
+  position: relative;
+  width: 826px;
+  padding: 36px 109px;
   border-radius: 30px;
   background: $white;
   box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
@@ -311,10 +252,7 @@ label {
 }
 
 .login-remember-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
+  @include dFlex($fDirection: column,$justify:unset, $gap: 32px );
 }
 
 /* overlay-------------------- */
@@ -392,19 +330,13 @@ label {
   }
 
   .login-remember {
+    @include dFlex($aItems: flex-start, $fDirection: column-reverse,$justify:space-between, $gap: 16px );
     width: 327px;
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 16px;
     padding: 0px 16px;
   }
 
   .login-remember-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
+    @include dFlex($fDirection: column,$justify:left, $gap: 32px );
     gap: 32px;
   }
   .indexFooter {

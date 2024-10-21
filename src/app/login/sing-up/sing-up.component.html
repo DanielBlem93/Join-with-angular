@@ -1,51 +1,71 @@
-<app-header></app-header>
-<div class="sign-up-form">
-  <div onclick="window.location.href = 'index.html'" class="back">
-    <img src="./assets/img/back-icon.png" alt="back" />
-  </div>
-  <h1>Sign Up</h1>
-  <hr class="form-hr" />
-  <div class="input-container">
-    <input type="text" id="signupName" name="name" placeholder="Name" />
-    <div id="nameError" class="input-error"></div>
-    <img
-      class="login-img"
-      src="./assets/img/member-icon-klein.png"
-      alt="name"
-    />
-  </div>
-  <div class="input-container">
-    <input type="text" id="signupEmail" name="email" placeholder="Email" />
-    <div id="emailError" class="input-error"></div>
-    <img class="login-img" src="./assets/img/email-logo.png" alt="email-logo" />
-  </div>
+<div class="main-container">
+  <app-header></app-header>
+  <div class="sign-up-form">
+    <div onclick="window.location.href = 'index.html'" class="back">
+      <img src="./assets/img/back-icon.png" alt="back" />
+    </div>
+    <h1>Sign Up</h1>
+    <hr class="form-hr" />
+    <div class="input-container">
+      <input
+        class="inputTextStyle"
+        type="text"
+        id="signupName"
+        name="name"
+        placeholder="Name"
+      />
+      <div id="nameError" class="input-error"></div>
+      <img
+        class="login-img"
+        src="./assets/img/member-icon-klein.png"
+        alt="name"
+      />
+    </div>
+    <div class="input-container">
+      <input
+        class="inputTextStyle"
+        type="text"
+        id="signupEmail"
+        name="email"
+        placeholder="Email"
+      />
+      <div id="emailError" class="input-error"></div>
+      <img
+        class="login-img"
+        src="./assets/img/email-logo.png"
+        alt="email-logo"
+      />
+    </div>
 
-  <div class="input-container">
-    <input
-      type="password"
-      id="signupPassword"
-      name="password"
-      placeholder="Password"
-    />
-    <div id="passwordError" class="input-error"></div>
-    <img
-      class="login-img"
-      src="./assets/img/schloss-logo.png"
-      alt="password-logo"
-    />
+    <div class="input-container">
+      <input
+        class="inputTextStyle"
+        type="password"
+        id="signupPassword"
+        name="password"
+        placeholder="Password"
+      />
+      <div id="passwordError" class="input-error"></div>
+      <img
+        class="login-img"
+        src="./assets/img/schloss-logo.png"
+        alt="password-logo"
+      />
+    </div>
+    <div class="login-submit">
+      <button
+        onclick="loginSignUp()"
+        id="loginButton"
+        class="btn-login-singup signup-btn"
+      >
+        Sign Up
+      </button>
+      <img
+        id="loginImage"
+        src="./assets/img/erfolgreicheingelogt.png"
+        style="display: none"
+      />
+    </div>
   </div>
-  <div class="login-submit">
-    <button
-      onclick="loginSignUp()"
-      id="loginButton"
-      class="btn-login-singup signup-btn"
-    >
-      Sign Up
-    </button>
-    <img
-      id="loginImage"
-      src="./assets/img/erfolgreicheingelogt.png"
-      style="display: none"
-    />
-  </div>
+  <app-footer></app-footer>
 </div>

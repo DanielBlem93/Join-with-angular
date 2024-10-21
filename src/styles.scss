@@ -156,5 +156,11 @@
 app-login{
   @include dFlex($fDirection: column);
   background-color: $background-white;
+}
 
+.main-container{
+  @include dFlex($justify: space-between, $fDirection: column);
+  width: 100%;
+  height: 100vh;
+  background-color: $background-white;
 }
