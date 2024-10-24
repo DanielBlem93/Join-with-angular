@@ -90,6 +90,10 @@ export class LoginComponent {
   }
 
 
+  testMethod(){
+    console.log('All mighty push')
+  }
+
 }
 
 
