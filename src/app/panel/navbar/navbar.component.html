@@ -4,7 +4,8 @@
     <div
       id="temp-summary"
       class="temp-reiter"
-      onclick="window.location.href='summary.html'"
+      [class.activeLink]="router.url === '/panel/summary'"
+      routerLink="/panel/summary"
     >
       <div class="temp-reiter-links">
         <img
@@ -15,16 +16,18 @@
         <img
           id="summary-icon-img-hover"
           class="temp-icon-imgs temp-icon-hover-img"
-          src="./assets/img/hover/sumarry-Hover.png"
+          [class.display-unset]="router.url === '/panel/summary'"
+          src="../../../assets/img/hover/sumarry-Hover.png"
         />
-        <p>Summary</p>
+        <p [class.txtWhite]="router.url === '/panel/summary'">Summary</p>
       </div>
     </div>
 
     <div
+      [class.activeLink]="router.url === '/panel/board'"
+      routerLink="/panel/board"
       id="temp-board"
       class="temp-reiter"
-      onclick="window.location.href='board.html'"
     >
       <div class="temp-reiter-links">
         <img
@@ -35,9 +38,10 @@
         <img
           id="board-icon-img-hover"
           class="board-icon-imgs temp-icon-imgs temp-icon-hover-img"
+          [class.display-unset]="router.url === '/panel/board'"
           src="./assets/img/hover/board-hover.png"
         />
-        <p>Board</p>
+        <p [class.txtWhite]="router.url === '/panel/board'">Board</p>
       </div>
     </div>
 
