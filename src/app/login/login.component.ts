@@ -84,7 +84,7 @@ export class LoginComponent {
 
     const userCredentail = await signInWithEmailAndPassword(this.authService.auth, 'gast@gast.de', 'gast1234')
     this.loginstatus = true
-    this.helpers.redirectTo('/summary', 1000)
+    this.helpers.redirectTo('panel/summary', 1000)
 
 
   }

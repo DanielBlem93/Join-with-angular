@@ -1,0 +1,101 @@
+@import "../../../mixin.scss";
+@import "../../../globalStyles.scss";
+@import "../../../styles.scss";
+
+
+
+
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 232px;
+    height: 100vh;
+    /* padding: 66px 20px 66px 20px; */
+    gap: 103px;
+    background-color: $background-dark;
+    box-shadow: 0px 0px 4px 0px #0000001A;
+    z-index: 112;
+}
+
+nav>img {
+    margin-top: 66px;
+    width: 100px;
+    height: 121px;
+}
+
+#temp-reiter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.temp-reiter-links {
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    color: $font-color-not-active;
+    display: flex;
+    gap: 10px;
+}
+
+.temp-reiter {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.temp-reiter:hover {
+    background-color: $background-dark-hover;
+}
+
+.temp-reiter:hover .temp-icon-hover-img {
+    display: unset;
+}
+
+.temp-reiter:hover .temp-reiter-links {
+    color: white;
+}
+
+.temp-icon-imgs {
+    width: 30px;
+    height: 30px;
+}
+
+.temp-icon-hover-img {
+    display: none;
+    z-index: 2;
+    position: absolute;
+}
+
+#impressum-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+}
+
+#legal-notice-img {
+    width: 25px;
+    height: 25px;
+}
+
+.content {
+    position: absolute;
+    top: 89px;
+    left: 232px;
+    display: flex;
+    z-index: 2;
+}
+
+.nav-mobile-container {
+    display: none;
+}

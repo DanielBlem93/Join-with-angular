@@ -1,1 +1,6 @@
-<p>panel works!</p>
+<app-navbar></app-navbar>
+<app-panel-header></app-panel-header>
+
+<div class="content-container">
+  <app-summary *ngIf="router.url === '/panel/summary'"></app-summary>
+</div>
