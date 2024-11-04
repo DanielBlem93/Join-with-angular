@@ -12,6 +12,8 @@ $green: #2ad300;
 $orange: #ff8a00;
 $purple: #e200be;
 $darkblue: #0038ff;
+$mint: #1FD7C1;
+$pink: #FC71FF;
 // Schriftfarben
 $white: rgba(251, 251, 251);
 $black: rgba(0, 0, 0);
@@ -26,6 +28,66 @@ $darkblueblue: rgb(9, 25, 49);
 $prio-red: #ff3d00;
 $prio-orange: #ffa800;
 $prio-green: #7ae229;
+// Definierung der Farbvariablen
+$color-red: #ff0000;
+$color-black: #000000;
+$color-green: #35f500;
+$color-blue: #0000ff;
+$color-yellow: #ffff00;
+$color-purple: #800080;
+
+
+// Hintergrundfarben-Klassen
+.bg-color-red {
+    background-color: $color-red;
+}
+
+.bg-color-black {
+    background-color: $color-black;
+}
+
+.bg-color-green {
+    background-color: $color-green;
+}
+
+.bg-color-blue {
+    background-color: $color-blue;
+}
+
+.bg-color-yellow {
+    background-color: $color-yellow;
+}
+
+.bg-color-purple {
+    background-color: $color-purple;
+}
+
+// Kategorien-Hintergrundfarben-Klassen
+
+.bg-cat-color-lightblue {
+    background-color: $lightblue;
+}
+
+.bg-cat-color-red {
+    background-color: $red;
+}
+
+.bg-cat-color-green {
+    background-color: $green;
+}
+
+.bg-cat-color-orange {
+    background-color: $orange;
+}
+
+.bg-cat-color-purple {
+    background-color: $purple;
+}
+
+.bg-cat-color-darkblue {
+    background-color: $darkblue;
+}
+
 
 /* -----------------helpers------------------- */
 

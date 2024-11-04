@@ -12,4 +12,6 @@ export const routes: Routes = [
     { path: 'singUp', component: SingUpComponent },
     { path: 'panel/summary', component: PanelComponent },
     { path: 'panel/board', component: PanelComponent },
+    { path: 'panel/add-task', component: PanelComponent },
+    { path: 'panel/contacts', component: PanelComponent },
 ];

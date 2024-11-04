@@ -1,5 +1,6 @@
 <nav>
   <img src="./assets/img/Join logo vector.svg" alt="" />
+
   <div id="temp-reiter-container">
     <div
       id="temp-summary"
@@ -48,7 +49,8 @@
     <div
       id="temp-add-task"
       class="temp-reiter"
-      onclick="window.location.href='add_task.html'"
+      [class.activeLink]="router.url === '/panel/add-task'"
+      routerLink="/panel/add-task"
     >
       <div class="temp-reiter-links">
         <img
@@ -60,6 +62,7 @@
           id="add-task-icon-img-hover"
           class="temp-icon-imgs temp-icon-imgs temp-icon-hover-img"
           src="./assets/img/hover/addTastk-hover.png"
+          [class.display-unset]="router.url === '/panel/add-task'"
         />
         <p>Add Task</p>
       </div>
@@ -68,7 +71,8 @@
     <div
       id="temp-contacts"
       class="temp-reiter"
-      onclick="window.location.href='contacts.html'"
+      [class.activeLink]="router.url === '/panel/contacts'"
+      routerLink="/panel/contacts"
     >
       <div class="temp-reiter-links">
         <img
@@ -80,6 +84,7 @@
           id="contacts-icon-img-hover"
           class="temp-icon-imgs temp-icon-imgs temp-icon-hover-img"
           src="./assets/img/hover/contacts-hover.png"
+          [class.display-unset]="router.url === '/panel/contacts'"
         />
         <p>Contacts</p>
       </div>

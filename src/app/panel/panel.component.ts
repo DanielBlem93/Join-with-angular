@@ -5,11 +5,13 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { SummaryComponent } from "./summary/summary.component";
 import { BoardComponent } from "./board/board.component";
+import { AddTaskComponent } from "./add-task/add-task.component";
+import { ContactsComponent } from "./contacts/contacts.component";
 
 @Component({
   selector: 'app-panel',
   standalone: true,
-  imports: [NavbarComponent, PanelHeaderComponent, SummaryComponent, CommonModule, BoardComponent],
+  imports: [NavbarComponent, PanelHeaderComponent, SummaryComponent, CommonModule, BoardComponent, AddTaskComponent, ContactsComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })
