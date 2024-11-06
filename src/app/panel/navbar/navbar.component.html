@@ -95,13 +95,15 @@
     <div
       id="temp-legal-notice"
       class="temp-reiter"
-      onclick="window.location.href='legal_notice.html'"
+      [class.activeLink]="router.url === '/panel/legal-notice'"
+      routerLink="/panel/legal-notice"
     >
       <div class="temp-reiter-links">
         <img
           id="legal-notice-img"
           class="temp-icon-imgs"
           src="./assets/img/impressum-icon.png"
+          [class.display-unset]="router.url === '/panel/legal-notice'"
         />
         <p>Legal notice</p>
       </div>

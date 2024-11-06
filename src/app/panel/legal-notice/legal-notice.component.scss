@@ -1,0 +1,28 @@
+@import "../../../mixin.scss";
+@import "../../../globalStyles.scss";
+@import "../../../styles.scss";
+
+.impressum {
+  padding-top: 128px;
+  width: 70%;
+  height: 100%;
+}
+
+.main-container {
+  @include dFlex($fDirection: column);
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+@media (max-width: 1024px) {
+  .impressum {
+    width: 50%;
+  }
+}
+
+/*======Shows active site=====  */
+#temp-legal.notice {
+  background-color: $background-dark-active;
+}
+
+/* ========================================= */
