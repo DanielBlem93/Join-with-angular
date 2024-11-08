@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from '@angular/fire/app';
-import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
+import { getAuth, onAuthStateChanged, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { HelpersService } from './helpers.service';
 
@@ -25,7 +25,10 @@ export class AuthService {
 
 
 
-  constructor(public router: Router, private helpers: HelpersService) { }
+  constructor(public router: Router, private helpers: HelpersService) { 
+    this.loginListener()
+    this.auth.useDeviceLanguage()
+  }
 
 
 
@@ -33,12 +36,35 @@ export class AuthService {
     onAuthStateChanged(this.auth, (user) => {
       // https://firebase.google.com/docs/reference/js/auth.user
       if (user) {
-        this.helpers.redirectTo('/board', 3000)
+        this.afterLogin()
       }
     });
   }
 
+  
+  /**
+   * set user online and redirect to board
+   */
+  afterLogin() {
+    if (this.router.url === '/createaccount/avatar') {
+      this.helpers.redirectTo('/panel/summary', 3000)
+
+    } else {
+      this.helpers.redirectTo('/panel/summary',0)
+
+    }
+
+  }
 
 
+
+  /**
+   * use this to singout user
+   */
+  async signout() {
+    await signOut(this.auth)
+    this.helpers.redirectTo('/login',0)
+    console.log('logged out', this.auth.currentUser)
+  }
 
 }

@@ -1,7 +1,5 @@
-
 <div class="main-container">
-    <app-header></app-header>
-
+  <app-header></app-header>
 
   <div id="img-container-mobile" class="img-container-mobile">
     <img
@@ -11,9 +9,12 @@
     />
   </div>
 
-
-
-  <div id="login-form" class="login-form">
+  <form
+    id="login-form"
+    class="login-form"
+    #myForm="ngForm"
+    (ngSubmit)="onSubmit(myForm)"
+  >
     <div class="input-headline">
       <h1 class="typo2t1 txtBlack">Log In</h1>
       <hr class="form-hr" />
@@ -21,13 +22,19 @@
     <div class="login-remember-content">
       <div class="input-container">
         <input
-          class="inputTextStyle"
-          id="loginEmail"
           type="email"
+          id="loginEmail"
+          class="inputTextStyle"
+          name="email"
           placeholder="Email"
+          [(ngModel)]="inputMail"
           required
+          email
         />
-        <div id="emailError" class="input-error"></div>
+        <div
+          id="emailError"
+          class="input-error"
+        ></div>
         <img
           class="login-img"
           src="./assets/img/email-logo.png"
@@ -36,13 +43,22 @@
       </div>
       <div class="input-container">
         <input
-          class="typo2t6"
-          id="loginPassword"
           type="password"
+          id="loginPassword"
+          class="typo2t6"
           placeholder="Password"
+          name="password"
+          [(ngModel)]="inputPassword"
           required
+          minlength="6"
         />
-        <div id="passwordError" class="input-error"></div>
+        <div
+    
+          id="passwordError"
+          class="input-error"
+        >
+  
+        </div>
         <img
           class="login-img"
           src="./assets/img/schloss-logo.png"
@@ -62,11 +78,11 @@
       </div>
     </div>
     <div class="login-submit">
-      <button onclick="login()" class="btn-login btnTextStyle">Log In</button>
+      <button type="submit" class="btn-login btnTextStyle">Log In</button>
       <button (click)="loginGuest()" class="login-guest btnTextStyle btn-login">
         Guest Log In
       </button>
     </div>
-  </div>
+  </form>
   <app-footer></app-footer>
 </div>

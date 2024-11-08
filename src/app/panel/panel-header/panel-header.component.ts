@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-panel-header',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './panel-header.component.scss'
 })
 export class PanelHeaderComponent {
+
+  constructor(public authService: AuthService) {
+
+  }
 
 }
