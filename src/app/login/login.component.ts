@@ -54,12 +54,12 @@ export class LoginComponent implements OnInit {
    * @param form the form from the inputcontainer in the HTML doc
    */
   async onSubmit(form: NgForm) {
-console.log(form.controls)
+    console.log(form.controls)
     if (form.valid) {
       //formular gültig
       this.loginstatus = await this.loginEmailPassword(form)
       console.log(this.authService.auth.currentUser)
-      
+
       if (!this.loginstatus) {
         //möglicher code wenn login fehlgeschalgen ist
       }
