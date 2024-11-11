@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-login',
   standalone: true,
   imports: [FooterComponent, HeaderComponent, FormsModule,
-    ReactiveFormsModule, CommonModule, RouterLink],
+     CommonModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   async ngOnInit(): Promise<any> {
     this.loginstatus = false;
-    await this.logutIfUserIsLoggedIn()
+    // await this.logutIfUserIsLoggedIn()
   }
 
 

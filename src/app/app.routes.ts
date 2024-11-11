@@ -7,7 +7,7 @@ import { BoardComponent } from './panel/board/board.component';
 
 export const routes: Routes = [
 
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'singUp', component: SingUpComponent },
     { path: 'panel/summary', component: PanelComponent },

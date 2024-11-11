@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from '@angular/fire/app';
-import { getAuth, onAuthStateChanged, signOut } from '@angular/fire/auth';
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { HelpersService } from './helpers.service';
 
@@ -11,21 +11,14 @@ import { HelpersService } from './helpers.service';
 
 
 export class AuthService {
-  firebaseApp = initializeApp({
-    "projectId": "join-with-angular",
-    "appId": "1:896578690049:web:f708bcd0204243c221f400",
-    "storageBucket": "join-with-angular.appspot.com",
-    "apiKey": "AIzaSyDSQn2ZkZUU30fgAKyYoQOcQls1Dehh2Kc",
-    "authDomain": "join-with-angular.firebaseapp.com",
-    "messagingSenderId": "896578690049"
-  })
+  googleAuthProvider = new GoogleAuthProvider();
 
-   auth = getAuth(this.firebaseApp)
+  auth = getAuth()
   emailRegex: RegExp = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\u0022(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\u0022)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 
 
 
-  constructor(public router: Router, private helpers: HelpersService,) { 
+  constructor(public router: Router, private helpers: HelpersService,) {
     this.loginListener()
     // this.auth.useDeviceLanguage()
   }
@@ -37,11 +30,12 @@ export class AuthService {
       // https://firebase.google.com/docs/reference/js/auth.user
       if (user) {
         this.afterLogin()
-      }
+      }else
+      this.signout()
     });
   }
 
-  
+
   /**
    * set user online and redirect to board
    */
@@ -50,7 +44,7 @@ export class AuthService {
       this.helpers.redirectTo('/panel/summary', 3000)
 
     } else {
-      this.helpers.redirectTo('/panel/summary',0)
+      this.helpers.redirectTo('/panel/summary', 3000)
 
     }
 
@@ -63,7 +57,7 @@ export class AuthService {
    */
   async signout() {
     await signOut(this.auth)
-    this.helpers.redirectTo('/login',0)
+    this.helpers.redirectTo('/login', 0)
     console.log('logged out', this.auth.currentUser)
   }
 
