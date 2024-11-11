@@ -29,8 +29,7 @@ export class LoginComponent implements OnInit {
 
 
   constructor(public firebaseService: FirebaseService, private authService: AuthService, private helpers: HelpersService) {
-    console.log(this.firebaseService.testDatabase)
-    this.subAllUser()
+
   }
 
   async ngOnInit(): Promise<any> {
@@ -39,14 +38,6 @@ export class LoginComponent implements OnInit {
   }
 
 
-  subAllUser() {
-    onSnapshot(this.firebaseService.testDatabase, (list) => {
-
-      list.forEach(element => {
-        console.log(element.data())
-      });
-    });
-  }
 
 
   /**
