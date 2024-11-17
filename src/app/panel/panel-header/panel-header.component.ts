@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-panel-header',
@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class PanelHeaderComponent {
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthenticationService) {
 
   }
 
