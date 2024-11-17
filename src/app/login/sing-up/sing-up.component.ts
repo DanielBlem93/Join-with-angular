@@ -32,7 +32,7 @@ export class SingUpComponent {
     if (form.valid) {
       this.createUser()
     } else
-      console.log('error here')
+      console.log(form.errors)
   }
 
 
@@ -47,12 +47,16 @@ export class SingUpComponent {
     }
   }
 
-  setUserDatas() {
+  async setUserDatas() {
     this.user.username = this.username
     this.user.email = this.inputMail
+    await this.authService.updateUsername(this.authService.auth.currentUser!, this.username)
+
   }
 
   async addUserToFirestore() {
     await this.fireService.addUser(this.user.toJSON())
+
   }
+  
 }

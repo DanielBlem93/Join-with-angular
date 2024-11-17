@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from '@angular/fire/app';
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signOut } from '@angular/fire/auth';
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signOut, updateProfile, User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { HelpersService } from './helpers.service';
 import { FirebaseService } from './firebase.service';
@@ -45,6 +45,7 @@ firebaseApp = initializeApp({
       // https://firebase.google.com/docs/reference/js/auth.user
       if (user) {
         this.afterLogin()
+        console.log(user)
       } else {
 
         this.googlelogin = false
@@ -91,6 +92,19 @@ firebaseApp = initializeApp({
     } catch (err: any) {
       console.log('error from auth function',err)
     }
+  }
+
+  
+   /**
+   * Changes the username
+   * @param user needs a userCredentail.currentUser /the user you want to change / the logged in user
+   * @param username the new username
+   */
+   async updateUsername(user: User, username: string) {
+    await updateProfile(user, {
+      displayName: username
+    }).then(() => {
+    })
   }
 
 }

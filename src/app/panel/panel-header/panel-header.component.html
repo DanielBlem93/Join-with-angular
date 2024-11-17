@@ -13,7 +13,7 @@
                 </svg>
             </div>
             <div (click)="authService.signout()" class="temp-logout-symbol">
-                <span id="temp-initials" class="temp-initalien">G</span>
+                <span id="temp-initials" class="temp-initalien">{{this.authService.auth.currentUser?.displayName?.charAt(0)?.toUpperCase()}}</span>
             </div>
         
                 <button onclick="logout()"  id="logout" class="logout-btn hidden-logout-btn">Logout</button>
