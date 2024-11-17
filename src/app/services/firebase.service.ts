@@ -5,19 +5,20 @@ import { addDoc, collection, CollectionReference, Firestore } from '@angular/fir
 })
 export class FirebaseService {
 
-  testDatabase
-  userDatabase: CollectionReference 
+  userDatabase: CollectionReference
+  tasksDatabase: CollectionReference
 
   firestore: Firestore = inject(Firestore);
 
   constructor() {
-    this.testDatabase = collection(this.firestore, 'Test')
+
     this.userDatabase = collection(this.firestore, 'users')
-  
+    this.tasksDatabase = collection(this.firestore, 'tasks')
+
   }
 
 
-  async addUser(userdata: {} ) {
+  async addUser(userdata: {}) {
     let user = await addDoc(this.userDatabase, userdata);
     return user.id
   }
