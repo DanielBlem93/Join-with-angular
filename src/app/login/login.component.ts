@@ -36,21 +36,18 @@ export class LoginComponent implements OnInit {
 
   async ngOnInit(): Promise<any> {
     this.loginstatus = false;
-    await this.logutIfUserIsLoggedIn()
+    this.hasLogIn()
   }
 
 
-  // if you logged in and you return back somehow to the login window. You will be logged out automaticly
-  async logutIfUserIsLoggedIn() {
-    if (this.authService.auth.currentUser !== null) {
-      await this.authService.signout()
-      this.authService.currentUser = this.authService.auth.currentUser
-
+  /**
+   * Return back to Summary page if user is logged in
+   */
+  hasLogIn() {
+    if (this.authService.auth.currentUser) {
+      this.helpers.redirectTo('/panel/summary', 0)
     }
   }
-
-
-
 
 
   /**
