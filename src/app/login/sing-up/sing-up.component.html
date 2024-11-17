@@ -1,6 +1,11 @@
 <div class="main-container">
   <app-header></app-header>
-  <div class="sign-up-form">
+  <form
+    class="sign-up-form"
+    #myForm="ngForm"
+    (ngSubmit)="onSubmit(myForm)"
+    id="sign-up-form"
+  >
     <div onclick="window.location.href = 'index.html'" class="back">
       <img src="./assets/img/back-icon.png" alt="back" />
     </div>
@@ -13,8 +18,18 @@
         id="signupName"
         name="name"
         placeholder="Name"
+        [(ngModel)]="username"
+        required
+        minlength="2"
       />
-      <div id="nameError" class="input-error"></div>
+      <div
+        *ngIf="
+          myForm.form.controls['name']?.invalid &&
+          myForm.form.controls['name']?.touched
+        "
+        id="nameError"
+        class="input-error"
+      ></div>
       <img
         class="login-img"
         src="./assets/img/member-icon-klein.png"
@@ -27,9 +42,21 @@
         type="text"
         id="signupEmail"
         name="email"
-        placeholder="Email"
+        [(ngModel)]="inputMail"
+        placeholder="email@youremail.com"
+        email
+        required
+        minlength="5"
+        [pattern]="authService.emailRegex"
       />
-      <div id="emailError" class="input-error"></div>
+      <div
+        *ngIf="
+          myForm.controls['email']?.invalid &&
+          myForm.form.controls['email']?.touched
+        "
+        id="emailError"
+        class="input-error"
+      ></div>
       <img
         class="login-img"
         src="./assets/img/email-logo.png"
@@ -43,7 +70,11 @@
         type="password"
         id="signupPassword"
         name="password"
-        placeholder="Password"
+        placeholder="password"
+        name="password"
+        [(ngModel)]="inputPassword"
+        required
+        minlength="8"
       />
       <div id="passwordError" class="input-error"></div>
       <img
@@ -54,7 +85,7 @@
     </div>
     <div class="login-submit">
       <button
-        onclick="loginSignUp()"
+       type="submit"
         id="loginButton"
         class="btn-login-singup signup-btn"
       >
@@ -66,6 +97,6 @@
         style="display: none"
       />
     </div>
-  </div>
+  </form>
   <app-footer></app-footer>
 </div>

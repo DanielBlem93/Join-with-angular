@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from '@angular/fire/app';
-import { getAuth, GoogleAuthProvider, onAuthStateChanged, signOut } from '@angular/fire/auth';
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { HelpersService } from './helpers.service';
 import { FirebaseService } from './firebase.service';
@@ -40,7 +40,6 @@ firebaseApp = initializeApp({
   }
 
 
-
   async loginListener() {
     onAuthStateChanged(this.auth, (user) => {
       // https://firebase.google.com/docs/reference/js/auth.user
@@ -59,16 +58,13 @@ firebaseApp = initializeApp({
    * set user online and redirect to board
    */
   afterLogin() {
-    if (this.router.url === '/createaccount/avatar') {
-      this.helpers.redirectTo('/panel/summary', 0)
+    if (this.router.url === '/singUp') {
+      this.helpers.redirectTo('/panel/summary', 3000)
 
     } else {
       this.helpers.redirectTo('/panel/summary', 0)
     }
-
-
   }
-
 
 
   /**
@@ -78,6 +74,23 @@ firebaseApp = initializeApp({
     await signOut(this.auth)
     this.router.navigate(['/login'])
     console.log('logged out', this.auth.currentUser)
+  }
+
+
+/**
+   * creats a account with email and password
+   * @param email email of user as string
+   * @param password  pw of user as string
+   */
+  async createAccount(email: string, password: string) {
+    const loginEmail = email
+    const loginPassword = password
+
+    try {
+      const userCredentail = await createUserWithEmailAndPassword(this.auth, loginEmail, loginPassword)
+    } catch (err: any) {
+      console.log('error from auth function',err)
+    }
   }
 
 }
