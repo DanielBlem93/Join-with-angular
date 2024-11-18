@@ -10,7 +10,7 @@
         <div class="summary-body">
           <div class="summary-tasks">
             <div routerLink="/panel/board" class="summary-task">
-              <h1 id="task-in-board">0</h1>
+              <h1 id="task-in-board">{{docCounter}}</h1>
               <p>Tasks in Board</p>
             </div>
             <div routerLink="/panel/board" class="summary-task">
@@ -27,12 +27,12 @@
               <img src="./assets/img/urgent.svg" alt="" />
             </div>
             <div class="summary-display">
-              <h1 id="task-urgent">1</h1>
+              <h1 id="task-urgent">{{urgentCounter}}</h1>
               <p>Urgent</p>
             </div>
             <hr class="summary-date-hr" />
             <div>
-              <h2 id="urgent-date">December 31, 2025</h2>
+              <h2 id="urgent-date">December 31, 2026</h2>
               <p>Upcoming Deadline</p>
             </div>
           </div>

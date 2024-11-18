@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
 
 import { PanelHeaderComponent } from "../panel-header/panel-header.component";
 import { RouterLink } from '@angular/router';
+import { FirebaseService } from '../../services/firebase.service';
+import { Observable } from 'rxjs';
+import { getDocs } from 'firebase/firestore';
 
 @Component({
   selector: 'app-summary',
@@ -11,11 +14,27 @@ import { RouterLink } from '@angular/router';
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss'
 })
-export class SummaryComponent {
+export class SummaryComponent implements OnInit {
 
-  constructor() {
+  docCounter: number = 0
+  urgentCounter: number = 0
+
+  constructor(private fireService: FirebaseService) {
+
+
+    this.getTasks()
+
 
   }
+  ngOnInit(): void {
+    this.countDocs()
+    this.countUrgents()
+  }
+
+
+  // getTasks(): Observable<any[]> {
+  //   return 
+  // }
 
   generateGreeting() {
     const date = new Date();
@@ -26,6 +45,32 @@ export class SummaryComponent {
     else if (hour >= 18 && hour < 22) greeting = "Good evening,";
     else greeting = "Good night,";
     return greeting
+  }
+
+
+  async getTasks() {
+
+    const querySnapshot = await getDocs(this.fireService.tasksDatabase);
+    querySnapshot.forEach((doc) => {
+      // console.log(doc.id, " => ", doc.data());
+    });
+  }
+
+  async countDocs() {
+    const querySnapshot = await getDocs(this.fireService.tasksDatabase);
+    querySnapshot.forEach((doc) => {
+      this.docCounter++
+    });
+  }
+  async countUrgents() {
+    const querySnapshot = await getDocs(this.fireService.tasksDatabase);
+    querySnapshot.forEach((doc) => {
+      const data = doc.data()
+      // console.log(data)
+      if (data['priority'] === 'urgent') {
+        this.urgentCounter++
+      }
+    });
   }
 
 }

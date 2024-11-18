@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { addDoc, collection, CollectionReference, Firestore } from '@angular/fire/firestore';
+import { addDoc, collection, CollectionReference, Firestore, getDocs } from '@angular/fire/firestore';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +15,14 @@ export class FirebaseService {
     this.userDatabase = collection(this.firestore, 'users')
     this.tasksDatabase = collection(this.firestore, 'tasks')
 
+  }
+
+  async getTasks() {
+    const querySnapshot = await getDocs(this.tasksDatabase);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+    });
   }
 
 
