@@ -212,14 +212,14 @@
     height: 100%;
     position: fixed;
     top: 0;
-    right: -200%;
+    right: 0%;
     background-color: rgba(42, 54, 71, 0.5);
     z-index: 222;
     transition: all 0.7s ease-in-out;
 }
 
 .add-contacts-container {
-    @include dFlex(center, flex-end, row, 120px);
+    @include dFlex(center, flex-end, unset, 120px);
     width: 80%;
     height: 70%;
     position: relative;
@@ -229,7 +229,7 @@
 }
 
 .add-contact-greeting-container {
-    @include dFlex(center, flex-start, column, 10px);
+    @include dFlex(flex-start, center, column, 10px);
     width: 40%;
     height: 100%;
     position: absolute;
@@ -238,6 +238,22 @@
     border-radius: 30px 0px 0px 30px;
     color: #ffffff;
     padding-left: 40px;
+}
+
+.add-contact-greeting-container h1{
+    font-size: 61px;
+    font-weight: 700;
+}
+.add-contact-greeting-container p{
+    font-size: 27px;
+    font-weight: 400;
+}
+.add-contact-hr{
+    background-color: #29ABE2;
+    width: 90px;
+    height: 3px;
+    border-radius: 3px;
+    border: none;
 }
 
 .add-contact-form-container {
@@ -255,14 +271,52 @@
 }
 
 .add-contact-form {
-    @include dFlex(flex-start, center, column, 40px);
+    @include dFlex(unset, unset, column, 40px);
     width: 422px;
     margin-right: 20px;
 }
+.input-container{
+    width: 422px;
+    height: 51px;
+    position: relative;
+}
+input{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    padding: 13px 21px;
+}
+input::placeholder{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    color: #BDBDBD;
+}
+.add-contact-img{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
 .btn {
-    @include dFlex(flex-start, center, row, 20px);
+    @include dFlex(unset, flex-start, row, 20px);
 }
+
+.add-contact{
+    width: 138px;
+    height: 57px;
+    font-size: 20px;
+    background-color: #FFFFFF;
+    color: #2A3647;
+    border: 1px solid #2A3647;
+    border-radius: 10px;
+    padding: 4px 16px;
+    cursor: pointer;
+}
+
+
 
 .create-contact {
     @include dFlex(center, space-evenly, row);
@@ -274,6 +328,45 @@
     font-weight: 700;
     background-color: #2A3647;
     color: #FFFFFF;
+    cursor: pointer;
+}
+
+
+.add-contact img{
+    margin-left: 10px;
+}
+.create-contact{
+    @include dFlex(center, space-evenly, row);
+    width: 211px;
+    height: 56px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    background-color: #2A3647;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.close{
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    top: 20px;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.contact-member-icon h1{
+    color: #ffffff;
+    font-size: 47px;
+    font-weight: 500;
+}
+.displaynone{
+    display: none;
+}
+#back-to-contancts{
+    display: none;
     cursor: pointer;
 }
 

@@ -58,7 +58,7 @@
             />
           </div>
           <div id="btn-add" class="btn">
-            <button onclick="closeModal()" class="add-contact">
+            <button (click)="closeModal()" class="add-contact">
               Cancel
               <img src="./assets/img/close-icon.png" alt="" />
             </button>
@@ -79,7 +79,7 @@
           </div>
         </div>
       </div>
-      <button onclick="closeModal()" class="close">
+      <button (click)="closeModal()" class="close">
         <img
           class="close-icon"
           src="./assets/img/close-icon.png"
@@ -90,7 +90,7 @@
   </div>
   <div w3-include-html="assets/templates/desktop_template.html"></div>
   <div class="content" id="contakt-mobiel">
-    <button onclick="openModalAddContakt()" class="contact-btn">
+    <button (click)="openModalAddContakt()" class="contact-btn">
       <span class="btn-deskription">New contact</span>
       <img src="./assets/img/memberaddweiss.png" />
     </button>
