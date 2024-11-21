@@ -1,36 +1,90 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import { AuthenticationService } from '../../services/authentication.service';
-import { addDoc, getDocs } from 'firebase/firestore';
-import { FormsModule, NgForm, } from '@angular/forms';
+import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { addDoc, collectionData } from '@angular/fire/firestore';
 import { Users } from '../../interfaces/users';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [FormsModule,
-    CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './contacts.component.html',
-  styleUrl: './contacts.component.scss'
+  styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent implements OnInit {
   inputName: any;
   inputMail: any;
   inputNumber: any;
+  randomColor!: string; // Variable für die zufällige Farbe
+
+  contacts$: Observable<any[]>; // Stream für die Kontakte
+  sortedContacts: any[] = []; // Sortierte Kontakte mit Gruppierung
 
 
   constructor(private fireService: FirebaseService,
-    public authService: AuthenticationService) {
+    public authService: AuthenticationService, private cdr: ChangeDetectorRef) {
 
+      this.contacts$ = collectionData(this.fireService.contactsDatabase, { idField: 'id' });
   }
 
   ngOnInit(): void {
+    this.randomColor = this.getRandomColor(); // Setze die Farbe einmal zu Beginn
 
+    this.loadContacts();
   }
 
-  onSubmit(_t14: any) {
-    throw new Error('Method not implemented.');
+  loadContacts(): void {
+    this.contacts$.subscribe(contacts => {
+      const filteredContacts = contacts.filter(contact => contact.username);
+      const sortedContacts = filteredContacts.sort((a, b) =>
+        a.username.localeCompare(b.username, undefined, { sensitivity: 'base' })
+      );
+
+      this.sortedContacts = this.groupContactsByInitials(sortedContacts);
+      console.log(sortedContacts)
+      this.cdr.markForCheck(); // Stellt sicher, dass Änderungen berücksichtigt werden
+    });
+  }
+
+  groupContactsByInitials(contacts: any[]) {
+    let lastInitial = '';
+    return contacts.map(contact => {
+      const [firstInitial, secondInitial] = this.getInitials(contact.username);
+      const showInitial = firstInitial.toUpperCase() !== lastInitial;
+      lastInitial = firstInitial.toUpperCase();
+
+      return {
+        ...contact,
+        firstInitial,
+        secondInitial,
+        showInitial
+      };
+    });
+  }
+
+  getInitials(username: string): string[] {
+    const parts = username.split(' ');
+    const firstInitial = parts[0]?.[0] || '';
+    const secondInitial = parts[1]?.[0] || '';
+    return [firstInitial, secondInitial];
+  }
+
+  getRandomColor(): string {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  onSubmit(myForm: NgForm) {
+    if (myForm.valid) {
+      this.createContact();
+    }
   }
 
   // async getUserEmail() {

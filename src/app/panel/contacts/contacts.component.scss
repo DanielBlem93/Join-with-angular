@@ -10,8 +10,8 @@
 #contacts-list {
     width: 453px;
     height: 100vh;
+    padding-top: 128px;
     background-color: #FFFFFF;
-    padding-top: 20px;
     overflow: scroll;
 }
 ::-webkit-scrollbar {
@@ -43,7 +43,7 @@
 }
 
 .contacts-list-item {
-    @include dFlex(start, center);
+    @include dFlex(center,start);
     margin: 10px;
     cursor: pointer;
 }
@@ -212,7 +212,7 @@
     height: 100%;
     position: fixed;
     top: 0;
-    right: 0%; // - 200% for close
+    right: -200%; // - 200% for close
     background-color: rgba(42, 54, 71, 0.5);
     z-index: 222;
     transition: all 0.7s ease-in-out;
