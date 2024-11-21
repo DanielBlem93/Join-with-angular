@@ -11,16 +11,31 @@
         <div id="contact-icon" class="contact-member-icon">
           <img src="./assets/img/member-icon.png" />
         </div>
-        <div class="add-contact-form">
+        <form
+          #myForm="ngForm"
+          (ngSubmit)="onSubmit(myForm)"
+          class="add-contact-form"
+        >
           <div class="input-container">
             <input
               id="contactName"
               type="text"
               name="contact_name"
               placeholder="Name"
+              [(ngModel)]="inputName"
               required
+              minlength="2"
+              pattern="^[a-zA-Z]+ [a-zA-Z]+$"
             />
-            <span id="contactNameError" class="error-message"></span>
+            <span
+              *ngIf="
+                myForm.form.controls['contact_name']?.touched &&
+                myForm.form.controls['contact_name']?.invalid
+              "
+              id="contactNameError"
+              class="error-message"
+              >Please enter a first- and lastname: John Doe</span
+            >
             <img
               class="add-contact-img"
               src="./assets/img/member-icon-klein.png"
@@ -33,9 +48,21 @@
               type="email"
               name="contact_email"
               placeholder="Email"
+              [(ngModel)]="inputMail"
               required
+              email
+              minlength="5"
+              [pattern]="authService.emailRegex"
             />
-            <span id="contactEmailError" class="error-message"></span>
+            <span
+              *ngIf="
+                myForm.form.controls['contact_email']?.touched &&
+                myForm.form.controls['contact_email']?.invalid
+              "
+              id="contactEmailError"
+              class="error-message"
+              >Please enter a correct email</span
+            >
             <img
               class="add-contact-img"
               src="./assets/img/email-logo.png"
@@ -45,12 +72,22 @@
           <div class="input-container">
             <input
               id="contactPhone"
-              type="text"
+              type="number"
               name="contact_phone"
               placeholder="Phone"
+              [(ngModel)]="inputNumber"
               required
+              minlength="6"
             />
-            <span id="contactPhoneError" class="error-message"></span>
+            <span
+              *ngIf="
+                myForm.form.controls['contact_phone']?.touched &&
+                myForm.form.controls['contact_phone']?.invalid
+              "
+              id="contactPhoneError"
+              class="error-message"
+              >Please enter a correct phone number</span
+            >
             <img
               class="add-contact-img"
               src="./assets/img/phone-icon.png"
@@ -77,7 +114,7 @@
               </button>
             </div>
           </div>
-        </div>
+        </form>
       </div>
       <button (click)="closeModal()" class="close">
         <img

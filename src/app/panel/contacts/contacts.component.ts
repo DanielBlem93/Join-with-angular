@@ -1,13 +1,77 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from '../../services/firebase.service';
+import { AuthenticationService } from '../../services/authentication.service';
+import { addDoc, getDocs } from 'firebase/firestore';
+import { FormsModule, NgForm, } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Users } from '../../interfaces/users';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [],
+  imports: [FormsModule,
+    CommonModule],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss'
 })
-export class ContactsComponent {
+export class ContactsComponent implements OnInit {
+  inputName: any;
+  inputMail: any;
+  inputNumber: any;
+
+
+  constructor(private fireService: FirebaseService,
+    public authService: AuthenticationService) {
+
+  }
+
+  ngOnInit(): void {
+
+  }
+
+  onSubmit(_t14: any) {
+    throw new Error('Method not implemented.');
+  }
+
+  // async getUserEmail() {
+  //   const currentUserEmail = this.authService.auth.currentUser?.email
+  //   const querySnapshot = await getDocs(this.fireService.userDatabase);
+  //   querySnapshot.forEach((doc) => {
+
+  //     const data = doc.data()
+  //     const userMail = data['email']
+
+  //     if (userMail === currentUserEmail) {
+  //       console.log(userMail);
+  //       return userMail
+  //     }
+  //   });
+  // }
+
+
+  async createContact() {
+
+    const data : Users ={
+      username: this.inputName,
+      email: this.inputMail,
+      number:this.inputNumber
+    }
+
+    try {
+      const docRef = await addDoc(this.fireService.contactsDatabase, data);
+      console.log('Dokument erfolgreich hinzugefügt mit ID:', docRef.id);
+
+    } catch (error) {
+         console.error('Fehler beim Hinzufügen des Dokuments:', error);
+    }
+  }
+
+
+
+
+
+
+
   /**
    * Opens the "add-contact" modal by adjusting its position on the screen.
    * Prior to opening, it resets the modal to its initial state.
@@ -74,6 +138,8 @@ export class ContactsComponent {
       console.error(`Element with id ${id} not found`);
     }
   }
+
+
 
 
 

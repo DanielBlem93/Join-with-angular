@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../services/firebase.service';
-import { onSnapshot } from '@angular/fire/firestore';
 import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from "./header/header.component";
-import { FormsModule, NgForm, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NgForm,} from '@angular/forms';
 import { signInWithEmailAndPassword } from '@angular/fire/auth';
 import { AuthenticationService } from '../services/authentication.service';
 import { HelpersService } from '../services/helpers.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',

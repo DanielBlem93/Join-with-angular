@@ -7,6 +7,7 @@ export class FirebaseService {
 
   userDatabase: CollectionReference
   tasksDatabase: CollectionReference
+  contactsDatabase: CollectionReference
 
   firestore: Firestore = inject(Firestore);
 
@@ -14,6 +15,7 @@ export class FirebaseService {
 
     this.userDatabase = collection(this.firestore, 'users')
     this.tasksDatabase = collection(this.firestore, 'tasks')
+    this.contactsDatabase = collection(this.firestore, 'contacts')
 
   }
 
