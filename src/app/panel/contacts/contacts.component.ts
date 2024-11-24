@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild, Renderer2, ElementRef, ViewChildren, QueryList, AfterContentChecked } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { NgForm, FormsModule } from '@angular/forms';
@@ -7,48 +7,100 @@ import { Observable } from 'rxjs';
 import { addDoc, collectionData } from '@angular/fire/firestore';
 import { Users } from '../../interfaces/users';
 
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
+
+
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,],
   templateUrl: './contacts.component.html',
-  styleUrls: ['./contacts.component.scss']
+  styleUrls: ['./contacts.component.scss'],
+
+  animations: [
+    trigger('openClose', [
+      // ...
+      state('open', style({
+        left: '50%',
+        opacity: 1,
+        top: '80%',
+
+      })),
+      state('closed', style({
+        top: '80%',
+        left: '200%',
+
+        opacity: 0.0,
+      })),
+      transition('open => closed', [
+        animate('0.5s')
+      ]),
+      transition('closed => open', [
+        animate('0.5s')
+      ]),
+    ]),
+  ],
 })
-export class ContactsComponent implements OnInit {
+
+
+export class ContactsComponent implements OnInit, AfterContentChecked {
   inputName: any;
   inputMail: any;
   inputNumber: any;
   randomColor!: string; // Variable für die zufällige Farbe
-
+  public isOpen: boolean;
   contacts$: Observable<any[]>; // Stream für die Kontakte
   sortedContacts: any[] = []; // Sortierte Kontakte mit Gruppierung
 
+  @ViewChildren('contactIcon') contactIcon!: QueryList<ElementRef>;
 
-  constructor(private fireService: FirebaseService,
-    public authService: AuthenticationService, private cdr: ChangeDetectorRef) {
 
-      this.contacts$ = collectionData(this.fireService.contactsDatabase, { idField: 'id' });
+
+  constructor(
+    private fireService: FirebaseService,
+    public authService: AuthenticationService,
+    private cdr: ChangeDetectorRef,
+    private renderer: Renderer2
+  ) {
+
+    this.isOpen = false
+    this.contacts$ = collectionData(this.fireService.contactsDatabase, { idField: 'id' });
   }
 
-  ngOnInit(): void {
-    this.randomColor = this.getRandomColor(); // Setze die Farbe einmal zu Beginn
-
-    this.loadContacts();
+  ngOnInit() {
+    this.sortContacts();
   }
 
-  loadContacts(): void {
+  ngAfterContentChecked() {
+    this.applyRandomColors()
+  }
+
+
+  /**
+   * sort Contacts by username A-Z
+   */
+  sortContacts() {
     this.contacts$.subscribe(contacts => {
       const filteredContacts = contacts.filter(contact => contact.username);
       const sortedContacts = filteredContacts.sort((a, b) =>
         a.username.localeCompare(b.username, undefined, { sensitivity: 'base' })
       );
-
       this.sortedContacts = this.groupContactsByInitials(sortedContacts);
-      console.log(sortedContacts)
-      this.cdr.markForCheck(); // Stellt sicher, dass Änderungen berücksichtigt werden
     });
   }
 
+
+  /**
+   * Groups the contacts by their inital letter
+   * @param contacts array with contacts
+   * @returns a sorted array with usernames and their intitals
+   */
   groupContactsByInitials(contacts: any[]) {
     let lastInitial = '';
     return contacts.map(contact => {
@@ -65,6 +117,10 @@ export class ContactsComponent implements OnInit {
     });
   }
 
+  /**
+   * @param username the username you want the Initals from
+   * @returns The first and second inital
+   */
   getInitials(username: string): string[] {
     const parts = username.split(' ');
     const firstInitial = parts[0]?.[0] || '';
@@ -72,6 +128,26 @@ export class ContactsComponent implements OnInit {
     return [firstInitial, secondInitial];
   }
 
+
+  /**
+   * Method to change the icon backgroundcolors
+   */
+ applyRandomColors() {
+
+    if (this.contactIcon) {
+      this.cdr.detectChanges();
+      this.contactIcon.forEach(icon => {
+        const randomColor = this.getRandomColor();
+        this.renderer.setStyle(icon.nativeElement, 'background-color', randomColor);
+      });
+    }
+  }
+
+
+/**
+ * A method to get random colors
+ * @returns a # color code as string
+ */
   getRandomColor(): string {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -87,43 +163,38 @@ export class ContactsComponent implements OnInit {
     }
   }
 
-  // async getUserEmail() {
-  //   const currentUserEmail = this.authService.auth.currentUser?.email
-  //   const querySnapshot = await getDocs(this.fireService.userDatabase);
-  //   querySnapshot.forEach((doc) => {
 
-  //     const data = doc.data()
-  //     const userMail = data['email']
-
-  //     if (userMail === currentUserEmail) {
-  //       console.log(userMail);
-  //       return userMail
-  //     }
-  //   });
-  // }
-
-
+/**
+ * creates a contact in firebase
+ */
   async createContact() {
 
-    const data : Users ={
+    const data: Users = {
       username: this.inputName,
       email: this.inputMail,
-      number:this.inputNumber
+      number: this.inputNumber
     }
-
     try {
       const docRef = await addDoc(this.fireService.contactsDatabase, data);
       console.log('Dokument erfolgreich hinzugefügt mit ID:', docRef.id);
-
+      this.closeModal()
+      this.toggleMsg()
     } catch (error) {
-         console.error('Fehler beim Hinzufügen des Dokuments:', error);
+      console.error('Fehler beim Hinzufügen des Dokuments:', error);
     }
   }
 
-
-
-
-
+/**
+ * open/close the messagebox
+ */
+  toggleMsg() {
+    setTimeout(() => {
+      this.isOpen = !this.isOpen
+    }, 500);
+    setTimeout(() => {
+      this.isOpen = !this.isOpen
+    }, 2500);
+  }
 
 
   /**
@@ -150,6 +221,7 @@ export class ContactsComponent implements OnInit {
     }
   }
 
+
   /**
 * Resets the modal by clearing input fields and toggling visibility of buttons.
 * Changes the header text to default values.
@@ -164,6 +236,7 @@ export class ContactsComponent implements OnInit {
     this.setValue('header-text', 'Tasks are better with a team!');
   }
 
+
   /**
 * Sets the value of an HTML element.
 * @param {string} id - The ID of the HTML element.
@@ -177,6 +250,7 @@ export class ContactsComponent implements OnInit {
       console.error(`Element with id ${id} not found`);
     }
   }
+
 
   /**
   * Toggles a class for an HTML element.
@@ -193,6 +267,20 @@ export class ContactsComponent implements OnInit {
     }
   }
 
+  // async getUserEmail() {
+  //   const currentUserEmail = this.authService.auth.currentUser?.email
+  //   const querySnapshot = await getDocs(this.fireService.userDatabase);
+  //   querySnapshot.forEach((doc) => {
+
+  //     const data = doc.data()
+  //     const userMail = data['email']
+
+  //     if (userMail === currentUserEmail) {
+  //       console.log(userMail);
+  //       return userMail
+  //     }
+  //   });
+  // }
 
 
 
