@@ -3,8 +3,8 @@ import { FirebaseService } from '../../services/firebase.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
-import { addDoc, collectionData } from '@angular/fire/firestore';
+import { first, Observable } from 'rxjs';
+import { addDoc, collectionData, Index } from '@angular/fire/firestore';
 import { Users } from '../../interfaces/users';
 
 import {
@@ -57,8 +57,16 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
   public isOpen: boolean;
   contacts$: Observable<any[]>; // Stream für die Kontakte
   sortedContacts: any[] = []; // Sortierte Kontakte mit Gruppierung
-
+  selectedUser: Users = {
+    username: 'Max Mustermann',
+    email: 'max@muster.de',
+    number: '0123456789',
+    color:'#258E7D'
+  }
+  color!: string
+  check: boolean = false
   @ViewChildren('contactIcon') contactIcon!: QueryList<ElementRef>;
+  @ViewChildren('contact-header-icon') contactHeaderIcon!: QueryList<ElementRef>;
 
 
 
@@ -78,7 +86,7 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
   }
 
   ngAfterContentChecked() {
-    this.applyRandomColors()
+ 
   }
 
 
@@ -128,26 +136,35 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
     return [firstInitial, secondInitial];
   }
 
+  removeCharacter(initals: string[]) {
+    const first = initals[0]
+    const second = initals[1]
+    const string = `${first}${second}`
+    return string
+  }
+
 
   /**
    * Method to change the icon backgroundcolors
    */
- applyRandomColors() {
+  applyRandomColors() {
 
     if (this.contactIcon) {
       this.cdr.detectChanges();
       this.contactIcon.forEach(icon => {
         const randomColor = this.getRandomColor();
         this.renderer.setStyle(icon.nativeElement, 'background-color', randomColor);
+        this.check = true
+        console.log(randomColor)
       });
     }
   }
 
 
-/**
- * A method to get random colors
- * @returns a # color code as string
- */
+  /**
+   * A method to get random colors
+   * @returns a # color code as string
+   */
   getRandomColor(): string {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -157,6 +174,10 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
     return color;
   }
 
+  /**
+   * Handels whats happen if the form is submitted
+   * @param myForm the NgForm form the HTML
+   */
   onSubmit(myForm: NgForm) {
     if (myForm.valid) {
       this.createContact();
@@ -164,15 +185,16 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
   }
 
 
-/**
- * creates a contact in firebase
- */
+  /**
+   * creates a contact in firebase
+   */
   async createContact() {
 
     const data: Users = {
       username: this.inputName,
       email: this.inputMail,
-      number: this.inputNumber
+      number: this.inputNumber,
+      color: this.getRandomColor()
     }
     try {
       const docRef = await addDoc(this.fireService.contactsDatabase, data);
@@ -184,9 +206,9 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
     }
   }
 
-/**
- * open/close the messagebox
- */
+  /**
+   * open/close the messagebox
+   */
   toggleMsg() {
     setTimeout(() => {
       this.isOpen = !this.isOpen
@@ -266,6 +288,50 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
       console.error(`Element with id ${id} not found`);
     }
   }
+
+
+  /**
+* Displays the contact information based on the given index.
+* @param {number} index - The index of the contact to be displayed.
+*/
+  showContact(index: number) {
+    const contactMobile = document.getElementById('contact-m');
+    const contact = this.sortedContacts[index];
+    const contactContent = document.getElementById('contact-content');
+    const back = document.getElementById('back-to-contancts');
+
+    this.setContactContent(contactContent, contact);
+
+    // if (window.innerWidth <= 1024) {
+    //   this.setMobileViewStyles(contactMobile, back);
+    //   this.addBackEventListener(back, contactMobile);
+    // }
+  }
+
+
+  /**
+* Sets the content and styles for the contact display.
+* @param {HTMLElement} contactContent - The DOM element where the contact information will be displayed.
+* @param {Object} contact - The contact object containing the details to be displayed.
+* @param {Function} getInitials - The  to generate initials from the contact's name.
+*/
+  setContactContent(contactContent: HTMLElement | null, contact: { name: any; }) {
+
+    if (contactContent !== null) {
+      contactContent.style.right = '0';
+      // contactContent.innerHTML = this.renderContact(contact, getInitials(contact.name).join(''));
+    }
+  }
+
+  setSelectedUser(contact: any, event: Event) {
+    this.selectedUser.username = contact.username
+    this.selectedUser.number = contact.number
+    this.selectedUser.email = contact.email
+    this.selectedUser.color = contact.color
+
+  }
+
+
 
   // async getUserEmail() {
   //   const currentUserEmail = this.authService.auth.currentUser?.email
@@ -512,16 +578,6 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
   //   }
 
 
-  //   /**
-  //   * Sets the content and styles for the contact display.
-  //   * @param {HTMLElement} contactContent - The DOM element where the contact information will be displayed.
-  //   * @param {Object} contact - The contact object containing the details to be displayed.
-  //   * @param {Function} getInitials - The  to generate initials from the contact's name.
-  //   */
-  //   setContactContent(contactContent, contact, getInitials) {
-  //     contactContent.style.right = '0';
-  //     contactContent.innerHTML =  this.renderContact(contact, getInitials(contact.name).join(''));
-  //   }
 
 
   //   /**
@@ -583,23 +639,7 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
   //   }
 
 
-  //   /**
-  //   * Displays the contact information based on the given index.
-  //   * @param {number} index - The index of the contact to be displayed.
-  //   */
-  //   showContact(index) {
-  //     const contactMobile = document.getElementById('contact-m');
-  //     const contact = contactsArray[index];
-  //     const contactContent = document.getElementById('contact-content');
-  //     const back = document.getElementById('back-to-contancts');
 
-  //     this.setContactContent(contactContent, contact, getInitials);
-
-  //     if (window.innerWidth <= 1024) {
-  //       this.setMobileViewStyles(contactMobile, back);
-  //       this.addBackEventListener(back, contactMobile);
-  //     }
-  //   }
 
 
   //   /**

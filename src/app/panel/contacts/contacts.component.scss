@@ -57,10 +57,10 @@
 }
 
 .contact {
-  @include dFlex(column, flex-start);
+  @include dFlex(flex-start, flex-start, column, 21px);
   position: fixed;
-  left: 50%;
-  padding-top: 64px;
+  left: 40%;
+  padding-top: 128px;
 }
 
 .contact-header-title {
@@ -96,10 +96,10 @@
 }
 
 .contact-header {
-  @include dFlex(flex-start, center);
+  @include dFlex(center, center, $gap: 54px);
   margin: 20px;
   padding-left: 30px;
-  gap: 20px;
+  
 }
 
 .contact-header-name {
@@ -108,17 +108,20 @@
 }
 
 .contact-header-add-task {
-  @include dFlex(flex-start, center, row, 50px);
+  @include dFlex(flex-start, flex-start, row, 50px);
   margin-top: 10px;
   font-size: 16px;
   font-weight: 400;
 }
 
 #contact-content {
+  @include dFlex(unset, unset, column,21px);
   position: relative;
-  right: -100%;
+  // right: -100%;
+  right: 0%;
   transition: all 0.7s ease-in-out;
 }
+
 
 .contact-body-header {
   @include dFlex(flex-start, baseline, row, 90px);
@@ -127,6 +130,7 @@
 }
 
 .contact-body-header-title {
+  padding-bottom: 24px;
   font-size: 20px;
   font-weight: 400;
 }
@@ -140,12 +144,17 @@
 }
 
 .contact-body-header-delete {
+  @include dFlex();
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 400;
   cursor: pointer;
 }
 
-.contact-body-header-edit img {
+.icons {
   object-fit: cover;
-  width: 15px;
+  height: 20px;
+  width: 20px;
 }
 
 .contact-body-item {
@@ -359,7 +368,7 @@ input::placeholder {
 .displaynone {
   display: none;
 }
-#back-to-contancts {
+#back-to-contacts {
   display: none;
   cursor: pointer;
 }
@@ -539,7 +548,7 @@ input::placeholder {
   .add-contact-greeting-container {
     border-radius: 0;
   }
-  #back-to-contancts {
+  #back-to-contacts {
     right: 20px;
   }
   .contact-list-hr {

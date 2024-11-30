@@ -2,6 +2,7 @@ export interface Users {
 
 username:string,
 email:string,
-number:string
+number:string,
+color:string
 
 }

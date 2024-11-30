@@ -143,8 +143,8 @@
           <hr *ngIf="contact.showInitial" class="contact-list-hr" />
 
           <!-- Kontaktblock -->
-          <div class="contacts-list-item">
-            <div #contactIcon class="contact-list-icon">
+          <div (click)="setSelectedUser(contact, $event)" class="contacts-list-item">
+            <div [style.background-color]="contact.color" #contactIcon class="contact-list-icon">
               {{ contact.firstInitial }}{{ contact.secondInitial }}
             </div>
             <div>
@@ -156,7 +156,7 @@
       </div>
 
       <div id="contact-m" class="contact">
-        <div id="back-to-contancts" class="back">
+        <div id="back-to-contacts" class="back">
           <img src="./assets/img/back-icon.png" alt="" />
         </div>
         <div class="contact-header-title">
@@ -164,7 +164,39 @@
           <hr class="contact-header-hr" />
           <div class="contact-header-title-name">Better with a team</div>
         </div>
-        <div id="contact-content"></div>
+        <div id="contact-content">
+          <div class="contact-header">
+            <div [style.background-color]="selectedUser.color" class="contact-header-icon">{{removeCharacter(getInitials(selectedUser.username))}}</div>
+            <div>
+              <div class="contact-header-name">{{selectedUser.username}}</div>
+              <div class="contact-header-add-task">
+                <div class="contact-body-header-edit">
+                  <img class="icons" src="./assets/img/edit.png" alt="" />
+                  <span>Edit</span>
+                </div>
+                <div class="contact-body-header-delete">
+                  <img class="icons" src="./assets/img/delete.png" alt="" />
+                  <span>Delete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="contact-body">
+            <div class="contact-body-header">
+              <div class="contact-body-header-title">Contact Information</div>
+            </div>
+            <div class="contact-body-item">
+              <div class="contact-body-item-title">Email</div>
+              <div class="contact-body-item-value-email">
+                {{selectedUser.email}}
+              </div>
+            </div>
+            <div class="contact-body-item">
+              <div class="contact-body-item-title">Phone</div>
+              <div class="contact-body-item-value">{{selectedUser.number}}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
