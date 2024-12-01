@@ -4,7 +4,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { first, Observable } from 'rxjs';
-import { addDoc, collectionData, Index } from '@angular/fire/firestore';
+import { addDoc, collectionData, getDocs, Index } from '@angular/fire/firestore';
 import { Users } from '../../interfaces/users';
 
 import {
@@ -49,7 +49,7 @@ import {
 })
 
 
-export class ContactsComponent implements OnInit, AfterContentChecked {
+export class ContactsComponent implements OnInit {
   inputName: any;
   inputMail: any;
   inputNumber: any;
@@ -57,16 +57,11 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
   public isOpen: boolean;
   contacts$: Observable<any[]>; // Stream für die Kontakte
   sortedContacts: any[] = []; // Sortierte Kontakte mit Gruppierung
-  selectedUser: Users = {
-    username: 'Max Mustermann',
-    email: 'max@muster.de',
-    number: '0123456789',
-    color:'#258E7D'
-  }
+  selectedUser: Users
   color!: string
-  check: boolean = false
-  @ViewChildren('contactIcon') contactIcon!: QueryList<ElementRef>;
-  @ViewChildren('contact-header-icon') contactHeaderIcon!: QueryList<ElementRef>;
+  editMode: boolean = false
+
+
 
 
 
@@ -79,15 +74,18 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
 
     this.isOpen = false
     this.contacts$ = collectionData(this.fireService.contactsDatabase, { idField: 'id' });
+    this.selectedUser = {
+      username: 'Max Mustermann',
+      email: 'max@muster.de',
+      number: '0123456789',
+      color: '#258E7D'
+    }
   }
 
   ngOnInit() {
     this.sortContacts();
   }
 
-  ngAfterContentChecked() {
- 
-  }
 
 
   /**
@@ -136,6 +134,11 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
     return [firstInitial, secondInitial];
   }
 
+  /**
+   * Removes the "," from the Initals
+   * @param initals The Initals from the username
+   * @returns a clean string without "," : 'DB'
+   */
   removeCharacter(initals: string[]) {
     const first = initals[0]
     const second = initals[1]
@@ -145,25 +148,8 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
 
 
   /**
-   * Method to change the icon backgroundcolors
-   */
-  applyRandomColors() {
-
-    if (this.contactIcon) {
-      this.cdr.detectChanges();
-      this.contactIcon.forEach(icon => {
-        const randomColor = this.getRandomColor();
-        this.renderer.setStyle(icon.nativeElement, 'background-color', randomColor);
-        this.check = true
-        console.log(randomColor)
-      });
-    }
-  }
-
-
-  /**
    * A method to get random colors
-   * @returns a # color code as string
+   * @returns a #color code as string
    */
   getRandomColor(): string {
     const letters = '0123456789ABCDEF';
@@ -173,6 +159,7 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
     }
     return color;
   }
+
 
   /**
    * Handels whats happen if the form is submitted
@@ -190,22 +177,60 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
    */
   async createContact() {
 
-    const data: Users = {
+    const data: Users = this.setContact()
+
+    if (await this.checkEmail(data.email)) {
+      try {
+        this.sendContact(data)
+      } catch (error) {
+        console.error('Fehler beim Hinzufügen des Dokuments:', error);
+      }
+    } else {
+      alert('Email allready exist')
+    }
+  }
+
+
+/**
+ * Set User Objekt
+ * @returns Userobjekt with data from inputs
+ */
+  setContact(){
+    return {
       username: this.inputName,
       email: this.inputMail,
       number: this.inputNumber,
       color: this.getRandomColor()
     }
-    try {
-      const docRef = await addDoc(this.fireService.contactsDatabase, data);
-      console.log('Dokument erfolgreich hinzugefügt mit ID:', docRef.id);
-      this.closeModal()
-      this.toggleMsg()
-    } catch (error) {
-      console.error('Fehler beim Hinzufügen des Dokuments:', error);
-    }
   }
 
+
+/**
+ * creates a doc in FIrebase with contact data
+ * @param data the data from the contact
+ */
+  async sendContact(data: Users) {
+    const docRef = await addDoc(this.fireService.contactsDatabase, data);
+    console.log('Dokument erfolgreich hinzugefügt mit ID:', docRef.id);
+    this.closeModal()
+    this.toggleMsg()
+  }
+
+
+/**
+ * Check If email exist
+ * @param email string you want to check
+ * @returns boolean if email is in the contacts database
+ */
+  async checkEmail(email: string) {
+    const usermail = await this.getUserEmail(email)
+    if (usermail)
+      return false
+    else
+      return true
+  }
+
+  
   /**
    * open/close the messagebox
    */
@@ -224,11 +249,19 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
    * Prior to opening, it resets the modal to its initial state.
    */
   openModalAddContakt() {
-    this.resetModal();
-    const modal = document.getElementById('add-contakt-modal');
-    if (modal) {
+
+    this.resetInput()
+
+    const modal = document.getElementById('add-contakt-modal') as HTMLElement | null;
+
+    if (modal && !this.editMode) {
       modal.style.right = '0';
+
+    } else if (modal && this.editMode) {
+      modal.style.right = '0';
+      this.setUserInput(this.selectedUser)
     }
+    console.log(this.inputMail)
   }
 
 
@@ -236,7 +269,8 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
   * Closes the "add-contact" modal by moving it off the visible screen area.
   */
   closeModal() {
-    this.resetModal();
+    this.resetInput()
+    this.editMode = false
     const modal = document.getElementById('add-contakt-modal');
     if (modal) {
       modal.style.right = '-200%';
@@ -245,108 +279,75 @@ export class ContactsComponent implements OnInit, AfterContentChecked {
 
 
   /**
-* Resets the modal by clearing input fields and toggling visibility of buttons.
-* Changes the header text to default values.
-*/
-  resetModal() {
-    this.setValue('contactName', '');
-    this.setValue('contactEmail', '');
-    this.setValue('contactPhone', '');
-    this.toggleClass('btn-add', 'displaynone', false);
-    this.toggleClass('btn-edit', 'displaynone', true);
-    this.setValue('header-add-edit', 'Add');
-    this.setValue('header-text', 'Tasks are better with a team!');
-  }
-
-
-  /**
-* Sets the value of an HTML element.
-* @param {string} id - The ID of the HTML element.
-* @param {string} value - The new value to be set.
-*/
-  setValue(id: string, value: string) {
-    const element = document.getElementById(id) as HTMLInputElement | null;
-    if (element) {
-      element.value = value;
-    } else {
-      console.error(`Element with id ${id} not found`);
-    }
-  }
-
-
-  /**
-  * Toggles a class for an HTML element.
-  * @param {string} id - The ID of the HTML element.
-  * @param {string} className - The class to be toggled.
-  * @param {boolean} shouldAdd - If true, adds the class, otherwise removes it.
-  */
-  toggleClass(id: string, className: string, shouldAdd: boolean) {
-    const element = document.getElementById(id);
-    if (element) {
-      shouldAdd ? element.classList.add(className) : element.classList.remove(className);
-    } else {
-      console.error(`Element with id ${id} not found`);
-    }
-  }
-
-
-  /**
-* Displays the contact information based on the given index.
-* @param {number} index - The index of the contact to be displayed.
-*/
-  showContact(index: number) {
-    const contactMobile = document.getElementById('contact-m');
-    const contact = this.sortedContacts[index];
+   * Displays the contact information of the selected contact
+   * @param contact a userobject with contactinformation
+   */
+  showContact(contact: Users) {
     const contactContent = document.getElementById('contact-content');
-    const back = document.getElementById('back-to-contancts');
-
-    this.setContactContent(contactContent, contact);
-
-    // if (window.innerWidth <= 1024) {
-    //   this.setMobileViewStyles(contactMobile, back);
-    //   this.addBackEventListener(back, contactMobile);
-    // }
-  }
-
-
-  /**
-* Sets the content and styles for the contact display.
-* @param {HTMLElement} contactContent - The DOM element where the contact information will be displayed.
-* @param {Object} contact - The contact object containing the details to be displayed.
-* @param {Function} getInitials - The  to generate initials from the contact's name.
-*/
-  setContactContent(contactContent: HTMLElement | null, contact: { name: any; }) {
 
     if (contactContent !== null) {
       contactContent.style.right = '0';
-      // contactContent.innerHTML = this.renderContact(contact, getInitials(contact.name).join(''));
+      this.setSelectedUser(contact)
     }
   }
 
-  setSelectedUser(contact: any, event: Event) {
+  /**
+   * Set the values vor the Contactinformations
+   * @param contact a userobject with contactinformation
+   */
+  setSelectedUser(contact: Users) {
     this.selectedUser.username = contact.username
     this.selectedUser.number = contact.number
     this.selectedUser.email = contact.email
     this.selectedUser.color = contact.color
+  }
 
+  setUserInput(contact: Users) {
+    this.resetInput()
+    this.inputName = contact.username
+    this.inputNumber = contact.number
+    this.inputMail = contact.email
+  }
+
+  resetInput() {
+    this.inputName = ''
+    this.inputNumber = ''
+    this.inputMail = ''
+  }
+
+
+  openEditContact() {
+    this.editMode = true
+    this.openModalAddContakt()
+  }
+
+  editContact() {
+
+  }
+
+  deleteContact() {
+    this.getUserEmail(this.selectedUser.email)
   }
 
 
 
-  // async getUserEmail() {
-  //   const currentUserEmail = this.authService.auth.currentUser?.email
-  //   const querySnapshot = await getDocs(this.fireService.userDatabase);
-  //   querySnapshot.forEach((doc) => {
 
-  //     const data = doc.data()
-  //     const userMail = data['email']
+  async getUserEmail(email: string): Promise<string | null> {
 
-  //     if (userMail === currentUserEmail) {
-  //       console.log(userMail);
-  //       return userMail
-  //     }
-  //   });
-  // }
+    const querySnapshot = await getDocs(this.fireService.contactsDatabase);
+    let userMail: string | null = null;
+    querySnapshot.forEach((doc) => {
+
+      const data = doc.data()
+      const mail = data['email']
+
+      if (mail === email) {
+        userMail = mail
+
+      }
+    });
+    return userMail
+  }
 
 
 

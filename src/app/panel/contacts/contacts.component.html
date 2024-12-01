@@ -3,10 +3,15 @@
     <div class="add-contacts-container">
       <div class="add-contact-greeting-container">
         <img src="./assets/img/join-icon weiss.png" />
+        @if (!editMode) {
         <h1><span id="header-add-edit">Add</span> contact</h1>
         <p id="header-text">Tasks are better with a team!</p>
+        }@else {
+        <h1><span id="header-add-edit">Edit</span> contact</h1>
+        }
         <hr class="add-contact-hr" />
       </div>
+
       <div class="add-contact-form-container">
         <div id="contact-icon" class="contact-member-icon">
           <img src="./assets/img/member-icon.png" />
@@ -94,8 +99,9 @@
               alt=""
             />
           </div>
+          @if (!editMode) {
           <div id="btn-add" class="btn">
-            <button (click)="closeModal()" class="add-contact">
+            <button type="button" (click)="closeModal()" class="add-contact">
               Cancel
               <img src="./assets/img/close-icon.png" alt="" />
             </button>
@@ -104,29 +110,31 @@
               <img src="./assets/img/chack-icon.png" alt="" />
             </button>
           </div>
-          <div id="btn-edit" class="btn displaynone">
+          }@else if (editMode) {
+          <div id="btn-edit" class="btn">
             <div class="btn">
-              <button onclick="deleteContact(contact)" class="add-contact">
+              <button type="button" (click)="deleteContact()"  class="add-contact">
                 Delete
               </button>
-              <button onclick="saveContact(contact)" class="create-contact">
+              <button type="button"  class="create-contact">
                 Save
               </button>
             </div>
           </div>
+          }
         </form>
       </div>
-      <button (click)="closeModal()" class="close">
+      <button type="button" (click)="closeModal()" class="close">
         <img
           class="close-icon"
-          src="./assets/img/close-icon.png"
+          src="../../../assets/img/close-icon.png"
           alt="close-icon"
         />
       </button>
     </div>
   </div>
   <div class="content" id="contakt-mobiel">
-    <button (click)="openModalAddContakt()" class="contact-btn">
+    <button type="button" (click)="openModalAddContakt()" class="contact-btn">
       <span class="btn-deskription">New contact</span>
       <img src="./assets/img/memberaddweiss.png" />
     </button>
@@ -143,8 +151,12 @@
           <hr *ngIf="contact.showInitial" class="contact-list-hr" />
 
           <!-- Kontaktblock -->
-          <div (click)="setSelectedUser(contact, $event)" class="contacts-list-item">
-            <div [style.background-color]="contact.color" #contactIcon class="contact-list-icon">
+          <div (click)="showContact(contact)" class="contacts-list-item">
+            <div
+              [style.background-color]="contact.color"
+              #contactIcon
+              class="contact-list-icon"
+            >
               {{ contact.firstInitial }}{{ contact.secondInitial }}
             </div>
             <div>
@@ -166,16 +178,21 @@
         </div>
         <div id="contact-content">
           <div class="contact-header">
-            <div [style.background-color]="selectedUser.color" class="contact-header-icon">{{removeCharacter(getInitials(selectedUser.username))}}</div>
+            <div
+              [style.background-color]="selectedUser.color"
+              class="contact-header-icon"
+            >
+              {{ removeCharacter(getInitials(selectedUser.username)) }}
+            </div>
             <div>
-              <div class="contact-header-name">{{selectedUser.username}}</div>
+              <div class="contact-header-name">{{ selectedUser.username }}</div>
               <div class="contact-header-add-task">
-                <div class="contact-body-header-edit">
-                  <img class="icons" src="./assets/img/edit.png" alt="" />
+                <div (click)="openEditContact()" class="contact-body-header-edit">
+                  <img class="icons" src="./assets/img/edit.png" />
                   <span>Edit</span>
                 </div>
                 <div class="contact-body-header-delete">
-                  <img class="icons" src="./assets/img/delete.png" alt="" />
+                  <img class="icons" src="./assets/img/delete.png" />
                   <span>Delete</span>
                 </div>
               </div>
@@ -188,12 +205,14 @@
             <div class="contact-body-item">
               <div class="contact-body-item-title">Email</div>
               <div class="contact-body-item-value-email">
-                {{selectedUser.email}}
+                {{ selectedUser.email }}
               </div>
             </div>
             <div class="contact-body-item">
               <div class="contact-body-item-title">Phone</div>
-              <div class="contact-body-item-value">{{selectedUser.number}}</div>
+              <div class="contact-body-item-value">
+                {{ selectedUser.number }}
+              </div>
             </div>
           </div>
         </div>
