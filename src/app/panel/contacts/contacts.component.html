@@ -101,7 +101,7 @@
           </div>
           @if (!editMode) {
           <div id="btn-add" class="btn">
-            <button type="button" (click)="closeModal()" class="add-contact">
+            <button type="button" (click)="closeModal(myForm)" class="add-contact">
               Cancel
               <img src="./assets/img/close-icon.png" alt="" />
             </button>
@@ -113,10 +113,10 @@
           }@else if (editMode) {
           <div id="btn-edit" class="btn">
             <div class="btn">
-              <button type="button" (click)="deleteContact()"  class="add-contact">
+              <button type="button" (click)="deleteContact(myForm)"  class="add-contact">
                 Delete
               </button>
-              <button type="button"  class="create-contact">
+              <button (click)="editContact(myForm)" type="button"  class="create-contact">
                 Save
               </button>
             </div>
@@ -124,7 +124,7 @@
           }
         </form>
       </div>
-      <button type="button" (click)="closeModal()" class="close">
+      <button type="button" (click)="closeModal(myForm)" class="close">
         <img
           class="close-icon"
           src="../../../assets/img/close-icon.png"
@@ -151,7 +151,7 @@
           <hr *ngIf="contact.showInitial" class="contact-list-hr" />
 
           <!-- Kontaktblock -->
-          <div (click)="showContact(contact)" class="contacts-list-item">
+          <div (click)="toggleContactInfo('open', contact)" class="contacts-list-item">
             <div
               [style.background-color]="contact.color"
               #contactIcon
@@ -191,7 +191,7 @@
                   <img class="icons" src="./assets/img/edit.png" />
                   <span>Edit</span>
                 </div>
-                <div class="contact-body-header-delete">
+                <div (click)="deleteContact(myForm)" class="contact-body-header-delete">
                   <img class="icons" src="./assets/img/delete.png" />
                   <span>Delete</span>
                 </div>
@@ -220,6 +220,6 @@
     </div>
   </div>
   <div [@openClose]="isOpen ? 'open' : 'closed'" class="message-box">
-    <span class="message">Contact successfully created</span>
+    <span class="message">{{currentMessage}}</span>
   </div>
 </div>
