@@ -36,8 +36,9 @@
             class="dropdown dropdown-category captions width95"
           >
             <div class="dropdown-content">
+
               <div
-                onclick="toggleDropdown('dropdown-category');renderCategorys()"
+                (click)="toggleDropdown('dropdown-category')"
                 id="select-box"
               >
                 <div class="dropdown-option dropdown-start-text">
@@ -49,13 +50,25 @@
                   </div>
                 </div>
               </div>
+
+              
               <div
                 onclick="newCategory('flex', 'none', 'none')"
                 class="dropdown-option width95"
               >
                 New Category
               </div>
-              <div id="categorys"></div>
+              <div id="categorys">
+                <div
+                  *ngFor="let category of categorys; let i = index"
+                  (click)="selectTaskCategory(i)"
+                  id="s{{ i }}"
+                  class="dropdown-option category"
+                >
+                  {{ category.category }}
+                  <div class="circle-{{ category.color }}"></div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -100,7 +113,7 @@
             <div class="dropdown-content">
               <div
                 id="select-box2"
-                onclick="toggleDropdown('dropdown-assinged-to');renderContacts()"
+                (click)="toggleDropdown('dropdown-assinged-to')"
                 class="dropdown-option dropdown-start-text"
               >
                 <div class="dropdown-option dropdown-start-text">

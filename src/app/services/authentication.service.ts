@@ -58,10 +58,10 @@ firebaseApp = initializeApp({
    */
   afterLogin() {
     if (this.router.url === '/singUp') {
-      this.helpers.redirectTo('/panel/contacts', 3000)
+      this.helpers.redirectTo('/panel/add-task', 3000)
 
     } else {
-      this.helpers.redirectTo('/panel/contacts', 0)
+      this.helpers.redirectTo('/panel/add-task', 0)
     }
   }
 

@@ -239,17 +239,14 @@ export class ContactsComponent implements OnInit {
  * @returns null or the email you want to check
  */
   async getUserEmail(email: string) {
-
     const querySnapshot = await getDocs(this.fireService.contactsDatabase);
     let userMail: string | null = null;
     querySnapshot.forEach((doc) => {
-
       const data = doc.data()
       const mail = data['email']
 
       if (mail === email) {
         userMail = mail
-
       }
     });
     return userMail

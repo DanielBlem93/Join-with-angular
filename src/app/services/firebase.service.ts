@@ -50,37 +50,24 @@ export class FirebaseService {
 
   async getContactIdByEmail(email: string): Promise<string | null> {
     try {
-      // Erstelle eine Referenz zu deiner contactsDatabase
-      const contactsCollection = collection(this.firestore, 'contacts');
-
-      // Führe eine Abfrage mit der E-Mail-Adresse durch
-      const contactQuery = query(contactsCollection, where('email', '==', email));
+      const contactQuery = query(this.contactsDatabase, where('email', '==', email));
       const querySnapshot = await getDocs(contactQuery);
-
-      // Prüfe, ob Dokumente gefunden wurden und hole die ID
       if (!querySnapshot.empty) {
-        const doc = querySnapshot.docs[0]; // Nimm das erste gefundene Dokument
-        return doc.id; // Rückgabe der Dokument-ID
+        const doc = querySnapshot.docs[0];
+        return doc.id;
       } else {
-        console.warn('No contact found with this email.');
         return null;
       }
     } catch (error) {
-      console.error('Error fetching contact by email: ', error);
       return null;
     }
   }
 
   async updateContact(contactId: string, updatedData: Partial<Users>) {
     try {
-      // Referenz zum spezifischen Dokument in der Datenbank
       const contactDocRef = doc(this.contactsDatabase, contactId);
-  
-      // Aktualisierung der Felder
       await updateDoc(contactDocRef, updatedData);
-      console.log('Contact successfully updated.');
     } catch (error) {
-      console.error('Error updating contact:', error);
     }
   }
 }
