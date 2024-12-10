@@ -36,32 +36,77 @@
             class="dropdown dropdown-category captions width95"
           >
             <div class="dropdown-content">
-
               <div
-                (click)="toggleDropdown('dropdown-category')"
+                (click)="toggleDropdown('dropdown-category');"
                 id="select-box"
               >
-                <div class="dropdown-option dropdown-start-text">
+                <div
+                  *ngIf="!catDropDownCtrl.catSelected"
+                  class="dropdown-option dropdown-start-text"
+                  [ngClass]="{
+                    'display-none': catDropDownCtrl.newCatMode,
+                    'display-flex': !catDropDownCtrl.newCatMode
+                  }"
+                >
                   <div id="select-task-category width95" style="display: unset">
                     Select task category
                   </div>
                   <div id="select-task-category-img width95">
-                    <img src="assets/img/vector2.svg" />
+                    <img src="../../../assets/img/vector2.svg" />
                   </div>
+                </div>
+
+                <div
+                  id="input-container"
+                  class="dropdown-option"
+                  [style.display]="'none'"
+                  [ngClass]="{
+                    'display-none': !catDropDownCtrl.newCatMode,
+                    'display-flex': catDropDownCtrl.newCatMode
+                  }"
+                >
+                  <input
+                    id="new-category-input"
+                    class="caption inputFrame"
+                    placeholder="New Category Name"
+                    type="text"
+                    [(ngModel)]="catDropDownCtrl.inputValue"
+                    minlength="2"
+                  />
+                  <div class="check-container">
+                    <img
+                      (click)="resetCatDropdown();"
+                      src="assets/img/icons/dropdown-close-button.svg"
+                    />
+                    <img src="assets/img/icons/dropdown-abtrenner.svg" />
+                    <img
+                      (click)="addNewCategory()"
+                      src="assets/img/icons/dropdown-check-button.svg"
+                    />
+                  </div>
+                </div>
+
+                <div
+                  *ngIf="
+                    catDropDownCtrl.selectedName !== '' &&
+                    catDropDownCtrl.selectedColor !== ''
+                  "
+                  class="dropdown-option category"
+                >
+                  {{ catDropDownCtrl.selectedName }}
+                  <div class="circle-{{ catDropDownCtrl.selectedColor }}"></div>
                 </div>
               </div>
 
-              
-              <div
-                onclick="newCategory('flex', 'none', 'none')"
-                class="dropdown-option width95"
-              >
+              <div (click)="newCategory()" class="dropdown-option width95">
                 New Category
               </div>
               <div id="categorys">
                 <div
                   *ngFor="let category of categorys; let i = index"
-                  (click)="selectTaskCategory(i)"
+                  (click)="
+                    selectTaskCategory(category.category, category.color)
+                  "
                   id="s{{ i }}"
                   class="dropdown-option category"
                 >
@@ -72,7 +117,13 @@
             </div>
           </div>
 
-          <fieldset style="display: none" id="colors-container">
+          <fieldset
+            [ngClass]="{
+              'display-none': !catDropDownCtrl.newCatMode,
+              'display-flex': catDropDownCtrl.newCatMode
+            }"
+            id="colors-container"
+          >
             <input id="lightblue" type="radio" name="color" value="lightblue" />
             <label
               class="color-circle circle-lightblue"

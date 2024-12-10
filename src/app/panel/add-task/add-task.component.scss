@@ -245,7 +245,7 @@ main {
 }
 
 #input-container {
-    @include dFlex(flex-end);
+    @include dFlex(center, flex-end);
     width: 100%;
     z-index: 5;
 }
@@ -305,7 +305,7 @@ input[type="radio"]:checked+label {
 }
 
 .dropdown-option {
-    @include dFlex(center, unset, row, 10px);
+    @include dFlex(center, space-between, row, 10px);
     width: 100%;
     padding: 12px 21px;
     cursor: pointer;
