@@ -37,7 +37,7 @@
           >
             <div class="dropdown-content">
               <div
-                (click)="ds.toggleDropdown('dropdown-category');"
+                (click)="ds.toggleDropdown('dropdown-category')"
                 id="select-box"
               >
                 <div
@@ -75,7 +75,7 @@
                   />
                   <div class="check-container">
                     <img
-                      (click)="ds.resetCatDropdown();"
+                      (click)="ds.resetCatDropdown()"
                       src="assets/img/icons/dropdown-close-button.svg"
                     />
                     <img src="assets/img/icons/dropdown-abtrenner.svg" />
@@ -94,7 +94,9 @@
                   class="dropdown-option category"
                 >
                   {{ ds.catDropDownCtrl.selectedName }}
-                  <div class="circle-{{ ds.catDropDownCtrl.selectedColor }}"></div>
+                  <div
+                    class="circle-{{ ds.catDropDownCtrl.selectedColor }}"
+                  ></div>
                 </div>
               </div>
 
@@ -152,7 +154,9 @@
             <label for="pink" class="color-circle circle-pink"></label>
           </fieldset>
 
-          <span *ngIf="ds.catDropDownCtrl.errorMessage" class="is-required">{{ds.catDropDownCtrl.errorMessage}}</span>
+          <span *ngIf="ds.catDropDownCtrl.errorMessage" class="is-required">{{
+            ds.catDropDownCtrl.errorMessage
+          }}</span>
         </div>
 
         <div class="addTaskDropdown width95">
@@ -168,7 +172,7 @@
                 class="dropdown-option dropdown-start-text"
               >
                 <div class="dropdown-option dropdown-start-text">
-                  <div id="select-contacts-to-assign" style="display: unset">
+                  <div id="select-contacts-to-assign">
                     Select contacts to assign
                   </div>
                   <div id="select-contacts-to-assign-img">
@@ -188,25 +192,71 @@
                     type="email"
                   />
                   <div class="check-container">
-                    <img
-                      onclick=""
-                      src="assets/img/icons/dropdown-close-button.svg"
-                    />
+                    <img src="assets/img/icons/dropdown-close-button.svg" />
                     <img src="assets/img/icons/dropdown-abtrenner.svg" />
+                    <img src="assets/img/icons/dropdown-check-button.svg" />
+                  </div>
+                </div>
+              </div>
+
+              <div id="contacts">
+                <div
+                  *ngFor="
+                    let contact of ds.assignDropDownCtrl.contacts;
+                    let i = index
+                  "
+                  (click)="toggleCheck($event, i)"
+                  class="dropdown-option dropdown-option-img"
+                  id="at{{ i }}"
+                >
+                  <span>{{ contact.firstName }} {{ contact.lastName }}</span>
+
+                  <div>
                     <img
-                      onclick="addNewCategory()"
-                      src="assets/img/icons/dropdown-check-button.svg"
+                      *ngIf="!contact.check"
+                      class="check-button"
+                      id="check-button-1"
+                      src="assets/img/icons/Check button v1.svg"
+                    />
+                    <img
+                      *ngIf="contact.check"
+                      id="check-button-2"
+                      class="check-button-checked"
+                      src="assets/img/icons/Check button v1 checked.svg"
                     />
                   </div>
                 </div>
               </div>
-              <div id="contacts"></div>
-              <div id="emails"></div>
 
-              <div
-                onclick="showInviteNewContactInput()"
-                class="dropdown-option dropdown-option-img"
-              >
+              <div id="emails">
+                <div class="dropdown-option send-email">
+                  <b>Send Email to:</b>
+                </div>
+                <div
+                  *ngFor="let email of ds.assignDropDownCtrl.emails; let i = index"
+                  class="dropdown-option dropdown-option-img"
+                  id="e{{ i }}"
+                  (click)="toggleCheck($event, i)"
+                >
+                  {{ email.email }}
+                  <div>
+                    <img
+                      (click)="toggleCheck($event, i)"
+                      *ngIf="!email.check"
+                      class="check-button"
+                      src="../../../assets/img/icons/Check button v1.svg"
+                    />
+                    <img
+                      (click)="toggleCheck($event, i)"
+                      *ngIf="email.check"
+                      class="check-button"
+                      src="../../../assets/img/icons/Check button v1 checked.svg"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="dropdown-option dropdown-option-img">
                 Invite new contact
                 <div><img src="assets/img/icons/invite-new-contact.svg" /></div>
               </div>

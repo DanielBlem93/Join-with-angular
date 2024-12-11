@@ -3,7 +3,7 @@ import { FirebaseService } from '../../services/firebase.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { first, Observable } from 'rxjs';
+import { first, Observable, Subscription } from 'rxjs';
 import { addDoc, collectionData, getDocs, Index } from '@angular/fire/firestore';
 import { Users } from '../../interfaces/users';
 
@@ -61,7 +61,7 @@ export class ContactsComponent implements OnInit {
   color!: string
   editMode: boolean = false
   currentMessage: string = 'Contact succesfuly created'
-
+  private contactsSubscription: Subscription | undefined;
 
 
 
@@ -86,12 +86,17 @@ export class ContactsComponent implements OnInit {
     this.sortContacts();
   }
 
+  ngOnDestroy() {
+    if (this.contactsSubscription) {
+      this.contactsSubscription.unsubscribe();
+    }
+  }
 
   /**
    * sort Contacts by username A-Z
    */
   sortContacts() {
-    this.contacts$.subscribe(contacts => {
+    this.contactsSubscription = this.contacts$.subscribe(contacts => {
       const filteredContacts = contacts.filter(contact => contact.username);
       const sortedContacts = filteredContacts.sort((a, b) =>
         a.username.localeCompare(b.username, undefined, { sensitivity: 'base' })
@@ -99,7 +104,6 @@ export class ContactsComponent implements OnInit {
       this.sortedContacts = this.groupContactsByInitials(sortedContacts);
     });
   }
-
 
   /**
    * Groups the contacts by their inital letter

@@ -327,13 +327,11 @@ input[type="radio"]:checked+label {
 .check-button {
     width: 20px;
     height: 22px;
-    display: unset;
 }
 
 .check-button-checked {
     width: 20px;
     height: 22px;
-    display: none;
 }
 
 #input-container2 {
@@ -350,6 +348,14 @@ input[type="radio"]:checked+label {
 .dropdown-assinged-to {
     height: 51px;
     /* height: 204px; */
+}
+
+#contacts{
+    width: 100%;
+}
+
+#emails{
+    width: 100%;
 }
 
 .send-email:hover {

@@ -1,12 +1,12 @@
 import { Injectable, } from '@angular/core';
-
+import { AssignContacts } from '../interfaces/assign-contacts';
+import { AssignEmails } from '../interfaces/assign-emails';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DropdownService {
 
-  dropdown2Open: boolean
   DROPDOWN_MIN_HEIGHT = '51px';
   DROPDOWN_MAX_HEIGHT = '204px';
   DROPDOWN_Z_INDEX = '20';
@@ -39,8 +39,21 @@ export class DropdownService {
     errorMessage: ''
   }
 
+  assignDropDownCtrl = {
+    open: false,
+    selectedName: '',
+    selectedColor: '',
+    newCatMode: false,
+    catSelected: false,
+    inputValue: '',
+    errorMessage: '',
+    contacts:  [] as AssignContacts[],
+    emails:[] as AssignEmails[]
+  }
+
+
   constructor() {
-    this.dropdown2Open = false
+
   }
 
 
@@ -50,11 +63,13 @@ export class DropdownService {
  * that you want to open and close
  */
   toggleDropdown(menuClass: any) {
+
     const dropdownMenu = document.getElementsByClassName(menuClass)[0] as HTMLElement;
 
     if (dropdownMenu.style.height === this.DROPDOWN_MIN_HEIGHT && !this.catDropDownCtrl.newCatMode) {
       this.openDropdown(dropdownMenu)
     } else {
+
       this.closeDropdown(dropdownMenu)
     }
     this.setDropdownVariable(menuClass)
@@ -94,7 +109,7 @@ export class DropdownService {
     if (menuClass === 'dropdown-category') {
       this.catDropDownCtrl.open = !this.catDropDownCtrl.open
     } else {
-      this.dropdown2Open = !this.dropdown2Open
+      this.assignDropDownCtrl.open = !this.assignDropDownCtrl.open
     }
   }
 
@@ -162,7 +177,7 @@ export class DropdownService {
    * @param selectedColorInput the color for the circle
    */
   createNewCategory(selectedColorInput: HTMLInputElement) {
-    debugger
+
     const trimmedName = this.catDropDownCtrl.inputValue.trim();
 
     if (this.isCategoryDuplicate(trimmedName)) {
@@ -221,7 +236,6 @@ export class DropdownService {
       alert('Please enter a category name.');
       return false;
     }
-
     if (!input) {
       alert('Please select a color.');
       return false;
