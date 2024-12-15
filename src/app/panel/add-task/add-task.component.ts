@@ -1,30 +1,34 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, } from '@angular/forms';
+import { FormsModule, NgForm, } from '@angular/forms';
 import { DropdownService } from '../../services/dropdown.service';
 import { FirebaseService } from '../../services/firebase.service';
 import { getDocs } from 'firebase/firestore';
 import { AssignContacts } from '../../interfaces/assign-contacts';
 import { AssignEmails } from '../../interfaces/assign-emails';
+import { GetInitalsPipe } from '../../pipes/get-initals.pipe';
 
 @Component({
 
   selector: 'app-add-task',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, GetInitalsPipe],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
+
+
 export class AddTaskComponent implements OnInit {
 
-
-
-
+  title!: string;
+  description!: string;
+  date!: string;
+selectedPriority: any;
 
   constructor(
     public ds: DropdownService,
     private elRef: ElementRef,
-    public fireService: FirebaseService
+    public fireService: FirebaseService,
   ) {
 
 
@@ -60,35 +64,56 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
+  /**
+   * Pulls data from the firebase DB
+   */
   async getContactsFromDB() {
     const querySnapshot = await getDocs(this.fireService.contactsDatabase);
     querySnapshot.forEach((contact) => {
       const data = contact.data()
       const names = data['username'].split(" ");
-      const obj  = {
+      const obj = {
         firstName: names[0],
         lastName: names[1],
         check: false,
         color: data['color']
-      } 
+      }
       this.ds.assignDropDownCtrl.contacts.push(obj)
     });
     console.log(this.ds.assignDropDownCtrl.contacts);
+
   }
 
+
+  /**
+   * toggles the check input inside the assigend to dropdown 
+   * @param event pointerevent
+   * @param index 
+   */
   toggleCheck(event: Event, index: number,): void {
-    const btn = this.elRef.nativeElement.querySelector('#emails');
-    const isInsideEmails = btn.contains(event.target);
     event.stopPropagation()
     this.ds.assignDropDownCtrl.contacts[index].check = !this.ds.assignDropDownCtrl.contacts[index].check;
+    this.selectContact(index)
+  }
 
-    if (isInsideEmails) {
-      this.ds.assignDropDownCtrl.emails[index].check = !this.ds.assignDropDownCtrl.emails[index].check;
+  selectContact(index: number) {
+    const contact = this.ds.assignDropDownCtrl.contacts[index]
+    if (contact.check) {
+      this.ds.assignDropDownCtrl.selectedEmails.push(contact)
+    } else {
+      this.ds.assignDropDownCtrl.selectedEmails = this.ds.assignDropDownCtrl.selectedEmails.filter(
+        selectedContact => selectedContact !== contact)
     }
   }
 
+  onSubmit(myForm: NgForm) {
+    console.log(myForm)
+  }
 
 
+  getData() {
+
+  }
 }
 
 

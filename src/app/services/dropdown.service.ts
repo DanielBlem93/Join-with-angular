@@ -31,6 +31,7 @@ export class DropdownService {
   ]
   catDropDownCtrl = {
     open: false,
+    touched: false,
     selectedName: '',
     selectedColor: '',
     newCatMode: false,
@@ -41,14 +42,10 @@ export class DropdownService {
 
   assignDropDownCtrl = {
     open: false,
-    selectedName: '',
-    selectedColor: '',
-    newCatMode: false,
-    catSelected: false,
     inputValue: '',
     errorMessage: '',
-    contacts:  [] as AssignContacts[],
-    emails:[] as AssignEmails[]
+    selectedEmails:[] as AssignContacts[]  ,
+    contacts: [] as AssignContacts[],
   }
 
 
@@ -108,6 +105,7 @@ export class DropdownService {
   setDropdownVariable(menuClass: any) {
     if (menuClass === 'dropdown-category') {
       this.catDropDownCtrl.open = !this.catDropDownCtrl.open
+      this.catDropDownCtrl.touched = true
     } else {
       this.assignDropDownCtrl.open = !this.assignDropDownCtrl.open
     }
