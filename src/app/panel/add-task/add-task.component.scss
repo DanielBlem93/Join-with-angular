@@ -483,7 +483,7 @@ input[type="radio"]:checked+label {
 /* subtasks */
 
 .subtask {
-    @include dFlex(space-between, center);
+    @include dFlex(center, space-between);
     width: 93%;
     font-size: 20px;
 }
@@ -493,7 +493,12 @@ ul {
     width: 100%;
 }
 
+.plus{
+    cursor: pointer;
+}
+
 .subtask img {
+    cursor: pointer;
     display: none;
 }
 

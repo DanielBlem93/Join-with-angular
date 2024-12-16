@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm, } from '@angular/forms';
 import { DropdownService } from '../../services/dropdown.service';
 import { FirebaseService } from '../../services/firebase.service';
-import { getDocs } from 'firebase/firestore';
+import { addDoc, getDocs } from 'firebase/firestore';
 import { AssignContacts } from '../../interfaces/assign-contacts';
 import { AssignEmails } from '../../interfaces/assign-emails';
 import { GetInitalsPipe } from '../../pipes/get-initals.pipe';
+import { Tasks } from '../../interfaces/tasks';
+import { Task } from '../../models/task.class';
 
 @Component({
 
@@ -20,10 +22,7 @@ import { GetInitalsPipe } from '../../pipes/get-initals.pipe';
 
 export class AddTaskComponent implements OnInit {
 
-  title!: string;
-  description!: string;
-  date!: string;
-selectedPriority: any;
+
 
   constructor(
     public ds: DropdownService,
@@ -106,13 +105,51 @@ selectedPriority: any;
     }
   }
 
+
+  addSubtask() {
+    let task = this.ds.subtask.trim()
+
+    if (this.ds.subtasks.length < 5 && task.length > 2) {
+      this.ds.subtasks.push(task)
+    } else if (task.length <= 2) {
+      alert('your subtask is to short')
+    }
+    else {
+      alert('you cant have more then 5 subtask')
+    }
+  }
+
+
+  deleteSubtask(subtask: string) {
+    this.ds.subtasks = this.ds.subtasks.filter(
+      subtasks => subtasks !== subtask)
+  }
+
   onSubmit(myForm: NgForm) {
-    console.log(myForm)
+    if (myForm.valid) {
+      const task = new Task(this.getData())
+      const taskJSON = task.toJSON()
+      this.addTasktoDB(taskJSON)
+    } else
+      alert('somthing went wrong')
   }
 
 
   getData() {
+    const task: Tasks = {
+      title: this.ds.title,
+      description: this.ds.description,
+      category: this.ds.catDropDownCtrl.selectedName,
+      assigendTo: this.ds.assignDropDownCtrl.selectedEmails,
+      date: this.ds.date,
+      priority: this.ds.selectedPriority,
+      subtasks: this.ds.subtasks
+    }
+    return task
+  }
 
+  async addTasktoDB(data: Tasks) {
+    const task = await addDoc(this.fireService.tasksDatabase, data);
   }
 }
 

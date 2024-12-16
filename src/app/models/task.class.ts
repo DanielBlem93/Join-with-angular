@@ -1,13 +1,14 @@
+import { AssignContacts } from "../interfaces/assign-contacts"
 import { Tasks } from "../interfaces/tasks"
 
 export class Task {
     title: string
     description: string
-    category: []
-    assigendTo: []
+    category: string
+    assigendTo: AssignContacts[]
     date: Date
     priority: 'urgent' | 'medium' | 'low';
-    subtasks: []
+    subtasks: string[]
 
 
 
@@ -15,7 +16,7 @@ export class Task {
 
         this.title = obj ? obj.title : '';
         this.description = obj ? obj.description : '';
-        this.category = obj ? obj.category : [];
+        this.category = obj ? obj.category : '';
         this.assigendTo = obj ? obj.assigendTo : [];
         this.date = obj ? obj.date : new Date;
         this.priority = obj ? obj.priority : 'low';

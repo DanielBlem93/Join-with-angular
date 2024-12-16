@@ -15,7 +15,7 @@
               name="title"
               class="captions inputFrame"
               placeholder="Enter a Title"
-              [(ngModel)]="title"
+              [(ngModel)]="ds.title"
               minlength="2"
               required
             />
@@ -38,7 +38,7 @@
               class="captions textareaFrame"
               placeholder="Enter a Description"
               minlength="2"
-              [(ngModel)]="description"
+              [(ngModel)]="ds.description"
               required
             ></textarea>
           </div>
@@ -287,7 +287,7 @@
               id="date"
               type="date"
               name="date"
-              [(ngModel)]="date"
+              [(ngModel)]="ds.date"
               class="captions inputFrame width95"
               placeholder="dd/mm/yyyy"
               min="2024-01-01"
@@ -308,7 +308,7 @@
 
           <div class="addTaskPriority width95">
             <label
-              [ngClass]="{ urgent: selectedPriority === 'urgent' }"
+              [ngClass]="{ urgent: ds.selectedPriority === 'urgent' }"
               class="input-containerPrio buttonFramePrio"
             >
               <input
@@ -316,16 +316,16 @@
                 type="radio"
                 name="priority"
                 value="urgent"
-                [(ngModel)]="selectedPriority"
+                [(ngModel)]="ds.selectedPriority"
                 required
               />
               <span
-                [ngClass]="{ txtWhite: selectedPriority === 'urgent' }"
+                [ngClass]="{ txtWhite: ds.selectedPriority === 'urgent' }"
                 class="captions"
                 >Urgent</span
               >
               <svg
-                [ngClass]="{ whiteColor: selectedPriority === 'urgent' }"
+                [ngClass]="{ whiteColor: ds.selectedPriority === 'urgent' }"
                 width="21"
                 height="15"
                 viewBox="0 0 21 15"
@@ -362,7 +362,7 @@
             </label>
 
             <label
-              [ngClass]="{ medium: selectedPriority === 'medium' }"
+              [ngClass]="{ medium: ds.selectedPriority === 'medium' }"
               class="input-containerPrio buttonFramePrio"
             >
               <input
@@ -370,16 +370,16 @@
                 type="radio"
                 name="priority"
                 value="medium"
-                [(ngModel)]="selectedPriority"
+                [(ngModel)]="ds.selectedPriority"
                 required
               />
               <span
-                [ngClass]="{ txtWhite: selectedPriority === 'medium' }"
+                [ngClass]="{ txtWhite: ds.selectedPriority === 'medium' }"
                 class="captions"
                 >Medium</span
               >
               <svg
-                [ngClass]="{ whiteColor: selectedPriority === 'medium' }"
+                [ngClass]="{ whiteColor: ds.selectedPriority === 'medium' }"
                 width="20"
                 height="9"
                 viewBox="0 0 20 9"
@@ -415,7 +415,7 @@
             </label>
 
             <label
-              [ngClass]="{ low: selectedPriority === 'low' }"
+              [ngClass]="{ low: ds.selectedPriority === 'low' }"
               class="input-containerPrio buttonFramePrio"
             >
               <input
@@ -423,16 +423,16 @@
                 type="radio"
                 name="priority"
                 value="low"
-                [(ngModel)]="selectedPriority"
+                [(ngModel)]="ds.selectedPriority"
                 required
               />
               <span
-                [ngClass]="{ txtWhite: selectedPriority === 'low' }"
+                [ngClass]="{ txtWhite: ds.selectedPriority === 'low' }"
                 class="captions"
                 >Low</span
               >
               <svg
-                [ngClass]="{ whiteColor: selectedPriority === 'low' }"
+                [ngClass]="{ whiteColor: ds.selectedPriority === 'low' }"
                 width="20"
                 height="15"
                 viewBox="0 0 20 15"
@@ -485,29 +485,38 @@
               id="newSubtaskInput"
               class="captions inputFrame width95"
               placeholder="Add new Subtasks"
+              [(ngModel)]="ds.subtask"
+              name="subtask"
             />
             <img
-              class="iconoirCancel"
+              class="plus"
               src="./assets/img/iconoir_cancel.svg"
-              onclick="addNewSubtask()"
+              (click)="addSubtask()"
             />
           </div>
           <div class="subtaskContainer" id="subtaskContainer">
-            <ul></ul>
+            <ul>
+              <li
+                *ngFor="let subtask of ds.subtasks; let i = index"
+                class="subtask"
+              >
+                {{ subtask
+                }}<img
+                  src="assets/img/delete.png"
+                  (click)="deleteSubtask(subtask)"
+                />
+              </li>
+            </ul>
           </div>
         </div>
 
         <div class="buttons-container width95">
-          <button type="reset" onclick="clearTask()" class="addTaskSecondary">
+          <button type="reset" class="addTaskSecondary">
             <span class="captions">Clear</span>
             <img class="iconoirCancel2" src="assets/img/iconoir_cancel2.svg" />
             <img class="iconoirCancel3" src="assets/img/iconoir_cancel3.svg" />
           </button>
-          <button
-            type="submit"
-            onclick="createTask()"
-            class="addTaskPrimCheckBtn"
-          >
+          <button type="submit" class="addTaskPrimCheckBtn">
             <span class="typographyPrimCheckBtn">Create Task</span>
             <img src="assets/img/akar-icons_check.svg" />
           </button>

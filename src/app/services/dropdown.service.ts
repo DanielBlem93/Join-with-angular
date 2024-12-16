@@ -44,10 +44,17 @@ export class DropdownService {
     open: false,
     inputValue: '',
     errorMessage: '',
-    selectedEmails:[] as AssignContacts[]  ,
+    selectedEmails: [] as AssignContacts[],
     contacts: [] as AssignContacts[],
   }
 
+  title!: string;
+  description!: string;
+  date!: Date;
+  selectedPriority: any;
+  subtask: any;
+
+  subtasks: string[] = []
 
   constructor() {
 
