@@ -53,9 +53,9 @@ export class DropdownService {
   description!: string;
   date!: Date;
   selectedPriority: any;
-  subtask: any;
+  subtask: string = '';
 
-  subtasks: string[] = []
+  subtasks: Array<{ task: string; check: boolean; }> = [];
 
   constructor( public helpers:HelpersService) {
 

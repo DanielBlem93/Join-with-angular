@@ -157,7 +157,7 @@ body{
  }
 
 
-app-login, app-panel, app-sing-up{
+app-login, app-panel, app-sing-up, app-board{
   @include dFlex($fDirection: column);
   background-color: $background-white;
   width: 100vw;

@@ -21,13 +21,7 @@ export class FirebaseService {
 
   }
 
-  async getTasks() {
-    const querySnapshot = await getDocs(this.tasksDatabase);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-    });
-  }
+
 
 
   async addUser(userdata: {}) {

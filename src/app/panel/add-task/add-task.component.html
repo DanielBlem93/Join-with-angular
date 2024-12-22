@@ -495,10 +495,10 @@
                 *ngFor="let subtask of ds.subtasks; let i = index"
                 class="subtask"
               >
-                {{ subtask
+                {{ subtask.task
                 }}<img
                   src="assets/img/delete.png"
-                  (click)="deleteSubtask(subtask)"
+                  (click)="deleteSubtask(subtask.task)"
                 />
               </li>
             </ul>

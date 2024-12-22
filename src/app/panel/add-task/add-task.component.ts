@@ -112,11 +112,14 @@ export class AddTaskComponent implements OnInit {
    * Adds a new subtask to the subtask array
    */
   addSubtask() {
-    let task = this.ds.subtask.trim()
+    let task = {
+      task: this.ds.subtask.trim(),
+      check: false
+    }
 
-    if (this.ds.subtasks.length < 5 && task.length > 2) {
+    if (this.ds.subtasks.length < 5 && task.task.length > 2) {
       this.ds.subtasks.push(task)
-    } else if (task.length <= 2) {
+    } else if (task.task.length <= 2) {
       this.helpers.toggleMsg('Subtask is to short')
     }
     else {
@@ -131,7 +134,7 @@ export class AddTaskComponent implements OnInit {
    */
   deleteSubtask(subtask: string) {
     this.ds.subtasks = this.ds.subtasks.filter(
-      subtasks => subtasks !== subtask)
+      subtasks => subtasks.task !== subtask)
   }
 
 
@@ -158,10 +161,12 @@ export class AddTaskComponent implements OnInit {
       title: this.ds.title,
       description: this.ds.description,
       category: this.ds.catDropDownCtrl.selectedName,
+      categoryColor: this.ds.catDropDownCtrl.selectedColor,
       assigendTo: this.ds.assignDropDownCtrl.selectedEmails,
       date: this.ds.date,
       priority: this.ds.selectedPriority,
-      subtasks: this.ds.subtasks
+      subtasks: this.ds.subtasks,
+      status: 'todo'
     }
     return task
   }
@@ -175,7 +180,8 @@ export class AddTaskComponent implements OnInit {
     try {
       const task = await addDoc(this.fireService.tasksDatabase, data);
       this.helpers.toggleMsg('Task added to board')
-      this.helpers.redirectTo('/panel/board', 2500)
+      // this.helpers.redirectTo('/panel/board', 2500)
+      console.log(data)
     } catch (error) {
       this.helpers.toggleMsg('Please fill out all fields correctly')
     }

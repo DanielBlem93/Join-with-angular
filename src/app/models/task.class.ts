@@ -5,10 +5,12 @@ export class Task {
     title: string
     description: string
     category: string
+    categoryColor: string
     assigendTo: AssignContacts[]
     date: Date
     priority: 'urgent' | 'medium' | 'low';
-    subtasks: string[]
+    subtasks: Array<{ task: string, check: boolean }>;
+    status: 'todo' | 'in-progress' | 'awaiting-feedback' | 'done'
 
 
 
@@ -21,6 +23,8 @@ export class Task {
         this.date = obj ? obj.date : new Date;
         this.priority = obj ? obj.priority : 'low';
         this.subtasks = obj ? obj.subtasks : [];
+        this.status = obj ? obj.status : 'todo';
+        this.categoryColor = obj ? obj.categoryColor : '';
     }
 
     public toJSON() {
@@ -28,10 +32,12 @@ export class Task {
             title: this.title,
             description: this.description,
             category: this.category,
+            categoryColor: this.categoryColor,
             assigendTo: this.assigendTo,
             date: this.date,
             priority: this.priority,
-            subtasks: this.subtasks
+            subtasks: this.subtasks,
+            status: this.status
         }
     }
 
