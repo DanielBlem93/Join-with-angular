@@ -1,11 +1,9 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm, } from '@angular/forms';
 import { DropdownService } from '../../services/dropdown.service';
 import { FirebaseService } from '../../services/firebase.service';
 import { addDoc, getDocs } from 'firebase/firestore';
-import { AssignContacts } from '../../interfaces/assign-contacts';
-import { AssignEmails } from '../../interfaces/assign-emails';
 import { GetInitalsPipe } from '../../pipes/get-initals.pipe';
 import { Tasks } from '../../interfaces/tasks';
 import { Task } from '../../models/task.class';
@@ -25,7 +23,7 @@ import { HelpersService } from '../../services/helpers.service';
 
 
 export class AddTaskComponent implements OnInit {
-
+  @ViewChild('myForm') myForm: NgForm | undefined;
 
 
   constructor(
@@ -33,18 +31,12 @@ export class AddTaskComponent implements OnInit {
     private elRef: ElementRef,
     public fireService: FirebaseService,
     public helpers: HelpersService
-  ) {
+  ) { }
 
-
-
-  }
 
   async ngOnInit(): Promise<void> {
+    this.reset()
     await this.getContactsFromDB()
-  }
-
-  ngOnDestroy(): void {
-
   }
 
 
@@ -100,6 +92,11 @@ export class AddTaskComponent implements OnInit {
     this.selectContact(index)
   }
 
+
+  /**
+   * Selects the contact from the dropdown
+   * @param index  the index of the contact
+   */
   selectContact(index: number) {
     const contact = this.ds.assignDropDownCtrl.contacts[index]
     if (contact.check) {
@@ -111,6 +108,9 @@ export class AddTaskComponent implements OnInit {
   }
 
 
+  /**
+   * Adds a new subtask to the subtask array
+   */
   addSubtask() {
     let task = this.ds.subtask.trim()
 
@@ -120,26 +120,39 @@ export class AddTaskComponent implements OnInit {
       this.helpers.toggleMsg('Subtask is to short')
     }
     else {
-      alert('you cant have more then 5 subtask')
+      this.helpers.toggleMsg('Not more then 5 tasks allowed')
     }
   }
 
 
+  /**
+   *  Deletes a subtask from the subtask array
+   * @param subtask   the subtask to delete
+   */
   deleteSubtask(subtask: string) {
     this.ds.subtasks = this.ds.subtasks.filter(
       subtasks => subtasks !== subtask)
   }
 
+
+  /**
+   *  Submits the form
+   * @param myForm  the form
+   */
   onSubmit(myForm: NgForm) {
     if (myForm.valid) {
       const task = new Task(this.getData())
       const taskJSON = task.toJSON()
       this.addTasktoDB(taskJSON)
     } else
-      alert('somthing went wrong')
+      this.helpers.toggleMsg('Somthing went wrong')
   }
 
 
+  /**
+   *  Gets the data from the form
+   * @returns   the data from the form
+   */
   getData() {
     const task: Tasks = {
       title: this.ds.title,
@@ -153,9 +166,50 @@ export class AddTaskComponent implements OnInit {
     return task
   }
 
+
+  /**
+   *  Adds a task to the firebase DB
+   * @param data  the task to add
+   */
   async addTasktoDB(data: Tasks) {
-    const task = await addDoc(this.fireService.tasksDatabase, data);
+    try {
+      const task = await addDoc(this.fireService.tasksDatabase, data);
+      this.helpers.toggleMsg('Task added to board')
+      this.helpers.redirectTo('/panel/board', 2500)
+    } catch (error) {
+      this.helpers.toggleMsg('Please fill out all fields correctly')
+    }
+
   }
+
+
+  /**
+   * Resets the form
+   */
+  reset() {
+    this.ds.title = '';
+    this.ds.description = '';
+    this.ds.selectedPriority = null;
+    this.ds.catDropDownCtrl.selectedName = '';
+    this.ds.catDropDownCtrl.newCatMode = false;
+    this.ds.catDropDownCtrl.catSelected = false;
+    this.ds.catDropDownCtrl.touched = false;
+    this.ds.subtasks = [];
+    this.resetSelectedContacts()
+    if (this.myForm) {
+      this.myForm.resetForm();
+    }
+  }
+
+
+  /**
+   * Resets the selected contacts
+   */
+  resetSelectedContacts() {
+    this.ds.assignDropDownCtrl.selectedEmails = []
+    this.ds.assignDropDownCtrl.contacts.forEach(contact => {
+      contact.check = false
+    });
+  }
+
 }
-
-

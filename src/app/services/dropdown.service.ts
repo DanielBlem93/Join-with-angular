@@ -1,6 +1,7 @@
 import { Injectable, } from '@angular/core';
 import { AssignContacts } from '../interfaces/assign-contacts';
 import { AssignEmails } from '../interfaces/assign-emails';
+import { HelpersService } from './helpers.service';
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +57,7 @@ export class DropdownService {
 
   subtasks: string[] = []
 
-  constructor() {
+  constructor( public helpers:HelpersService) {
 
   }
 
@@ -238,11 +239,11 @@ export class DropdownService {
    */
   inputsFilld(input: HTMLInputElement | null) {
     if (!this.catDropDownCtrl.inputValue.trim()) {
-      alert('Please enter a category name.');
+      this.helpers.toggleMsg('Please enter a category name')
       return false;
     }
     if (!input) {
-      alert('Please select a color.');
+      this.helpers.toggleMsg('Please select a color')
       return false;
     }
     return true

@@ -160,7 +160,7 @@ export class ContactsComponent implements OnInit {
         console.error('Fehler beim Hinzufügen des Dokuments:', error);
       }
     } else {
-      alert('Email allready exist')
+      this.helpers.toggleMsg('Email allready exist')
     }
   }
 

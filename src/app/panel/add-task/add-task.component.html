@@ -23,7 +23,8 @@
           <span
             *ngIf="
               myForm.form.controls['title']?.touched &&
-              myForm.form.controls['title']?.invalid
+              myForm.form.controls['title']?.invalid ||
+              (myForm.form.controls['title']?.invalid && myForm.submitted)
             "
             class="is-required"
             >This field is required</span
@@ -45,7 +46,8 @@
           <span
             *ngIf="
               myForm.form.controls['description']?.touched &&
-              myForm.form.controls['description']?.invalid
+              myForm.form.controls['description']?.invalid ||
+              (myForm.form.controls['description']?.invalid && myForm.submitted)
             "
             class="is-required"
             >This field is required</span
@@ -186,7 +188,8 @@
             *ngIf="
               !ds.catDropDownCtrl.selectedName &&
               ds.catDropDownCtrl.touched &&
-              !ds.catDropDownCtrl.newCatMode
+              !ds.catDropDownCtrl.newCatMode ||
+              (!ds.catDropDownCtrl.selectedName && myForm.submitted)
             "
             class="is-required"
             >This field is required</span
@@ -297,7 +300,8 @@
           <span
             *ngIf="
               myForm.form.controls['date']?.touched &&
-              myForm.form.controls['date']?.invalid
+              myForm.form.controls['date']?.invalid ||
+              (myForm.form.controls['date']?.invalid && myForm.submitted)
             "
             class="is-required"
             >This field is required</span
@@ -457,26 +461,17 @@
                 </g>
               </svg>
             </label>
-
-            <span
-              *ngIf="
-                myForm.form.controls['priority']?.touched &&
-                myForm.form.controls['priority']?.invalid
-              "
-              class="is-required"
-            >
-              Please select a priority.
-            </span>
           </div>
           <span
-            *ngIf="
-              myForm.form.controls['priority']?.invalid &&
-              myForm.form.controls['priority']?.touched
-            "
-            class="is-required"
-          >
-            Please select a priority.
-          </span>
+          *ngIf="
+            (myForm.form.controls['priority']?.touched &&
+              myForm.form.controls['priority']?.invalid) ||
+            (myForm.form.controls['priority']?.invalid && myForm.submitted)
+          "
+          class="is-required"
+        >
+          Please select a priority.
+        </span>
         </div>
         <div class="addTaskSubtasks width95">
           <span class="captions">Subtasks</span>
@@ -511,7 +506,7 @@
         </div>
 
         <div class="buttons-container width95">
-          <button type="reset" class="addTaskSecondary">
+          <button type="reset" (click)="reset()" class="addTaskSecondary">
             <span class="captions">Clear</span>
             <img class="iconoirCancel2" src="assets/img/iconoir_cancel2.svg" />
             <img class="iconoirCancel3" src="assets/img/iconoir_cancel3.svg" />
@@ -531,5 +526,5 @@
       </div>
     </form>
   </main>
-  <app-msg-box [@openClose]="helpers.isOpen ? 'open' : 'closed'" ></app-msg-box>
+  <app-msg-box [@openClose]="helpers.isOpen ? 'open' : 'closed'"></app-msg-box>
 </div>
