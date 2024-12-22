@@ -170,3 +170,9 @@ app-login, app-panel, app-sing-up{
   height: 100%;
   background-color: $background-white;
 }
+
+app-msg-box{
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}

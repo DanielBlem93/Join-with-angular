@@ -219,7 +219,5 @@
       </div>
     </div>
   </div>
-  <div [@openClose]="isOpen ? 'open' : 'closed'" class="message-box">
-    <span class="message">{{currentMessage}}</span>
-  </div>
+ <app-msg-box [@openClose]="helpers.isOpen ? 'open' : 'closed'" ></app-msg-box>
 </div>

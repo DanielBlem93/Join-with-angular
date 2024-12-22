@@ -9,14 +9,18 @@ import { AssignEmails } from '../../interfaces/assign-emails';
 import { GetInitalsPipe } from '../../pipes/get-initals.pipe';
 import { Tasks } from '../../interfaces/tasks';
 import { Task } from '../../models/task.class';
+import { MsgBoxComponent } from '../../msg-box/msg-box.component';
+import { msgBoxAnimation } from '../../animations/msgBox.animations';
+import { HelpersService } from '../../services/helpers.service';
 
 @Component({
 
   selector: 'app-add-task',
   standalone: true,
-  imports: [CommonModule, FormsModule, GetInitalsPipe],
+  imports: [CommonModule, FormsModule, GetInitalsPipe, MsgBoxComponent],
   templateUrl: './add-task.component.html',
-  styleUrl: './add-task.component.scss'
+  styleUrl: './add-task.component.scss',
+  animations: [msgBoxAnimation]
 })
 
 
@@ -28,6 +32,7 @@ export class AddTaskComponent implements OnInit {
     public ds: DropdownService,
     private elRef: ElementRef,
     public fireService: FirebaseService,
+    public helpers: HelpersService
   ) {
 
 
@@ -112,7 +117,7 @@ export class AddTaskComponent implements OnInit {
     if (this.ds.subtasks.length < 5 && task.length > 2) {
       this.ds.subtasks.push(task)
     } else if (task.length <= 2) {
-      alert('your subtask is to short')
+      this.helpers.toggleMsg('Subtask is to short')
     }
     else {
       alert('you cant have more then 5 subtask')

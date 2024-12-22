@@ -1,51 +1,24 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild, Renderer2, ElementRef, ViewChildren, QueryList, AfterContentChecked } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { first, Observable, Subscription } from 'rxjs';
-import { addDoc, collectionData, getDocs, Index } from '@angular/fire/firestore';
+import { Observable, Subscription } from 'rxjs';
+import { addDoc, collectionData, getDocs} from '@angular/fire/firestore';
 import { Users } from '../../interfaces/users';
-
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
+import { HelpersService } from '../../services/helpers.service';
+import { msgBoxAnimation } from '../../animations/msgBox.animations';
+import { MsgBoxComponent } from '../../msg-box/msg-box.component';
 
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [CommonModule, FormsModule,],
+  imports: [CommonModule, FormsModule, MsgBoxComponent],
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss'],
 
-  animations: [
-    trigger('openClose', [
-      // ...
-      state('open', style({
-        left: '50%',
-        opacity: 1,
-        top: '80%',
-
-      })),
-      state('closed', style({
-        top: '80%',
-        left: '200%',
-
-        opacity: 0.0,
-      })),
-      transition('open => closed', [
-        animate('0.5s')
-      ]),
-      transition('closed => open', [
-        animate('0.5s')
-      ]),
-    ]),
-  ],
+  animations: [msgBoxAnimation]
 })
 
 
@@ -54,7 +27,7 @@ export class ContactsComponent implements OnInit {
   inputMail: any;
   inputNumber: any;
   randomColor!: string; // Variable für die zufällige Farbe
-  public isOpen: boolean;
+  public isOpen: boolean = false
   contacts$: Observable<any[]>; // Stream für die Kontakte
   sortedContacts: any[] = []; // Sortierte Kontakte mit Gruppierung
   selectedUser: Users
@@ -68,11 +41,9 @@ export class ContactsComponent implements OnInit {
   constructor(
     private fireService: FirebaseService,
     public authService: AuthenticationService,
-    private cdr: ChangeDetectorRef,
-    private renderer: Renderer2
+    public helpers: HelpersService,
   ) {
 
-    this.isOpen = false
     this.contacts$ = collectionData(this.fireService.contactsDatabase, { idField: 'id' });
     this.selectedUser = {
       username: 'Max Mustermann',
@@ -217,9 +188,9 @@ export class ContactsComponent implements OnInit {
       const docRef = await addDoc(this.fireService.contactsDatabase, data);
       console.log('Dokument erfolgreich hinzugefügt mit ID:', docRef.id);
       this.closeModal(form)
-      this.toggleMsg('User successfully created')
+      this.helpers.toggleMsg('User successfully created')
     } catch (error) {
-      this.toggleMsg('Somthing went wrong')
+      this.helpers.toggleMsg('Somthing went wrong')
     }
   }
 
@@ -257,18 +228,6 @@ export class ContactsComponent implements OnInit {
   }
 
 
-  /**
-   * open/close the messagebox
-   */
-  toggleMsg(message: string) {
-    this.currentMessage = message
-    setTimeout(() => {
-      this.isOpen = !this.isOpen
-    }, 500);
-    setTimeout(() => {
-      this.isOpen = !this.isOpen
-    }, 2500);
-  }
 
 
   /**
@@ -369,9 +328,9 @@ export class ContactsComponent implements OnInit {
       const updatedData = this.setContact()
       this.setSelectedUser(updatedData)
       this.fireService.updateContact(id!, updatedData)
-      this.toggleMsg('User Updated')
+      this.helpers.toggleMsg('User Updated')
     } else {
-      this.toggleMsg('Something went wrong')
+      this.helpers.toggleMsg('Something went wrong')
     }
     this.closeModal(myForm)
   }
@@ -384,9 +343,9 @@ export class ContactsComponent implements OnInit {
     try {
       this.fireService.deleteContact(this.selectedUser.email)
       this.closeModal(myForm)
-      this.toggleMsg('User deleted')
+      this.helpers.toggleMsg('User deleted')
     } catch (error) {
-      this.toggleMsg('Somthing went wrong')
+      this.helpers.toggleMsg('Somthing went wrong')
     }
     this.toggleContactInfo('close', this.selectedUser)
   }
