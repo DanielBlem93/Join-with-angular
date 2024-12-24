@@ -43,14 +43,16 @@
           <div
             id="open"
             class="drag-area"
-            ondrop="movedTo('open')"
-            ondragover="allowDrop(event); highlight('open')"
+            (drop)="onDrop($event, 'todos','todo')"
+            (dragover)="onDragOver($event)"
           >
             <div
               *ngFor="let task of todos; let i = index"
               class="todo-box"
               draggable="true"
-              ondragstart="startDragging(3, 'open')"
+              (dragstart)="onDragStart($event, task, 'todos')"
+              (dragend)="onDragEnd()"
+              (click)="toggleModalBoard(task)"
             >
               <div class="chegeCategory">
                 <img
@@ -129,14 +131,16 @@
           <div
             id="progress"
             class="drag-area"
-            ondrop="movedTo('progress')"
-            ondragover="allowDrop(event); highlight('progress')"
+            (drop)="onDrop($event, 'inProgress','in-progress')"
+            (dragover)="onDragOver($event)"
           >
             <div
               *ngFor="let task of inProgress; let i = index"
               class="todo-box"
               draggable="true"
-              ondragstart="startDragging(3, 'open')"
+              (dragstart)="onDragStart($event, task, 'inProgress')"
+              (dragend)="onDragEnd()"
+              (click)="toggleModalBoard(task)"
             >
               <div class="chegeCategory">
                 <img
@@ -215,14 +219,16 @@
           <div
             id="feedback"
             class="drag-area"
-            ondrop="movedTo('feedback')"
-            ondragover="allowDrop(event); highlight('feedback')"
+            (drop)="onDrop($event, 'awaitingFeedback','awaiting-feedback')"
+            (dragover)="onDragOver($event)"
           >
             <div
               *ngFor="let task of awaitingFeedback; let i = index"
               class="todo-box"
               draggable="true"
-              ondragstart="startDragging(3, 'open')"
+              (dragstart)="onDragStart($event, task, 'awaitingFeedback')"
+              (dragend)="onDragEnd()"
+              (click)="toggleModalBoard(task)"
             >
               <div class="chegeCategory">
                 <img
@@ -270,7 +276,6 @@
                   </p>
                 </div>
 
-
                 <div id="todoBoxFooterBar3" class="todo-box-footer-bar">
                   <div class="todo-box-footer">
                     <div class="todo-box-footer-right"></div>
@@ -302,16 +307,17 @@
           <div
             id="closed"
             class="drag-area"
-            ondrop="movedTo('closed')"
-            ondragover="allowDrop(event); highlight('closed')"
+            (drop)="onDrop($event, 'done', 'done')"
+            (dragover)="onDragOver($event)"
+     
           >
-
-
             <div
               *ngFor="let task of done; let i = index"
               class="todo-box"
               draggable="true"
-              ondragstart="startDragging(3, 'open')"
+              (dragstart)="onDragStart($event, task, 'done')"
+              (dragend)="onDragEnd()"
+              (click)="toggleModalBoard(task)"
             >
               <div class="chegeCategory">
                 <img
@@ -340,7 +346,7 @@
                 <h3>{{ task.title }}</h3>
               </div>
 
-              <div onclick="showTodo(3); " class="todo-box-body">
+              <div  class="todo-box-body">
                 <p>{{ task.description }}</p>
               </div>
               <div>
@@ -375,7 +381,38 @@
       </div>
     </div>
   </div>
-  <div onclick="closeModalBord()" id="showTodo" class="displayNone"></div>
+  <div  onclick="closeModalBord()" id="showTodo" [class.display-none]="isModalClosed">
+
+
+
+
+    
+    <div onclick="doNotClose(event)" class="modal-content">
+      <div (click)="closeModalBoard()" class="modal-close">
+          <img src="./assets/img/close-icon.png" alt="">
+      </div>
+      <h4  class="modal-category">{{currentTask?.category}}</h4>
+      <h3 class="modal-title">{{currentTask?.title}}</h3>
+      <p class="modal-text"> {{currentTask?.description}}</p>
+      <p class="modal-date"><b>Due date:</b> {{currentTask?.date}} </p>
+      <div *ngFor="let subtask of currentTask?.subtasks" class="modal-tasks">{{subtask.task}} </div>
+      <p class="modal-priority"><b>Priority: {{currentTask?.priority}}</b> 
+
+         <span  id="priority">
+          <img style="width: 20px;" src="${imgTodosPriorities}" alt="">
+          </span>
+      </p>
+      <div class="modal-members">
+          <p><b>Assigned To:</b></p>
+        
+      </div>
+      <div onclick="deleteTodo()" class="todo-delete">
+          <img src="./assets/img/delete.png" alt="">
+      </div>
+      <div onclick="editTodo()" class="todo-edit">
+          <img src="./assets/img/editweiss.png" alt="">
+      </div>
+  </div>
 
   <div id="addTaskPopup" style="display: flex">
     <div class="popupAnimation" id="addTaskPopupContainer">

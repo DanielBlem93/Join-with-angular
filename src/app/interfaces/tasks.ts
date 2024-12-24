@@ -11,4 +11,5 @@ export interface Tasks {
     priority: 'urgent' | 'medium' | 'low',
     subtasks: Array<{ task: string, check: boolean }>;
     status: 'todo' | 'in-progress' | 'awaiting-feedback' | 'done',
+    docId: string
 }

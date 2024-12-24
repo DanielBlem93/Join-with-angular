@@ -11,6 +11,7 @@ export class Task {
     priority: 'urgent' | 'medium' | 'low';
     subtasks: Array<{ task: string, check: boolean }>;
     status: 'todo' | 'in-progress' | 'awaiting-feedback' | 'done'
+    docId: string
 
 
 
@@ -25,6 +26,7 @@ export class Task {
         this.subtasks = obj ? obj.subtasks : [];
         this.status = obj ? obj.status : 'todo';
         this.categoryColor = obj ? obj.categoryColor : '';
+        this.docId = obj ? obj.docId : '';
     }
 
     public toJSON() {
@@ -37,7 +39,8 @@ export class Task {
             date: this.date,
             priority: this.priority,
             subtasks: this.subtasks,
-            status: this.status
+            status: this.status,
+            docId: this.docId
         }
     }
 

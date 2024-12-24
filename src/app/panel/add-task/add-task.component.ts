@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm, } from '@angular/forms';
 import { DropdownService } from '../../services/dropdown.service';
 import { FirebaseService } from '../../services/firebase.service';
-import { addDoc, getDocs } from 'firebase/firestore';
+import { addDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { GetInitalsPipe } from '../../pipes/get-initals.pipe';
 import { Tasks } from '../../interfaces/tasks';
 import { Task } from '../../models/task.class';
@@ -166,7 +166,8 @@ export class AddTaskComponent implements OnInit {
       date: this.ds.date,
       priority: this.ds.selectedPriority,
       subtasks: this.ds.subtasks,
-      status: 'todo'
+      status: 'todo',
+      docId:''
     }
     return task
   }
@@ -180,7 +181,8 @@ export class AddTaskComponent implements OnInit {
     try {
       const task = await addDoc(this.fireService.tasksDatabase, data);
       this.helpers.toggleMsg('Task added to board')
-      // this.helpers.redirectTo('/panel/board', 2500)
+      this.helpers.redirectTo('/panel/board', 2500)
+      await updateDoc(task, { docId: task.id })
       console.log(data)
     } catch (error) {
       this.helpers.toggleMsg('Please fill out all fields correctly')

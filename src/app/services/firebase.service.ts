@@ -21,7 +21,9 @@ export class FirebaseService {
 
   }
 
-
+  async getDocRef(collection: CollectionReference, id: string): Promise<DocumentReference<DocumentData>> {
+    return doc(collection, id)
+  }
 
 
   async addUser(userdata: {}) {
