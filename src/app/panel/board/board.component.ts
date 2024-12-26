@@ -7,11 +7,14 @@ import { CompletedSubtasksPipe } from '../../pipes/completed-subtasks.pipe';
 import { Task } from '../../models/task.class';
 import { Status } from '../../interfaces/status';
 import { MsgBoxComponent } from '../../msg-box/msg-box.component';
+import { TodoBoxComponent } from "./todo-box/todo-box.component";
+import { HelpersService } from '../../services/helpers.service';
+import { TaskModalComponent } from "./task-modal/task-modal.component";
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, CompletedSubtasksPipe,],
+  imports: [CommonModule, CompletedSubtasksPipe, TodoBoxComponent, TaskModalComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
@@ -28,7 +31,10 @@ export class BoardComponent implements OnInit {
   draggedTask: any;
   sourceArray: any[] = [];
 
-  constructor(public fireService: FirebaseService) {
+  constructor(
+    public fireService: FirebaseService, 
+    public helpers: HelpersService) {
+
     this.tasks = [];
   }
 
@@ -132,19 +138,19 @@ export class BoardComponent implements OnInit {
     this.sourceArray = [];
   }
 
-  isModalClosed: boolean = true;
+
   showTask(task: Tasks) {
     this.currentTask = task;
   }
 
 
   toggleModalBoard(task: Tasks): void {
-    this.isModalClosed = !this.isModalClosed;
-    this.currentTask = task;
+    this.helpers.isModalClosed = !this.helpers.isModalClosed;
+    this.helpers.currentTask = task;
   }
 
   closeModalBoard(): void {
-    this.isModalClosed = true;
+    this.helpers.isModalClosed = true;
   }
 
 }

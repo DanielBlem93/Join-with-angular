@@ -79,7 +79,7 @@
 }
 
 #kanban-board {
-  @include dFlex();
+  @include dFlex(center, flex-start);
   width: 100%;
   height: 100%;
   overflow: auto;
@@ -245,225 +245,229 @@
   z-index: 333;
 }
 
-.modal-content {
-  @include dFlex(flex-start, flex-start, column);
-  width: 623px;
-  height: 798px;
-  position: absolute;
-  background-color: white;
-  border-radius: 30px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 40px;
+app-task-modal{
+  @include dFlex(center, center);
 }
 
-.displayNone {
-  display: none;
-}
+// .modal-content {
+//   @include dFlex(flex-start, flex-start, column);
+//   width: 623px;
+//   height: 798px;
+//   position: absolute;
+//   background-color: white;
+//   border-radius: 30px;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   padding: 40px;
+// }
 
-.modal-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
-}
+// .displayNone {
+//   display: none;
+// }
 
-.modal-close button {
-  background-color: transparent;
-}
+// .modal-close {
+//   position: absolute;
+//   top: 20px;
+//   right: 20px;
+//   cursor: pointer;
+// }
 
-.todo-delete {
-  position: absolute;
-  bottom: 40px;
-  right: 70px;
-  border-radius: 10px 0 0 10px;
-  border: 2px solid #2a3647;
-  padding: 10px;
-  cursor: pointer;
-}
+// .modal-close button {
+//   background-color: transparent;
+// }
 
-.todo-edit {
-  position: absolute;
-  bottom: 40px;
-  right: 20px;
-  border-radius: 0 10px 10px 0;
-  background-color: #2a3647;
-  padding: 12px;
-  cursor: pointer;
-}
+// .todo-delete {
+//   position: absolute;
+//   bottom: 40px;
+//   right: 70px;
+//   border-radius: 10px 0 0 10px;
+//   border: 2px solid #2a3647;
+//   padding: 10px;
+//   cursor: pointer;
+// }
 
-.todo-delete img {
-  width: 30px;
-  height: 30px;
-}
+// .todo-edit {
+//   position: absolute;
+//   bottom: 40px;
+//   right: 20px;
+//   border-radius: 0 10px 10px 0;
+//   background-color: #2a3647;
+//   padding: 12px;
+//   cursor: pointer;
+// }
 
-.todo-edit img {
-  width: 30px;
-  height: 30px;
-}
+// .todo-delete img {
+//   width: 30px;
+//   height: 30px;
+// }
 
-.modal-category {
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #fff;
-  background-color: #dcdf0d;
-  padding: 3px 40px;
-  border-radius: 10px;
-  margin-left: 20px;
-}
+// .todo-edit img {
+//   width: 30px;
+//   height: 30px;
+// }
 
-.modal-title {
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: #2a3647;
-  margin: 20px;
-}
+// .modal-category {
+//   font-size: 1.5rem;
+//   font-weight: 400;
+//   color: #fff;
+//   background-color: #dcdf0d;
+//   padding: 3px 40px;
+//   border-radius: 10px;
+//   margin-left: 20px;
+// }
 
-.modal-text {
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #2a3647;
-  margin: 20px;
-}
+// .modal-title {
+//   font-size: 2.5rem;
+//   font-weight: 900;
+//   color: #2a3647;
+//   margin: 20px;
+// }
 
-.modal-date {
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #2a3647;
-  margin: 20px;
-}
+// .modal-text {
+//   font-size: 1.5rem;
+//   font-weight: 400;
+//   color: #2a3647;
+//   margin: 20px;
+// }
 
-.modal-tasks {
-  @include dFlex(flex-start, flex-start, unset, 20px);
-  width: 100%;
-  margin: 20px;
-}
+// .modal-date {
+//   font-size: 1.5rem;
+//   font-weight: 400;
+//   color: #2a3647;
+//   margin: 20px;
+// }
 
-.todo-subtask {
-  color: #2a3647;
-  @include dFlex(center, center, row, 10px);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
+// .modal-tasks {
+//   @include dFlex(flex-start, flex-start, unset, 20px);
+//   width: 100%;
+//   margin: 20px;
+// }
 
-.modal-priority {
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #2a3647;
-  margin: 20px;
-  display: flex;
-}
+// .todo-subtask {
+//   color: #2a3647;
+//   @include dFlex(center, center, row, 10px);
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   align-items: center;
+//   gap: 10px;
+// }
 
-#priority {
-  @include dFlex(center, center, row, 5px);
-}
+// .modal-priority {
+//   font-size: 1.5rem;
+//   font-weight: 400;
+//   color: #2a3647;
+//   margin: 20px;
+//   display: flex;
+// }
 
-.modal-members {
-  @include dFlex($fDirection: column, $gap: 20px);
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #2a3647;
-  margin: 20px;
-  overflow: scroll;
-}
+// #priority {
+//   @include dFlex(center, center, row, 5px);
+// }
 
-.modal-members::-webkit-scrollbar {
-  display: none;
-}
+// .modal-members {
+//   @include dFlex($fDirection: column, $gap: 20px);
+//   font-size: 1.5rem;
+//   font-weight: 400;
+//   color: #2a3647;
+//   margin: 20px;
+//   overflow: scroll;
+// }
 
-.modalMember {
-  @include dFlex(center, flex-start, row, 10px);
-}
+// .modal-members::-webkit-scrollbar {
+//   display: none;
+// }
 
-.initMember {
-  @include dFlex(center, center, row);
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  color: #ffffff;
-}
+// .modalMember {
+//   @include dFlex(center, flex-start, row, 10px);
+// }
 
-#priority {
-  background-color: #ff0000;
-  padding: 3px 30px;
-  color: #fff;
-  border-radius: 10px;
-  margin-left: 20px;
-  text-shadow: rgba(0, 0, 0, 0.2) 0px 0px 2px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 2px;
-}
+// .initMember {
+//   @include dFlex(center, center, row);
+//   width: 50px;
+//   height: 50px;
+//   border-radius: 50%;
+//   color: #ffffff;
+// }
 
-#editTodoModal {
-  @include dFlex();
+// #priority {
+//   background-color: #ff0000;
+//   padding: 3px 30px;
+//   color: #fff;
+//   border-radius: 10px;
+//   margin-left: 20px;
+//   text-shadow: rgba(0, 0, 0, 0.2) 0px 0px 2px;
+//   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 2px;
+// }
 
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  right: -200%;
-  background-color: rgba(0, 0, 0, 0.2);
-  z-index: 899;
-  transition: 225ms ease-in;
-}
+// #editTodoModal {
+//   @include dFlex();
 
-.editTodoBox {
-  @include dFlex(flex-start, flex-start, column);
-  position: relative;
-  margin: 50px;
-  width: 40rem;
-  height: auto;
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-}
+//   position: fixed;
+//   width: 100%;
+//   height: 100%;
+//   right: -200%;
+//   background-color: rgba(0, 0, 0, 0.2);
+//   z-index: 899;
+//   transition: 225ms ease-in;
+// }
 
-.modal-title-edit {
-  font-weight: 300;
-  color: #2a3647;
-  margin: 10px;
-}
+// .editTodoBox {
+//   @include dFlex(flex-start, flex-start, column);
+//   position: relative;
+//   margin: 50px;
+//   width: 40rem;
+//   height: auto;
+//   background-color: white;
+//   border-radius: 10px;
+//   padding: 20px;
+// }
 
-.editPrio {
-  @include dFlex(center, flex-start, center, 10px);
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-}
+// .modal-title-edit {
+//   font-weight: 300;
+//   color: #2a3647;
+//   margin: 10px;
+// }
 
-.prio {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-}
+// .editPrio {
+//   @include dFlex(center, flex-start, center, 10px);
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: flex-start;
+//   align-items: center;
+//   gap: 10px;
+// }
 
-.prio:hover {
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-}
+// .prio {
+//   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+// }
 
-.editClose {
-  position: absolute;
-  border: none;
-  background-color: transparent;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-}
+// .prio:hover {
+//   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+//   cursor: pointer;
+// }
 
-.editOk {
-  position: absolute;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: none;
-  background-color: #2a3647;
-  color: white;
-  bottom: 50px;
-  right: 50px;
-  cursor: pointer;
-}
+// .editClose {
+//   position: absolute;
+//   border: none;
+//   background-color: transparent;
+//   top: 10px;
+//   right: 10px;
+//   cursor: pointer;
+// }
+
+// .editOk {
+//   position: absolute;
+//   padding: 10px 20px;
+//   border-radius: 10px;
+//   border: none;
+//   background-color: #2a3647;
+//   color: white;
+//   bottom: 50px;
+//   right: 50px;
+//   cursor: pointer;
+// }
 
 /* ==============Add Task Popup ================ */
 .dropdown-assinged-to {
