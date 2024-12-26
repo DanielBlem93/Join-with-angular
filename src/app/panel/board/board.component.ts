@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
-import { getDocs, updateDoc } from 'firebase/firestore';
+import { onSnapshot, Unsubscribe, updateDoc } from 'firebase/firestore';
 import { Tasks } from '../../interfaces/tasks';
 import { CommonModule } from '@angular/common';
 import { CompletedSubtasksPipe } from '../../pipes/completed-subtasks.pipe';
 import { Task } from '../../models/task.class';
 import { Status } from '../../interfaces/status';
-import { MsgBoxComponent } from '../../msg-box/msg-box.component';
 import { TodoBoxComponent } from "./todo-box/todo-box.component";
 import { HelpersService } from '../../services/helpers.service';
 import { TaskModalComponent } from "./task-modal/task-modal.component";
@@ -30,6 +29,7 @@ export class BoardComponent implements OnInit {
   currentTask?: Tasks;
   draggedTask: any;
   sourceArray: any[] = [];
+  private unsubscribe: Unsubscribe | undefined;
 
   constructor(
     public fireService: FirebaseService, 
@@ -39,20 +39,23 @@ export class BoardComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    await this.getTasks();
-    this.filterTasks();
-
+    this.subscribeToTasks();
   }
 
+  ngOnDestroy(): void {
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
+  }
   /**
-   * Get all tasks from the database
+   * Subscribe to tasks from the database
    */
-  async getTasks() {
-    const querySnapshot = await getDocs(this.fireService.tasksDatabase);
-    querySnapshot.forEach((doc) => {
-      this.tasks.push(doc.data() as Tasks);
+  subscribeToTasks() {
+
+    onSnapshot(this.fireService.tasksDatabase, (snapshot) => {
+      this.tasks = snapshot.docs.map(doc => doc.data() as Tasks);
+      this.filterTasks();
     });
-    console.log(this.tasks);
   }
 
   /**
