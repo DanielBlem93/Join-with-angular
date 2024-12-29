@@ -26,6 +26,10 @@
   flex-direction: row;
 }
 
+app-task-modal{
+  position: absolute;
+}
+
 .input-container {
   height: 51px;
   position: relative;
@@ -302,12 +306,7 @@ app-task-modal{
     font-size: 1rem;
   }
 
-  .modal-content {
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-    padding: 10px;
-  }
+
 
   .editTodoBox {
     width: 100%;

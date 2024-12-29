@@ -2,6 +2,15 @@
 @import "../../../../globalStyles.scss";
 @import "../../../../styles.scss";
 
+#showTodo {
+position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100vh;
+  width: 100vw;
+
+  z-index: 333;
+}
+
 
 .modal-content {
     @include dFlex(flex-start, flex-start, column,16px);
@@ -14,6 +23,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 40px;
+    z-index: 999;
   }
   
   .displayNone {

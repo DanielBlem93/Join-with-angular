@@ -148,8 +148,9 @@ export class DragAreaComponent {
 
 
   toggleModalBoard(task: Tasks): void {
-    this.helpers.isModalClosed = !this.helpers.isModalClosed;
     this.helpers.currentTask = task;
+    this.helpers.isModalClosed = !this.helpers.isModalClosed;
+    this.helpers.modalToggle = !this.helpers.modalToggle
   }
 
   closeModalBoard(): void {

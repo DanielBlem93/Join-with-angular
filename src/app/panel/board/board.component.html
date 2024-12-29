@@ -27,12 +27,12 @@
     </div>
     <app-drag-area></app-drag-area>
   </div>
-  <div
- (click)="helpers.isModalClosed = !helpers.isModalClosed"
-    id="showTodo"
-    [class.display-none]="helpers.isModalClosed"
-  >
-    <app-task-modal></app-task-modal>
+  <div>
+    <div (click)="helpers.closeModalBoard()" [@modalToggle]="helpers.modalToggle ? 'visable' : 'unvisable'" id="showTodo"></div>
+    <app-task-modal
+      [@modalToggle]="helpers.modalToggle ? 'open' : 'closed'"
+   
+    ></app-task-modal>
 
     <div id="addTaskPopup" style="display: flex">
       <div class="popupAnimation" id="addTaskPopupContainer">

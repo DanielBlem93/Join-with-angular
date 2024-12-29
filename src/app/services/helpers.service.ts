@@ -9,12 +9,17 @@ import { Task } from '../models/task.class';
 export class HelpersService {
   currentTask: Tasks = new Task();
 
+  currentMessage: string = 'Contact succesfuly created'
   public isOpen: boolean = false
   isModalClosed: boolean = true;
+  public  modalToggle: boolean = false;
 
   constructor(public router: Router) { }
 
-  currentMessage: string = 'Contact succesfuly created'
+  closeModalBoard(): void {
+    this.isModalClosed = true;
+    this.modalToggle = false;
+  }
 
 
   /**
