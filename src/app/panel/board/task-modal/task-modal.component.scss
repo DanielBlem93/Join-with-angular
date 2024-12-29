@@ -30,36 +30,42 @@
   .modal-close button {
     background-color: transparent;
   }
-  
-  .todo-delete {
+
+  .modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     position: absolute;
-    bottom: 40px;
-    right: 70px;
-    border-radius: 10px 0 0 10px;
-    border: 2px solid #2a3647;
-    padding: 10px;
-    cursor: pointer;
-  }
+    bottom: 48px;
+    right: 48px;
   
-  .todo-edit {
-    position: absolute;
-    bottom: 40px;
-    right: 20px;
-    border-radius: 0 10px 10px 0;
-    background-color: #2a3647;
-    padding: 12px;
-    cursor: pointer;
-  }
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
   
-  .todo-delete img {
-    width: 30px;
-    height: 30px;
-  }
+    img {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    &> div:first-child img {
+      width: 20px;
+      height: 20px;
+    }
+    
+    span {
+      font-size: 16px;
+      cursor: pointer;
+    }
   
-  .todo-edit img {
-    width: 30px;
-    height: 30px;
   }
+
+
+
   
   .modal-category {
     font-size: 23px;

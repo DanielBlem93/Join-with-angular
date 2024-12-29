@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CompletedSubtasksPipe } from '../../../pipes/completed-subtasks.pipe';
+import { CompletedSubtasksPipe } from '../../../../pipes/completed-subtasks.pipe';
 import { CommonModule } from '@angular/common';
 
 

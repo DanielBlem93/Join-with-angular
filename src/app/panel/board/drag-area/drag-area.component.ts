@@ -1,18 +1,16 @@
 import { Component } from '@angular/core';
-import { CompletedSubtasksPipe } from '../../../pipes/completed-subtasks.pipe';
 import { CommonModule } from '@angular/common';
 import { Tasks } from '../../../interfaces/tasks';
 import { FirebaseService } from '../../../services/firebase.service';
 import { Status } from '../../../interfaces/status';
 import { HelpersService } from '../../../services/helpers.service';
-import { Task } from '../../../models/task.class';
 import { onSnapshot, Unsubscribe, updateDoc } from 'firebase/firestore';
-import { TodoBoxComponent } from "../todo-box/todo-box.component";
+import { TodoBoxComponent } from './todo-box/todo-box.component';
 
 @Component({
   selector: 'app-drag-area',
   standalone: true,
-  imports: [CompletedSubtasksPipe, CommonModule, TodoBoxComponent],
+  imports: [CommonModule, TodoBoxComponent],
   templateUrl: './drag-area.component.html',
   styleUrl: './drag-area.component.scss'
 })
@@ -32,7 +30,6 @@ export class DragAreaComponent {
   constructor(public fireService: FirebaseService, public helpers: HelpersService) {
     this.tasks = [];
   }
-
 
 
   async ngOnInit(): Promise<void> {

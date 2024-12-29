@@ -28,7 +28,7 @@
     <app-drag-area></app-drag-area>
   </div>
   <div
-    onclick="closeModalBord()"
+ (click)="helpers.isModalClosed = !helpers.isModalClosed"
     id="showTodo"
     [class.display-none]="helpers.isModalClosed"
   >
