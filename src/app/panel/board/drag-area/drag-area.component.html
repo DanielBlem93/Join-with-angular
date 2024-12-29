@@ -1,0 +1,354 @@
+<div id="kanban-board">
+    <div class="board-body-container">
+      <div class="board-body drag-area board-todo">
+        <div class="board-body-haeder">
+          <h3>Todo</h3>
+          <img
+            onclick="showAddTaskPopup('rgba(0, 0, 0, 0.322)', 'open')"
+            style="cursor: pointer"
+            src="./assets/img/add-icon.png"
+          />
+        </div>
+        <div
+          id="openEmptyFrame"
+          class="nextPosition emptyFrame display-none"
+        ></div>
+        <div
+          id="open"
+          class="drag-area"
+          (drop)="onDrop($event, 'todos', 'todo')"
+          (dragover)="onDragOver($event)"
+        >
+          <div
+            *ngFor="let task of todos; let i = index"
+            class="todo-box"
+            draggable="true"
+            (dragstart)="onDragStart($event, task, 'todos')"
+            (dragend)="onDragEnd()"
+            (click)="toggleModalBoard(task)"
+          >
+            <!-- <div class="chegeCategory">
+              <img
+                id="up"
+                onclick="upCategory(event, 3)"
+                src="./assets/img/up.png"
+                style="display: none"
+              />
+              <br />
+              <img
+                id="down"
+                onclick="downCategory(event, 3)"
+                src="./assets/img/down.png"
+                style="display: block"
+              />
+            </div> -->
+            <div
+              id="todoBoxHeader3"
+              class="todo-box-header"
+              [style]="{ backgroundColor: task.categoryColor }"
+            >
+              <h4>{{ task.category }}</h4>
+            </div>
+
+            <div class="todo-box-title">
+              <h3>{{ task.title }}</h3>
+            </div>
+
+            <div onclick="showTodo(3); " class="todo-box-body">
+              <p>{{ task.description }}</p>
+            </div>
+            <div>
+              <div class="todo-box-progress">
+                <div class="todo-box-progress-bar">
+                  <div
+                    class="todo-box-progress-bar-fill"
+                    [style.width]="  (task.subtasks | completedSubtasks)*100 /(task.subtasks.length ) + '%'"	
+                  ></div>
+                </div>
+                <p *ngIf="task.subtasks.length > 0">
+                  {{ task.subtasks | completedSubtasks }}/{{
+                    task.subtasks.length
+                  }}
+                  Done
+                </p>
+              </div>
+
+              <div id="todoBoxFooterBar3" class="todo-box-footer-bar">
+                <div class="todo-box-footer">
+                  <div class="todo-box-footer-right"></div>
+                  <div class="todo-box-footer-left">
+                    <img src="./assets/img/icons/medium.png" alt="medium" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="open0" class="nextPosition display-none">open0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="board-body drag-area board-in-progress">
+        <div class="board-body-haeder">
+          <h3>In progress</h3>
+          <img
+            onclick="showAddTaskPopup('rgba(0, 0, 0, 0.322)', 'progress')"
+            style="cursor: pointer"
+            src="./assets/img/add-icon.png"
+            alt=""
+          />
+        </div>
+        <div
+          id="progressEmptyFrame"
+          class="nextPosition emptyFrame display-none"
+        ></div>
+        <div
+          id="progress"
+          class="drag-area"
+          (drop)="onDrop($event, 'inProgress', 'in-progress')"
+          (dragover)="onDragOver($event)"
+        >
+          <div
+            *ngFor="let task of inProgress; let i = index"
+            class="todo-box"
+            draggable="true"
+            (dragstart)="onDragStart($event, task, 'inProgress')"
+            (dragend)="onDragEnd()"
+            (click)="toggleModalBoard(task)"
+          >
+            <!-- <div class="chegeCategory">
+              <img
+                id="up"
+                onclick="upCategory(event, 3)"
+                src="./assets/img/up.png"
+                style="display: none"
+              />
+              <br />
+              <img
+                id="down"
+                onclick="downCategory(event, 3)"
+                src="./assets/img/down.png"
+                style="display: block"
+              />
+            </div> -->
+            <div
+              id="todoBoxHeader3"
+              class="todo-box-header"
+              [style]="{ backgroundColor: task.categoryColor }"
+            >
+              <h4>{{ task.category }}</h4>
+            </div>
+
+            <div class="todo-box-title">
+              <h3>{{ task.title }}</h3>
+            </div>
+
+            <div onclick="showTodo(3); " class="todo-box-body">
+              <p>{{ task.description }}</p>
+            </div>
+            <div>
+              <div class="todo-box-progress">
+                <div class="todo-box-progress-bar">
+                  <div
+                    class="todo-box-progress-bar-fill"
+                    [style.width]="  (task.subtasks | completedSubtasks)*100 /(task.subtasks.length ) + '%'"	
+                  ></div>
+                </div>
+                <p *ngIf="task.subtasks.length > 0">
+                  {{ task.subtasks | completedSubtasks }}/{{
+                    task.subtasks.length
+                  }}
+                  Done
+                </p>
+              </div>
+
+              <div id="todoBoxFooterBar3" class="todo-box-footer-bar">
+                <div class="todo-box-footer">
+                  <div class="todo-box-footer-right"></div>
+                  <div class="todo-box-footer-left">
+                    <img src="./assets/img/icons/medium.png" alt="medium" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="open0" class="nextPosition display-none">open0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="board-body drag-area board-feedback">
+        <div class="board-body-haeder">
+          <h3>Awaiting Feedback</h3>
+          <img
+            onclick="showAddTaskPopup('rgba(0, 0, 0, 0.322)', 'feedback')"
+            style="cursor: pointer"
+            src="./assets/img/add-icon.png"
+            alt=""
+          />
+        </div>
+        <div
+          id="feedbackEmptyFrame"
+          class="nextPosition emptyFrame display-none"
+        ></div>
+        <div
+          id="feedback"
+          class="drag-area"
+          (drop)="onDrop($event, 'awaitingFeedback', 'awaiting-feedback')"
+          (dragover)="onDragOver($event)"
+        >
+          <div
+            *ngFor="let task of awaitingFeedback; let i = index"
+            class="todo-box"
+            draggable="true"
+            (dragstart)="onDragStart($event, task, 'awaitingFeedback')"
+            (dragend)="onDragEnd()"
+            (click)="toggleModalBoard(task)"
+          >
+            <!-- <div class="chegeCategory">
+              <img
+                id="up"
+                onclick="upCategory(event, 3)"
+                src="./assets/img/up.png"
+                style="display: none"
+              />
+              <br />
+              <img
+                id="down"
+                onclick="downCategory(event, 3)"
+                src="./assets/img/down.png"
+                style="display: block"
+              />
+            </div> -->
+            <div
+              id="todoBoxHeader3"
+              class="todo-box-header"
+              [style]="{ backgroundColor: task.categoryColor }"
+            >
+              <h4>{{ task.category }}</h4>
+            </div>
+
+            <div class="todo-box-title">
+              <h3>{{ task.title }}</h3>
+            </div>
+
+            <div onclick="showTodo(3); " class="todo-box-body">
+              <p>{{ task.description }}</p>
+            </div>
+            <div>
+              <div class="todo-box-progress">
+                <div class="todo-box-progress-bar">
+                  <div
+                    class="todo-box-progress-bar-fill"
+                    [style.width]="  (task.subtasks | completedSubtasks)*100 /(task.subtasks.length ) + '%'"	
+                  ></div>
+                </div>
+                <p *ngIf="task.subtasks.length > 0">
+                  {{ task.subtasks | completedSubtasks }}/{{
+                    task.subtasks.length
+                  }}
+                  Done
+                </p>
+              </div>
+
+              <div id="todoBoxFooterBar3" class="todo-box-footer-bar">
+                <div class="todo-box-footer">
+                  <div class="todo-box-footer-right"></div>
+                  <div class="todo-box-footer-left">
+                    <img src="./assets/img/icons/medium.png" alt="medium" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="open0" class="nextPosition display-none">open0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="board-body drag-area board-done">
+        <div class="board-body-haeder">
+          <h3>Done</h3>
+          <img
+            onclick="showAddTaskPopup('rgba(0, 0, 0, 0.322)', 'closed')"
+            style="cursor: pointer"
+            src="./assets/img/add-icon.png"
+            alt=""
+          />
+        </div>
+        <div
+          id="closedEmptyFrame"
+          class="nextPosition emptyFrame display-none"
+        ></div>
+        <div
+          id="closed"
+          class="drag-area"
+          (drop)="onDrop($event, 'done', 'done')"
+          (dragover)="onDragOver($event)"
+        >
+          <div
+            *ngFor="let task of done; let i = index"
+            class="todo-box"
+            draggable="true"
+            (dragstart)="onDragStart($event, task, 'done')"
+            (dragend)="onDragEnd()"
+            (click)="toggleModalBoard(task)"
+          >
+            <!-- <div class="chegeCategory">
+              <img
+                id="up"
+                onclick="upCategory(event, 3)"
+                src="./assets/img/up.png"
+                style="display: none"
+              />
+              <br />
+              <img
+                id="down"
+                onclick="downCategory(event, 3)"
+                src="./assets/img/down.png"
+                style="display: block"
+              />
+            </div> -->
+            <div
+              id="todoBoxHeader3"
+              class="todo-box-header"
+              [style]="{ backgroundColor: task.categoryColor }"
+            >
+              <h4>{{ task.category }}</h4>
+            </div>
+
+            <div class="todo-box-title">
+              <h3>{{ task.title }}</h3>
+            </div>
+
+            <div class="todo-box-body">
+              <p>{{ task.description }}</p>
+            </div>
+            <div>
+              <div class="todo-box-progress">
+                <div class="todo-box-progress-bar">
+                  <div
+                    class="todo-box-progress-bar-fill"
+                    [style.width]="  (task.subtasks | completedSubtasks)*100 /(task.subtasks.length ) + '%'"	
+                  ></div>
+                </div>
+                <p *ngIf="task.subtasks.length > 0">
+                  {{ task.subtasks | completedSubtasks }}/{{
+                    task.subtasks.length
+                  }}
+                  Done
+                </p>
+              </div>
+
+              <div id="todoBoxFooterBar3" class="todo-box-footer-bar">
+                <div class="todo-box-footer">
+                  <div class="todo-box-footer-right"></div>
+                  <div class="todo-box-footer-left">
+                    <img src="./assets/img/icons/medium.png" alt="medium" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="open0" class="nextPosition display-none">open0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
