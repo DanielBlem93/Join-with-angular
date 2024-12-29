@@ -1,1 +1,64 @@
-<p>todo-box works!</p>
+
+<div
+class="todo-box"
+draggable="true"
+
+>
+  <!-- <div class="chegeCategory">
+  <img
+    id="up"
+    onclick="upCategory(event, 3)"
+    src="./assets/img/up.png"
+    style="display: none"
+  />
+  <br />
+  <img
+    id="down"
+    onclick="downCategory(event, 3)"
+    src="./assets/img/down.png"
+    style="display: block"
+  />
+</div> -->
+  <div
+    id="todoBoxHeader3"
+    class="todo-box-header"
+    [style]="{ backgroundColor: task.categoryColor }"
+  >
+    <h4>{{ task.category }}</h4>
+  </div>
+
+  <div class="todo-box-title">
+    <h3>{{ task.title }}</h3>
+  </div>
+
+  <div onclick="showTodo(3); " class="todo-box-body">
+    <p>{{ task.description }}</p>
+  </div>
+  <div>
+    <div class="todo-box-progress">
+      <div class="todo-box-progress-bar">
+        <div
+          class="todo-box-progress-bar-fill"
+          [style.width]="
+            ((task.subtasks | completedSubtasks) * 100) / task.subtasks.length +
+            '%'
+          "
+        ></div>
+      </div>
+      <p *ngIf="task.subtasks.length > 0">
+        {{ task.subtasks | completedSubtasks }}/{{ task.subtasks.length }}
+        Done
+      </p>
+    </div>
+
+    <div id="todoBoxFooterBar3" class="todo-box-footer-bar">
+      <div class="todo-box-footer">
+        <div class="todo-box-footer-right"></div>
+        <div class="todo-box-footer-left">
+          <img src="./assets/img/icons/medium.png" alt="medium" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="open0" class="nextPosition display-none">open0</div>
+</div>

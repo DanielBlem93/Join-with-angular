@@ -1,0 +1,121 @@
+@import "../../../../mixin.scss";
+@import "../../../../globalStyles.scss";
+@import "../../../../styles.scss";
+
+
+.todo-box {
+    width: 250px;
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .chegeCategory {
+    @include dFlex(center, center, column);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    cursor: pointer;
+  }
+  
+  .todo-box:hover {
+    transform: rotate(2deg);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  
+  .todo-box-header {
+    display: inline-block;
+    background-color: #29abe2;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 4px 25px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .todo-box-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2a3647;
+    margin-bottom: 20px;
+  }
+  
+  .todo-box-body {
+    color: #d1d1d1;
+    cursor: pointer;
+  }
+  
+  .todo-box-progress {
+    @include dFlex(baseline, space-between, row);
+    font-size: 10px;
+  }
+  
+  .todo-box-progress-bar {
+    width: 70%;
+    height: 10px;
+    background-color: #d1d1d1;
+    border-radius: 10px;
+    margin-top: 5px;
+  }
+  
+  .todo-box-progress-bar-fill {
+    width: 33%;
+    height: 100%;
+    background-color: #29abe2;
+    border-radius: 10px;
+  }
+  
+  .todo-box-footer-bar {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+  }
+  
+  .todo-box-footer {
+    @include dFlex(center, space-between);
+    width: 100%;
+    height: 35px;
+    border-radius: 50%;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .todo-box-footer-right {
+    display: flex;
+    flex-direction: row;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .todo-icon-name {
+    @include dFlex(center, center, row);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    color: #ffffff;
+    background-color: #800080;
+    margin-left: -10px;
+  }
+
+.drag-area {
+    position: relative;
+    height: 600px;
+    width: 250px;
+  }
+  
+  #showTodo {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    z-index: 333;
+  }

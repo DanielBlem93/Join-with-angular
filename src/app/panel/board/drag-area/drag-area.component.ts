@@ -7,11 +7,12 @@ import { Status } from '../../../interfaces/status';
 import { HelpersService } from '../../../services/helpers.service';
 import { Task } from '../../../models/task.class';
 import { onSnapshot, Unsubscribe, updateDoc } from 'firebase/firestore';
+import { TodoBoxComponent } from "../todo-box/todo-box.component";
 
 @Component({
   selector: 'app-drag-area',
   standalone: true,
-  imports: [CompletedSubtasksPipe, CommonModule],
+  imports: [CompletedSubtasksPipe, CommonModule, TodoBoxComponent],
   templateUrl: './drag-area.component.html',
   styleUrl: './drag-area.component.scss'
 })
@@ -77,6 +78,7 @@ export class DragAreaComponent {
     * @param sourceArrayName   The name of the array from which the task is dragged
     */
   onDragStart(event: DragEvent, task: any, sourceArrayName: 'todos' | 'inProgress' | 'awaitingFeedback' | 'done') {
+    
     this.draggedTask = task;
     this.sourceArray = this[sourceArrayName as keyof DragAreaComponent];
   }
