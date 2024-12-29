@@ -12,9 +12,15 @@ export class HelpersService {
   currentMessage: string = 'Contact succesfuly created'
   public isOpen: boolean = false
   isModalClosed: boolean = true;
-  public  modalToggle: boolean = false;
+  public modalToggle: boolean = false;
 
   constructor(public router: Router) { }
+
+
+  doNotClose(event: Event): void {
+    event.stopPropagation();
+  }
+
 
   closeModalBoard(): void {
     this.isModalClosed = true;

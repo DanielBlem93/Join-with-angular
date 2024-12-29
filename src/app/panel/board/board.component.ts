@@ -14,21 +14,21 @@ import { modalAnimation } from '../../animations/modal.animation';
   styleUrl: './board.component.scss',
   animations: [modalAnimation]
 })
-export class BoardComponent  {
+export class BoardComponent {
 
 
 
 
   constructor(
-    public fireService: FirebaseService, 
+    public fireService: FirebaseService,
     public helpers: HelpersService) {
 
-  
+
   }
 
-toggleModal(){
-  this.helpers.modalToggle = !this.helpers.modalToggle
-  this.helpers.isModalClosed = !this.helpers.isModalClosed
-}
+  toggleModal() {
+    this.helpers.modalToggle = !this.helpers.modalToggle
+    this.helpers.isModalClosed = !this.helpers.isModalClosed
+  }
 
 }

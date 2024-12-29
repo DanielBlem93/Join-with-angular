@@ -23,13 +23,8 @@ export class TaskModalComponent {
   constructor(public helpers: HelpersService, private fireService: FirebaseService) { }
 
 
-  doNotClose(event: Event): void {
-    event.stopPropagation();
 
 
-  }
-
-  
 
   async updateSubtaskStatus(task: Tasks, subtaskIndex: number, isChecked: boolean) {
     let docRef = await this.fireService.getDocRef(this.fireService.tasksDatabase, task.docId);

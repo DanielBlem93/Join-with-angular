@@ -50,7 +50,13 @@
       <div class="todo-box-footer">
         <div class="todo-box-footer-right"></div>
         <div class="todo-box-footer-left">
-          <img src="./assets/img/icons/medium.png" alt="medium" />
+          @if(task.priority ==='low'){
+          <img src="../../../../assets/img/icons/low.png" />
+          }@else if (task.priority ==='medium') {
+          <img src="../../../../assets/img/icons/medium.png" />
+          }@else {
+          <img src="../../../../assets/img/icons/urgent.png" />
+          }
         </div>
       </div>
     </div>
