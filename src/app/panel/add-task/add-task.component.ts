@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm, } from '@angular/forms';
 import { DropdownService } from '../../services/dropdown.service';
@@ -8,6 +8,7 @@ import { GetInitalsPipe } from '../../pipes/get-initals.pipe';
 import { Tasks } from '../../interfaces/tasks';
 import { Task } from '../../models/task.class';
 import { HelpersService } from '../../services/helpers.service';
+import { AssignContacts } from '../../interfaces/assign-contacts';
 
 @Component({
 
@@ -24,6 +25,7 @@ export class AddTaskComponent implements OnInit {
   @Output() taskAdded = new EventEmitter<void>();
   @ViewChild('dropdownCategory') dropdownCategory!: ElementRef;
   @ViewChild('dropdownAssignedTo') dropdownAssignedTo!: ElementRef;
+  @Input() task!: Tasks;
 
   constructor(
     public ds: DropdownService,
@@ -36,6 +38,33 @@ export class AddTaskComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.reset()
     await this.getContactsFromDB()
+    if (this.task) {
+      this.populateForm(this.task);
+    }
+  }
+
+
+  populateForm(task: Tasks): void {
+    console.log('das ist der task', task)
+    this.myForm?.controls['title'].setValue(task.title);
+    this.myForm?.controls['description'].setValue(task.description);
+    this.myForm?.controls['date'].setValue(task.date);
+    this.myForm?.controls['priority'].setValue(task.priority);
+    this.ds.subtasks = task.subtasks;
+    // this.ds.assignDropDownCtrl.selectedEmails = task.assigendTo
+    
+
+    
+ 
+    this.ds.assignDropDownCtrl.contacts.forEach(contact => {
+      task.assigendTo.forEach(selectedContact => {
+        if (contact.lastName === selectedContact.lastName && contact.firstName === selectedContact.firstName) {
+          contact.check = true
+          this.ds.assignDropDownCtrl.selectedEmails.push(contact)
+        }
+      });
+    });
+
   }
 
   /**
@@ -61,9 +90,6 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
-  onclick(){
-    
-  }
 
 
   /**

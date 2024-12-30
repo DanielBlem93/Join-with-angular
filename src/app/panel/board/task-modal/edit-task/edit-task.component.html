@@ -1,1 +1,20 @@
-<p>edit-task works!</p>
+<div id="addTaskPopup" style="display: flex">
+    <img
+   (click)="helpers.closeModal()"
+    id="add-task-close-button"
+    src="assets/img/icons/dropdown-close-button.svg"
+  />
+  <div class="popupAnimation" id="addTaskPopupContainer">
+
+   
+    
+
+<div id="editTask" #editTask></div>
+
+<app-add-task [task]="helpers.currentTask"></app-add-task>
+
+
+
+
+  </div>
+</div>

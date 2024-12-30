@@ -270,7 +270,7 @@
           </div>
           <div id="assinged-persons-container">
             <div
-              *ngFor="let contact of ds.assignDropDownCtrl.selectedEmails"
+              *ngFor="let contact of ds.assignDropDownCtrl.selectedEmails |slice:0:8"
               [style.backgroundColor]="contact.color"
               class="assinged-person"
             >

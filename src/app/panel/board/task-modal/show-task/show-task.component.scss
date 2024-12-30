@@ -54,12 +54,13 @@ position: absolute;
       align-items: center;
       justify-content: center;
       gap: 8px;
+      cursor: pointer;
     }
   
     img {
       width: 24px;
       height: 24px;
-      cursor: pointer;
+      
     }
 
     &> div:first-child img {
@@ -69,7 +70,7 @@ position: absolute;
     
     span {
       font-size: 16px;
-      cursor: pointer;
+  
     }
   
   }

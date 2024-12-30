@@ -1,0 +1,110 @@
+@import "../../../../../mixin.scss";
+@import "../../../../../globalStyles.scss";
+@import "../../../../../styles.scss";
+
+
+.dropdown-assinged-to {
+  overflow: auto;
+  height: 250px;
+}
+
+#addTaskPopupContainer app-add-task {
+    .main {
+      height: 80vh ;
+      padding-left: 0;
+      padding: 32px;
+      align-items: baseline;
+    }
+}
+
+#addTaskPopup {
+  @include dFlex(center, center);
+  position: absolute;
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: 125ms ease-in;
+}
+
+.popupAnimation {
+  transform: translateX(0px) !important;
+}
+
+#addTaskPopupContainer {
+  @include dFlex(center, center);
+  position: relative;
+  width: 70%;
+  height: 90%;
+  background-color: $background-white;
+  border-radius: 20px;
+  opacity: 1;
+}
+
+.headline-container {
+  position: relative;
+}
+
+#add-task-close-button {
+  height: 70px;
+  width: 70px;
+  position: absolute;
+  right: -492px;
+  top: -345px;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.platzhalter {
+  width: 100%;
+  height: 100%;
+  background-color: $background-dark-active;
+  border-radius: 20px;
+}
+
+.add-task-button {
+  margin-left: 0 !important;
+  background-color: $white;
+}
+
+.typography2T6 {
+  padding: 0;
+}
+
+.typography2T6::placeholder {
+  font-size: 20px;
+}
+
+#description::placeholder {
+  font-size: 20px;
+  opacity: 0.5;
+}
+
+.chegeCategory {
+  display: none;
+}
+.chegeCategory img {
+  width: 25px;
+  height: 20px;
+}
+
+/* Highlight */
+
+.nextPosition {
+  color: $background-white;
+  width: 100%;
+  height: 200px;
+  margin-top: 16px;
+  border-radius: 10px;
+  background-color: $background-white;
+  border: 5px solid $icon;
+}
+
+.emptyFrame {
+  position: absolute;
+  top: 32px;
+  left: 0px;
+}

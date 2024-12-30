@@ -48,7 +48,8 @@ export class ShowTaskComponent {
 
 
    editTask() {
-
+    this.helpers.modalControls.showTaskMode = false;
+    this.helpers.modalControls.editTaskMode = true;
   }
 
 }
