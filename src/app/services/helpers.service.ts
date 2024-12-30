@@ -11,23 +11,54 @@ export class HelpersService {
 
   currentMessage: string = 'Contact succesfuly created'
   public isOpen: boolean = false
-  isModalClosed: boolean = true;
-  public modalToggle: boolean = false;
-
-  constructor(public router: Router) { }
-
-
-  doNotClose(event: Event): void {
-    event.stopPropagation();
+  public modalControls: {
+    isModalClosed: boolean;
+    modalToggleAnimation: boolean;
+    addTaskMode: boolean;
+    editTaskMode: boolean;
+    showTaskMode: boolean;
   }
 
 
-  closeModalBoard(): void {
-    this.isModalClosed = true;
-    this.modalToggle = false;
+  constructor(public router: Router) {
+    this.modalControls = {
+      isModalClosed: true,
+      modalToggleAnimation: false,
+      addTaskMode: false,
+      editTaskMode: false,
+      showTaskMode: false
+    }
   }
 
 
+  doNotClose(event: Event) {
+    this.modalControls.isModalClosed = false;
+  }
+
+
+
+  closeModal() {
+    this.modalControls.isModalClosed = true;
+    this.modalControls.modalToggleAnimation = false;
+    setTimeout(() => {
+      this.modalControls.addTaskMode = false;
+      this.modalControls.editTaskMode = false;
+      this.modalControls.showTaskMode = false;
+    }, 200);
+  }
+
+  toggleShowTask(task: Tasks) {
+    this.currentTask = task;
+    this.modalControls.isModalClosed = !this.modalControls.isModalClosed;
+    this.modalControls.modalToggleAnimation = !this.modalControls.modalToggleAnimation
+    this.modalControls.showTaskMode = !this.modalControls.showTaskMode
+  }
+
+  openAddTaskModal() {
+    this.modalControls.addTaskMode = true;
+    this.modalControls.isModalClosed = !this.modalControls.isModalClosed;
+    this.modalControls.modalToggleAnimation = !this.modalControls.modalToggleAnimation
+  }
   /**
   * open/close the messagebox
   */

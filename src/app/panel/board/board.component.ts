@@ -6,6 +6,7 @@ import { TaskModalComponent } from "./task-modal/task-modal.component";
 import { DragAreaComponent } from "./drag-area/drag-area.component";
 import { modalAnimation } from '../../animations/modal.animation';
 
+
 @Component({
   selector: 'app-board',
   standalone: true,
@@ -27,8 +28,8 @@ export class BoardComponent {
   }
 
   toggleModal() {
-    this.helpers.modalToggle = !this.helpers.modalToggle
-    this.helpers.isModalClosed = !this.helpers.isModalClosed
+    this.helpers.modalControls.modalToggleAnimation = !this.helpers.modalControls.modalToggleAnimation
+    this.helpers.modalControls.isModalClosed = !this.helpers.modalControls.isModalClosed
   }
 
 }

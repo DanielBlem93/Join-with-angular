@@ -17,7 +17,7 @@
           <hr class="search-img-hr" />
         </div>
         <button
-          onclick="showAddTaskPopup('rgba(0, 0, 0, 0.322)')"
+          (click)="helpers.openAddTaskModal()"
           id="addTaskOnBoard"
           class="board-button"
         >
@@ -25,13 +25,19 @@
         </button>
       </div>
     </div>
-    <app-drag-area></app-drag-area>
+
+    <app-drag-area> </app-drag-area>
   </div>
   <div>
-    <div (click)="helpers.closeModalBoard()" [@modalToggle]="helpers.modalToggle ? 'visable' : 'unvisable'" id="showTodo"></div>
+    <div
+      (click)="helpers.closeModal()"
+      [@modalToggleAnimation]="
+        helpers.modalControls.modalToggleAnimation ? 'visable' : 'unvisable'
+      "
+      id="showTodo"
+    ></div>
     <app-task-modal
-      [@modalToggle]="helpers.modalToggle ? 'open' : 'closed'"
-   
+      [@modalToggleAnimation]="helpers.modalControls.modalToggleAnimation ? 'open' : 'closed'"
     ></app-task-modal>
 
     <div id="addTaskPopup" style="display: flex">

@@ -1,55 +1,25 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { HelpersService } from '../../../services/helpers.service';
-import { GetInitalsPipe } from '../../../pipes/get-initals.pipe';
-import { Tasks } from '../../../interfaces/tasks';
-import { FirebaseService } from '../../../services/firebase.service';
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
-import { MsgBoxComponent } from '../../../msg-box/msg-box.component';
-import { msgBoxAnimation } from '../../../animations/msgBox.animations';
+import { ShowTaskComponent } from "./show-task/show-task.component";
+import { EditTaskComponent } from "./edit-task/edit-task.component";
+import { AddTaskModalComponent } from "./add-task-modal/add-task-modal.component";
+
 
 @Component({
   selector: 'app-task-modal',
   standalone: true,
-  imports: [CommonModule, GetInitalsPipe, MsgBoxComponent],
+  imports: [CommonModule, ShowTaskComponent, EditTaskComponent, AddTaskModalComponent],
   templateUrl: './task-modal.component.html',
   styleUrl: './task-modal.component.scss',
-  animations: [msgBoxAnimation]
+
 })
 export class TaskModalComponent {
 
 
 
-  constructor(public helpers: HelpersService, private fireService: FirebaseService) { }
-
-
-
-
-
-  async updateSubtaskStatus(task: Tasks, subtaskIndex: number, isChecked: boolean) {
-    let docRef = await this.fireService.getDocRef(this.fireService.tasksDatabase, task.docId);
-    task.subtasks[subtaskIndex].check = isChecked;
-    await updateDoc(docRef, { subtasks: task.subtasks });
-  }
-
-
-  async deleteTask(task: Tasks) {
-
-    try {
-      const taskDocRef = doc(this.fireService.firestore, 'tasks', task.docId);
-      await deleteDoc(taskDocRef);
-      console.log(`task with id ${task.docId} deleted`);
-      this.helpers.isModalClosed = true;
-    } catch (error) {
-      console.error('Error deleting contact: ', error);
-    }
-  }
-
-  async editTask() {
-    this.helpers.toggleMsg('test')
-  }
-
-
+  constructor(public helpers: HelpersService,
+  ) { }
 
 
 }

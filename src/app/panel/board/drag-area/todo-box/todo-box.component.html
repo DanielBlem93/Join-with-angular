@@ -49,7 +49,14 @@
     <div id="todoBoxFooterBar3" class="todo-box-footer-bar">
       <div class="todo-box-footer">
         <div class="todo-box-footer-right">
-          <div *ngFor="let person of task.assigendTo" [style.backgroundColor]="person.color" class="todo-icon-name">{{person.firstName| getInitals}}{{person.lastName| getInitals}}</div>
+          <div
+            *ngFor="let person of task.assigendTo | slice:0:5"
+            [style.backgroundColor]="person.color"
+            class="todo-icon-name"
+          >
+            {{ person.firstName | getInitals
+            }}{{ person.lastName | getInitals }}
+          </div>
         </div>
         <div class="todo-box-footer-left">
           @if(task.priority ==='low'){

@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component,  Input,  } from '@angular/core';
 import { CompletedSubtasksPipe } from '../../../../pipes/completed-subtasks.pipe';
 import { CommonModule } from '@angular/common';
-import { Task } from '../../../../models/task.class';
 import { Tasks } from '../../../../interfaces/tasks';
 import { GetInitalsPipe } from '../../../../pipes/get-initals.pipe';
 

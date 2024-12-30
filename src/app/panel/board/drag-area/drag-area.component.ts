@@ -7,6 +7,7 @@ import { HelpersService } from '../../../services/helpers.service';
 import { onSnapshot, Unsubscribe, updateDoc } from 'firebase/firestore';
 import { TodoBoxComponent } from './todo-box/todo-box.component';
 
+
 @Component({
   selector: 'app-drag-area',
   standalone: true,
@@ -144,17 +145,6 @@ export class DragAreaComponent {
 
   showTask(task: Tasks) {
     this.currentTask = task;
-  }
-
-
-  toggleModalBoard(task: Tasks): void {
-    this.helpers.currentTask = task;
-    this.helpers.isModalClosed = !this.helpers.isModalClosed;
-    this.helpers.modalToggle = !this.helpers.modalToggle
-  }
-
-  closeModalBoard(): void {
-    this.helpers.isModalClosed = true;
   }
 
 }

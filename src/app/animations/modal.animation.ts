@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from "@angular/animations";
 
-export const modalAnimation = trigger('modalToggle', [
+export const modalAnimation = trigger('modalToggleAnimation', [
   state(
     'open',
     style({

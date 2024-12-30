@@ -1,5 +1,5 @@
 <div class="main-container">
-  <main>
+  <main class="main">
     <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)" id="options">
       <div id="left-side">
         <div class="headline-container">
@@ -58,6 +58,7 @@
           <div
             style="height: 51px"
             class="dropdown dropdown-category captions width95"
+            #dropdownCategory
           >
             <div class="dropdown-content">
               <div
@@ -201,6 +202,7 @@
           <div
             style="height: 51px"
             class="dropdown dropdown-assinged-to captions width95"
+            #dropdownAssignedTo
           >
             <div class="dropdown-content">
               <div
@@ -526,5 +528,4 @@
       </div>
     </form>
   </main>
-  <app-msg-box [@openClose]="helpers.isOpen ? 'open' : 'closed'"></app-msg-box>
 </div>
