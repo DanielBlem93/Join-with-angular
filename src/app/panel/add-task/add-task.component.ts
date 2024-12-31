@@ -184,10 +184,9 @@ export class AddTaskComponent implements OnInit {
     this.reset()
   }
 
-
-
-
-
+  /**
+   *  Edits a task in the firebase DB
+   */
   async editTask() {
     const docRef = await this.fireService.getDocRef(this.fireService.tasksDatabase, this.task.docId);
     const taskData = this.getTaskData()
@@ -215,12 +214,15 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
-
+  /**
+   *  Sets the current task
+   * @param task  the task to set
+   */
   setCurrentTask(task: Tasks) {
     this.taskAdded.emit();
-    let newTask = task as Tasks
-    newTask.docId = task.docId
-    this.helpers.currentTask = newTask
+    let currentTask = task as Tasks
+    currentTask.docId = task.docId
+    this.helpers.currentTask = currentTask
   }
   /**
    *  Gets the data from the form
