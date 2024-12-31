@@ -514,18 +514,13 @@
             <img class="iconoirCancel3" src="assets/img/iconoir_cancel3.svg" />
           </button>
           <button type="submit" class="addTaskPrimCheckBtn">
-            <span class="typographyPrimCheckBtn">Create Task</span>
+            <span *ngIf="!task" class="typographyPrimCheckBtn">Create Task</span>
+            <span *ngIf="task" class="typographyPrimCheckBtn">Edit Task</span>
             <img src="assets/img/akar-icons_check.svg" />
           </button>
         </div>
       </div>
 
-      <div style="display: none" id="created-task-massage-container">
-        <div id="created-task-massage">
-          <span id="created-task-massage-text">Task added to board</span>
-          <img src="assets/img/hover/board-hover.png" />
-        </div>
-      </div>
     </form>
   </main>
 </div>

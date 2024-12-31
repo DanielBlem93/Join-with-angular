@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, output, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm, } from '@angular/forms';
 import { DropdownService } from '../../services/dropdown.service';
@@ -8,7 +8,6 @@ import { GetInitalsPipe } from '../../pipes/get-initals.pipe';
 import { Tasks } from '../../interfaces/tasks';
 import { Task } from '../../models/task.class';
 import { HelpersService } from '../../services/helpers.service';
-import { AssignContacts } from '../../interfaces/assign-contacts';
 
 @Component({
 
@@ -26,6 +25,7 @@ export class AddTaskComponent implements OnInit {
   @ViewChild('dropdownCategory') dropdownCategory!: ElementRef;
   @ViewChild('dropdownAssignedTo') dropdownAssignedTo!: ElementRef;
   @Input() task!: Tasks;
+
 
   constructor(
     public ds: DropdownService,
@@ -50,12 +50,16 @@ export class AddTaskComponent implements OnInit {
     this.myForm?.controls['description'].setValue(task.description);
     this.myForm?.controls['date'].setValue(task.date);
     this.myForm?.controls['priority'].setValue(task.priority);
+    this.ds.catDropDownCtrl.selectedName = task.category;
+    this.ds.catDropDownCtrl.selectedColor = task.categoryColor;
+    this.ds.catDropDownCtrl.catSelected = true;
+    this.ds.catDropDownCtrl.newCatMode = false;
     this.ds.subtasks = task.subtasks;
-    // this.ds.assignDropDownCtrl.selectedEmails = task.assigendTo
-    
 
-    
- 
+    this.addContactsToForm(task)
+  }
+
+  addContactsToForm(task: Tasks) {
     this.ds.assignDropDownCtrl.contacts.forEach(contact => {
       task.assigendTo.forEach(selectedContact => {
         if (contact.lastName === selectedContact.lastName && contact.firstName === selectedContact.firstName) {
@@ -64,7 +68,6 @@ export class AddTaskComponent implements OnInit {
         }
       });
     });
-
   }
 
   /**
@@ -73,18 +76,13 @@ export class AddTaskComponent implements OnInit {
    */
   @HostListener('document:click', ['$event'])
   onOutsideClick(event: Event): void {
-    console.log('Click event:', event);
     const dropdownMenu1 = this.dropdownCategory.nativeElement;
     const dropdownMenu2 = this.dropdownAssignedTo.nativeElement;
-    console.log('Dropdown 1:', dropdownMenu1);
-    console.log('Dropdown 2:', dropdownMenu2);
     const isInsideDropdown1 = dropdownMenu1 && dropdownMenu1.contains(event.target);
     const isInsideDropdown2 = dropdownMenu2 && dropdownMenu2.contains(event.target);
-
     if (this.ds.catDropDownCtrl.open && !isInsideDropdown1) {
       this.ds.toggleDropdown('dropdown-category');
     }
-
     if (this.ds.assignDropDownCtrl.open && !isInsideDropdown2) {
       this.ds.toggleDropdown('dropdown-assinged-to');
     }
@@ -96,6 +94,7 @@ export class AddTaskComponent implements OnInit {
    * Pulls data from the firebase DB
    */
   async getContactsFromDB() {
+    this.ds.assignDropDownCtrl.contacts = []
     const querySnapshot = await getDocs(this.fireService.contactsDatabase);
     querySnapshot.forEach((contact) => {
       const data = contact.data()
@@ -108,8 +107,6 @@ export class AddTaskComponent implements OnInit {
       }
       this.ds.assignDropDownCtrl.contacts.push(obj)
     });
-    console.log(this.ds.assignDropDownCtrl.contacts);
-
   }
 
 
@@ -175,21 +172,61 @@ export class AddTaskComponent implements OnInit {
    * @param myForm  the form
    */
   async onSubmit(myForm: NgForm) {
-    if (myForm.valid) {
-      const task = new Task(this.getData())
-      const taskJSON = task.toJSON()
-      await this.addTasktoDB(taskJSON)
-      this.reset()
-    } else
-      this.helpers.toggleMsg('Somthing went wrong')
+    if (myForm.valid && !this.task) {
+      await this.addTasktoDB()
+
+    } else if (myForm.valid && this.task) {
+      await this.editTask()
+    } else {
+      this.helpers.toggleMsg('Please fill out all fields correctly')
+
+    }
+    this.reset()
   }
 
 
+
+
+
+  async editTask() {
+    const docRef = await this.fireService.getDocRef(this.fireService.tasksDatabase, this.task.docId);
+    const taskData = this.getTaskData()
+    const newTask = new Task(taskData)
+    await updateDoc(docRef, newTask.toJSON());;
+    this.setCurrentTask(newTask)
+    this.helpers.toggleMsg('Task edited')
+  }
+
+  /**
+   *  Adds a task to the firebase DB
+   * @param data  the task to add
+   */
+  async addTasktoDB() {
+    const task = new Task(this.getTaskData())
+    const data = task.toJSON()
+    try {
+      const task = await addDoc(this.fireService.tasksDatabase, data);
+      await updateDoc(task, { docId: task.id })
+      this.setCurrentTask(data)
+      this.helpers.toggleMsg('Task added to board')
+      this.helpers.redirectTo('/panel/board', 2500)
+    } catch (error) {
+      this.helpers.toggleMsg('Somthing went wrong')
+    }
+  }
+
+
+  setCurrentTask(task: Tasks) {
+    this.taskAdded.emit();
+    let newTask = task as Tasks
+    newTask.docId = task.docId
+    this.helpers.currentTask = newTask
+  }
   /**
    *  Gets the data from the form
    * @returns   the data from the form
    */
-  getData() {
+  getTaskData() {
     const task: Tasks = {
       title: this.ds.title,
       description: this.ds.description,
@@ -199,31 +236,11 @@ export class AddTaskComponent implements OnInit {
       date: this.ds.date,
       priority: this.ds.selectedPriority,
       subtasks: this.ds.subtasks,
-      status: 'todo',
-      docId: ''
+      status: this.task?.status ? this.task.status : 'todo',
+      docId: this.task?.docId ? this.task.docId : ''
     }
     return task
   }
-
-
-  /**
-   *  Adds a task to the firebase DB
-   * @param data  the task to add
-   */
-  async addTasktoDB(data: Tasks) {
-    try {
-      const task = await addDoc(this.fireService.tasksDatabase, data);
-      this.helpers.toggleMsg('Task added to board')
-      this.helpers.redirectTo('/panel/board', 2500)
-      await updateDoc(task, { docId: task.id })
-      this.taskAdded.emit();
-      console.log(data)
-    } catch (error) {
-      this.helpers.toggleMsg('Please fill out all fields correctly')
-    }
-
-  }
-
 
   /**
    * Resets the form

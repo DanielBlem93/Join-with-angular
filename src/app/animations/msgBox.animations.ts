@@ -18,5 +18,5 @@ export const msgBoxAnimation =  trigger('openClose', [
       })
     ),
     transition('open => closed', [animate('0.5s')]),
-    transition('closed => open', [animate('0.5s')]),
+    transition('closed => open', [animate('0.25s')]),
   ]);

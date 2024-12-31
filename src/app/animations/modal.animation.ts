@@ -19,10 +19,10 @@ export const modalAnimation = trigger('modalToggleAnimation', [
   ),
   state('visable', style({
     opacity: 1,
-    display: 'block',
+    zIndex: 333,
   })), state('unvisable', style({
     opacity: 0,
-    display: 'none',
+    zIndex: -1
   })),
   transition('open => closed', [animate('0.2s')]),
   transition('closed => open', [animate('0.2s')]),

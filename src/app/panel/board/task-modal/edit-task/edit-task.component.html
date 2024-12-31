@@ -1,20 +1,18 @@
 <div id="addTaskPopup" style="display: flex">
-    <img
-   (click)="helpers.closeModal()"
+  <img
+    (click)="helpers.closeModal()"
     id="add-task-close-button"
     src="assets/img/icons/dropdown-close-button.svg"
   />
   <div class="popupAnimation" id="addTaskPopupContainer">
+    <div id="editTask" #editTask></div>
 
-   
-    
-
-<div id="editTask" #editTask></div>
-
-<app-add-task [task]="helpers.currentTask"></app-add-task>
-
-
-
-
+    <app-add-task
+      (taskAdded)="
+        this.helpers.modalControls.showTaskMode = true;
+        this.helpers.modalControls.editTaskMode = false
+      "
+      [task]="helpers.currentTask"
+    ></app-add-task>
   </div>
 </div>

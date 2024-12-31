@@ -499,11 +499,11 @@ ul {
 
 .subtask img {
     cursor: pointer;
-    display: none;
+    opacity: 0;
 }
 
 .subtask:hover img {
-    display: unset;
+    opacity: 1;
 }
 
 .addTaskSubtasks {
