@@ -43,7 +43,10 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
-
+  /**
+   * Populates the form with the task data
+   * @param task  the task to populate the form with
+   */
   populateForm(task: Tasks): void {
     console.log('das ist der task', task)
     this.myForm?.controls['title'].setValue(task.title);
@@ -55,10 +58,13 @@ export class AddTaskComponent implements OnInit {
     this.ds.catDropDownCtrl.catSelected = true;
     this.ds.catDropDownCtrl.newCatMode = false;
     this.ds.subtasks = task.subtasks;
-
     this.addContactsToForm(task)
   }
 
+  /**
+   * Adds the contacts to the form
+   * @param task  the task to add the contacts to
+   */
   addContactsToForm(task: Tasks) {
     this.ds.assignDropDownCtrl.contacts.forEach(contact => {
       task.assigendTo.forEach(selectedContact => {
@@ -174,12 +180,13 @@ export class AddTaskComponent implements OnInit {
   async onSubmit(myForm: NgForm) {
     if (myForm.valid && !this.task) {
       await this.addTasktoDB()
-
+      this.helpers.toggleMsg('Task added to board')
+      this.helpers.redirectTo('/panel/board', 2500)
     } else if (myForm.valid && this.task) {
       await this.editTask()
+      this.helpers.toggleMsg('Task edited')
     } else {
       this.helpers.toggleMsg('Please fill out all fields correctly')
-
     }
     this.reset()
   }
@@ -193,7 +200,7 @@ export class AddTaskComponent implements OnInit {
     const newTask = new Task(taskData)
     await updateDoc(docRef, newTask.toJSON());;
     this.setCurrentTask(newTask)
-    this.helpers.toggleMsg('Task edited')
+
   }
 
   /**
@@ -207,8 +214,6 @@ export class AddTaskComponent implements OnInit {
       const task = await addDoc(this.fireService.tasksDatabase, data);
       await updateDoc(task, { docId: task.id })
       this.setCurrentTask(data)
-      this.helpers.toggleMsg('Task added to board')
-      this.helpers.redirectTo('/panel/board', 2500)
     } catch (error) {
       this.helpers.toggleMsg('Somthing went wrong')
     }
@@ -224,6 +229,8 @@ export class AddTaskComponent implements OnInit {
     currentTask.docId = task.docId
     this.helpers.currentTask = currentTask
   }
+
+
   /**
    *  Gets the data from the form
    * @returns   the data from the form
@@ -243,6 +250,7 @@ export class AddTaskComponent implements OnInit {
     }
     return task
   }
+  
 
   /**
    * Resets the form
