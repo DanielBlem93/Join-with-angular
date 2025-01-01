@@ -19,4 +19,9 @@ selectedTask: any;
 
   }
 
+  showTask(){
+    this.helpers.modalControls.showTaskMode = true;
+    this.helpers.modalControls.editTaskMode = false;
+  }
+
 }

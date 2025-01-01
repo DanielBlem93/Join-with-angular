@@ -8,6 +8,7 @@ import { GetInitalsPipe } from '../../pipes/get-initals.pipe';
 import { Tasks } from '../../interfaces/tasks';
 import { Task } from '../../models/task.class';
 import { HelpersService } from '../../services/helpers.service';
+import { Status } from '../../interfaces/status';
 
 @Component({
 
@@ -25,6 +26,7 @@ export class AddTaskComponent implements OnInit {
   @ViewChild('dropdownCategory') dropdownCategory!: ElementRef;
   @ViewChild('dropdownAssignedTo') dropdownAssignedTo!: ElementRef;
   @Input() task!: Tasks;
+
 
 
   constructor(
@@ -245,7 +247,7 @@ export class AddTaskComponent implements OnInit {
       date: this.ds.date,
       priority: this.ds.selectedPriority,
       subtasks: this.ds.subtasks,
-      status: this.task?.status ? this.task.status : 'todo',
+      status: this.task?.status ? this.task.status : this.helpers.currentStatus,
       docId: this.task?.docId ? this.task.docId : ''
     }
     return task

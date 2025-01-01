@@ -8,10 +8,7 @@
     <div id="editTask" #editTask></div>
 
     <app-add-task
-      (taskAdded)="
-        this.helpers.modalControls.showTaskMode = true;
-        this.helpers.modalControls.editTaskMode = false
-      "
+      (taskAdded)="showTask()"
       [task]="helpers.currentTask"
     ></app-add-task>
   </div>

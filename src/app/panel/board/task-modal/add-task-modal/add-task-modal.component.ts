@@ -14,4 +14,11 @@ export class AddTaskModalComponent {
 constructor(public helpers: HelpersService) {
   
 }
+
+
+showTask(){
+  this.helpers.modalControls.showTaskMode = true;
+  this.helpers.modalControls.addTaskMode = false;
+  this.helpers.currentStatus = 'todo';
+}
 }

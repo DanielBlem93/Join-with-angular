@@ -2,18 +2,24 @@
 @import "../../../globalStyles.scss";
 @import "../../../styles.scss";
 
+.main-container{
+  justify-content: flex-start;
+}
+
 .board-content {
+  @include dFlex(unset, unset, column, 32px);
   width: 80%;
-  display: flex;
-  flex-direction: column;
   overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .board-header {
   @include dFlex(center, space-between, row);
   width: 90%;
   height: 160px;
-  margin-top: 90px;
+  margin-top: 128px;
 }
 
 .board-header h1 {

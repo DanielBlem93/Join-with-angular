@@ -2,15 +2,17 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tasks } from '../interfaces/tasks';
 import { Task } from '../models/task.class';
+import { Status } from '../interfaces/status';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HelpersService {
   currentTask: Tasks = new Task();
-
+  currentStatus: Status = 'todo';
   currentMessage: string = 'Contact succesfuly created'
   public isOpen: boolean = false
+
   public modalControls: {
     isModalClosed: boolean;
     modalToggleAnimation: boolean;
@@ -40,11 +42,12 @@ export class HelpersService {
   closeModal() {
     this.modalControls.isModalClosed = true;
     this.modalControls.modalToggleAnimation = false;
+    this.currentStatus = 'todo';
     setTimeout(() => {
       this.modalControls.addTaskMode = false;
       this.modalControls.editTaskMode = false;
       this.modalControls.showTaskMode = false;
-    }, 200);
+    }, 225);
   }
 
   toggleShowTask(task: Tasks) {
@@ -54,10 +57,11 @@ export class HelpersService {
     this.modalControls.showTaskMode = !this.modalControls.showTaskMode
   }
 
-  openAddTaskModal() {
+  openAddTaskModal(status: Status) {
     this.modalControls.addTaskMode = true;
     this.modalControls.isModalClosed = !this.modalControls.isModalClosed;
     this.modalControls.modalToggleAnimation = !this.modalControls.modalToggleAnimation
+    this.currentStatus = status
   }
   /**
   * open/close the messagebox

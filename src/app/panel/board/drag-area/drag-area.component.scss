@@ -3,10 +3,10 @@
 @import "../../../../styles.scss";
 
 #kanban-board {
-    @include dFlex(center, flex-start);
+  @include dFlex(flex-start, unset, row, 50px);
     width: 100%;
     height: 100%;
-    overflow: auto;
+    padding-bottom: 32px;
   }
   
   #kanban-board::-webkit-scrollbar {
@@ -26,7 +26,7 @@
 
 .drag-area {
     position: relative;
-    height: 600px;
+height: 100%;
     width: 250px;
   }
   

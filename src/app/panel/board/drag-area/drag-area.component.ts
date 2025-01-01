@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Tasks } from '../../../interfaces/tasks';
 import { FirebaseService } from '../../../services/firebase.service';
@@ -20,53 +20,15 @@ export class DragAreaComponent {
   draggedTask: any;
   sourceArray: any[] = [];
 
-  tasks: Tasks[];
-  todos: Tasks[] = []
-  inProgress: Tasks[] = []
-  awaitingFeedback: Tasks[] = []
-  done: Tasks[] = []
 
-  private unsubscribe: Unsubscribe | undefined;
+  @Input() todos: Tasks[] = []
+  @Input() inProgress: Tasks[] = []
+  @Input() awaitingFeedback: Tasks[] = []
+  @Input() done: Tasks[] = []
 
   constructor(public fireService: FirebaseService, public helpers: HelpersService) {
-    this.tasks = [];
+
   }
-
-
-  async ngOnInit(): Promise<void> {
-    this.subscribeToTasks();
-  }
-
-
-  ngOnDestroy(): void {
-    if (this.unsubscribe) {
-      this.unsubscribe();
-    }
-  }
-
-
-  /**
-   * Subscribe to tasks from the database
-   */
-  subscribeToTasks() {
-
-    onSnapshot(this.fireService.tasksDatabase, (snapshot) => {
-      this.tasks = snapshot.docs.map(doc => doc.data() as Tasks);
-      this.filterTasks();
-    });
-  }
-
-
-  /**
-   * Filter tasks by status
-   */
-  filterTasks() {
-    this.todos = this.tasks.filter(task => task.status === 'todo');
-    this.inProgress = this.tasks.filter(task => task.status === 'in-progress');
-    this.awaitingFeedback = this.tasks.filter(task => task.status === 'awaiting-feedback');
-    this.done = this.tasks.filter(task => task.status === 'done');
-  }
-
 
 
   /**
@@ -76,7 +38,7 @@ export class DragAreaComponent {
     * @param sourceArrayName   The name of the array from which the task is dragged
     */
   onDragStart(event: DragEvent, task: any, sourceArrayName: 'todos' | 'inProgress' | 'awaitingFeedback' | 'done') {
-    
+
     this.draggedTask = task;
     this.sourceArray = this[sourceArrayName as keyof DragAreaComponent];
   }
@@ -129,8 +91,8 @@ export class DragAreaComponent {
    */
   async changeTaskStatus(task: Tasks, status: Status) {
     let docRef = await this.fireService.getDocRef(this.fireService.tasksDatabase, task.docId);
-   task.status =status
-    await updateDoc(docRef, {status: task.status});;
+    task.status = status
+    await updateDoc(docRef, { status: task.status });;
   }
 
 
