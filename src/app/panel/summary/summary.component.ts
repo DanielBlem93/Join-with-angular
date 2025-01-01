@@ -5,7 +5,8 @@ import { PanelHeaderComponent } from "../panel-header/panel-header.component";
 import { RouterLink } from '@angular/router';
 import { FirebaseService } from '../../services/firebase.service';
 import { Observable } from 'rxjs';
-import { getDocs } from 'firebase/firestore';
+import { doc, getDocs } from 'firebase/firestore';
+import { Tasks } from '../../interfaces/tasks';
 
 @Component({
   selector: 'app-summary',
@@ -18,17 +19,17 @@ export class SummaryComponent implements OnInit {
 
   docCounter: number = 0
   urgentCounter: number = 0
+  inProgressCounter: number = 0;
+  awaitingFeedbackCounter: number = 0;
+  todoCounter: number = 0;
+  doneCounter: number = 0;
 
   constructor(private fireService: FirebaseService) {
-
-
-    this.getTasks()
-
 
   }
   ngOnInit(): void {
     this.countDocs()
-    this.countUrgents()
+
   }
 
 
@@ -48,29 +49,47 @@ export class SummaryComponent implements OnInit {
   }
 
 
-  async getTasks() {
 
-    const querySnapshot = await getDocs(this.fireService.tasksDatabase);
-    querySnapshot.forEach((doc) => {
-      // console.log(doc.id, " => ", doc.data());
-    });
-  }
 
   async countDocs() {
     const querySnapshot = await getDocs(this.fireService.tasksDatabase);
     querySnapshot.forEach((doc) => {
-      this.docCounter++
-    });
-  }
-  async countUrgents() {
-    const querySnapshot = await getDocs(this.fireService.tasksDatabase);
-    querySnapshot.forEach((doc) => {
       const data = doc.data()
-      // console.log(data)
-      if (data['priority'] === 'urgent') {
-        this.urgentCounter++
-      }
+      this.docCounter++
+      this.countUrgents(data as Tasks)
+      this.countStatus(data as Tasks)
+
     });
   }
+  async countUrgents(data: Tasks) {
+
+    if (data['priority'] === 'urgent') {
+      this.urgentCounter++
+    }
+
+  }
+
+  
+  async countStatus(data: Tasks) {
+    switch (data['status']) {
+      case 'in-progress':
+        this.inProgressCounter++
+        break;
+      case 'done':
+        this.doneCounter++
+        break
+      case 'awaiting-feedback':
+        this.awaitingFeedbackCounter++
+        break
+      case 'todo':
+        this.todoCounter++
+        break
+    }
+  }
+
+
+
+
+
 
 }
