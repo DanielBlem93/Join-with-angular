@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
 
   constructor(public firebaseService: FirebaseService, 
-    private authService: AuthenticationService, 
+    public authService: AuthenticationService, 
     private helpers: HelpersService) {
 
   }

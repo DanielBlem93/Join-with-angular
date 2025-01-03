@@ -19,8 +19,9 @@
         name="name"
         placeholder="Name"
         [(ngModel)]="username"
+        pattern="^[a-zA-Z]+ [a-zA-Z]+$"
         required
-        minlength="2"
+        minlength="4"
       />
       <div
         *ngIf="
@@ -29,7 +30,9 @@
         "
         id="nameError"
         class="input-error"
-      ></div>
+      >
+        Please enter a first- and lastname: John Doe
+      </div>
       <img
         class="login-img"
         src="./assets/img/member-icon-klein.png"
@@ -56,7 +59,9 @@
         "
         id="emailError"
         class="input-error"
-      ></div>
+      >
+        Please enter a valid Email
+      </div>
       <img
         class="login-img"
         src="./assets/img/email-logo.png"
@@ -76,7 +81,16 @@
         required
         minlength="8"
       />
-      <div id="passwordError" class="input-error"></div>
+      <div
+        *ngIf="
+          myForm.controls['password']?.invalid &&
+          myForm.form.controls['password']?.touched
+        "
+        id="passwordError"
+        class="input-error"
+      >
+        Please choose a longer password
+      </div>
       <img
         class="login-img"
         src="./assets/img/schloss-logo.png"
@@ -85,7 +99,7 @@
     </div>
     <div class="login-submit">
       <button
-       type="submit"
+        type="submit"
         id="loginButton"
         class="btn-login-singup signup-btn"
       >
@@ -97,6 +111,10 @@
         style="display: none"
       />
     </div>
+    
   </form>
+  <app-msg-box
+    [@openClose]="helpers.isOpen ? 'open' : 'closed'"
+  ></app-msg-box>
   <app-footer></app-footer>
 </div>

@@ -58,7 +58,7 @@ firebaseApp = initializeApp({
    */
   afterLogin() {
     if (this.router.url === '/singUp') {
-      this.helpers.redirectTo('/panel/panel/summary', 3000)
+      this.helpers.redirectTo('/panel/summary', 3000)
 
     } else {
       this.helpers.redirectTo('/panel/summary', 0)

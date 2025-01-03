@@ -7,6 +7,7 @@ import { FirebaseService } from '../../services/firebase.service';
 import { Observable } from 'rxjs';
 import { doc, getDocs } from 'firebase/firestore';
 import { Tasks } from '../../interfaces/tasks';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-summary',
@@ -24,7 +25,7 @@ export class SummaryComponent implements OnInit {
   todoCounter: number = 0;
   doneCounter: number = 0;
 
-  constructor(private fireService: FirebaseService) {
+  constructor(private fireService: FirebaseService, public authService: AuthenticationService) {
 
   }
   ngOnInit(): void {

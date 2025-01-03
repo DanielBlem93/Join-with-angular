@@ -1,13 +1,17 @@
 <header>
   <div id="img-container" class="img-container">
     <img
+    [@introAnimation]="backGroundAnimation ? 'start' : 'end'"
       id="logo-image"
       class="logo-image"
       src="./assets/img/join-logo-gross-dunkel.svg"
     />
   </div>
-
-  <div *ngIf="router.url !== '/singUp'" class="login-header-signup" >
+  <div
+    [@introAnimation]="backGroundAnimation ? 'visable' : 'unvisable'"
+    class="animation-background"
+  ></div>
+  <div *ngIf="router.url !== '/singUp'" class="login-header-signup">
     <p>Not a Join user?</p>
     <button routerLink="/singUp" class="btn-login-singup btnTextStyle">
       Sign up

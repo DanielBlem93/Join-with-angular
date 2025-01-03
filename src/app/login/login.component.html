@@ -1,14 +1,5 @@
 <div class="main-container">
   <app-header></app-header>
-
-  <div id="img-container-mobile" class="img-container-mobile">
-    <img
-      id="logo-image-mobile"
-      class="logo-image"
-      src="./assets/img/capa2.svg"
-    />
-  </div>
-
   <form
     id="login-form"
     class="login-form"
@@ -28,13 +19,19 @@
           name="email"
           placeholder="Email"
           [(ngModel)]="inputMail"
+          [pattern]="authService.emailRegex"
           required
           email
         />
         <div
-          id="emailError"
+          *ngIf="
+            myForm.controls['email']?.invalid &&
+            myForm.form.controls['email']?.touched
+          "
           class="input-error"
-        ></div>
+        >
+          Please type a valid email
+        </div>
         <img
           class="login-img"
           src="./assets/img/email-logo.png"
@@ -53,27 +50,21 @@
           minlength="6"
         />
         <div
-    
+          *ngIf="
+            myForm.invalid &&
+            myForm.submitted &&
+            !this.authService.auth.currentUser
+          "
           id="passwordError"
           class="input-error"
         >
-  
+          Email or Password is wrong
         </div>
         <img
           class="login-img"
           src="./assets/img/schloss-logo.png"
           alt="password-logo"
         />
-      </div>
-      <div class="login-remember">
-        <div class="login-chackbox">
-          <input class="login-chakbox-insert" type="checkbox" id="remember" />
-          <label class="typo2BodyV2" for="remember">Remember me</label>
-        </div>
-        <a
-          class="login-link typo2BodyV2"
-          >Forgot my password</a
-        >
       </div>
     </div>
     <div class="login-submit">

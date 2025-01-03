@@ -62,7 +62,7 @@
       </div>
       <div id="summary-greeting" class="summary-greeting">
         <p id="greeting" class="summary-greeting-p">{{ generateGreeting() }}</p>
-        <h2 id="summaryGreetingName" class="summary-greeting-h2">Guest</h2>
+        <h2 id="summaryGreetingName" class="summary-greeting-h2">{{authService.auth.currentUser?.displayName || ''}}</h2>
       </div>
     </div>
   </div>
