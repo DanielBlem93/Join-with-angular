@@ -63,6 +63,10 @@ header>div>span {
     border: 3px solid $background-dark;
     border-radius: 100%;
     color: $lightblue;
+
+    &:hover{
+        background-color: $background-dark;
+    }
 }
 
 #logout {
