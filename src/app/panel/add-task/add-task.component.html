@@ -22,8 +22,8 @@
           </div>
           <span
             *ngIf="
-              myForm.form.controls['title']?.touched &&
-              myForm.form.controls['title']?.invalid ||
+              (myForm.form.controls['title']?.touched &&
+                myForm.form.controls['title']?.invalid) ||
               (myForm.form.controls['title']?.invalid && myForm.submitted)
             "
             class="is-required"
@@ -45,8 +45,8 @@
           </div>
           <span
             *ngIf="
-              myForm.form.controls['description']?.touched &&
-              myForm.form.controls['description']?.invalid ||
+              (myForm.form.controls['description']?.touched &&
+                myForm.form.controls['description']?.invalid) ||
               (myForm.form.controls['description']?.invalid && myForm.submitted)
             "
             class="is-required"
@@ -182,14 +182,20 @@
             <label for="pink" class="color-circle circle-pink"></label>
           </fieldset>
 
-          <span *ngIf="ds.catDropDownCtrl.errorMessage" class="is-required">{{
-            ds.catDropDownCtrl.errorMessage
-          }}</span>
           <span
             *ngIf="
+              ds.catDropDownCtrl.errorMessage &&
               !ds.catDropDownCtrl.selectedName &&
-              ds.catDropDownCtrl.touched &&
-              !ds.catDropDownCtrl.newCatMode ||
+              ds.catDropDownCtrl.touched
+            "
+            class="is-required"
+            >{{ ds.catDropDownCtrl.errorMessage }}</span
+          >
+          <span
+            *ngIf="
+              (!ds.catDropDownCtrl.selectedName &&
+                ds.catDropDownCtrl.touched &&
+                !ds.catDropDownCtrl.newCatMode) ||
               (!ds.catDropDownCtrl.selectedName && myForm.submitted)
             "
             class="is-required"
@@ -270,7 +276,10 @@
           </div>
           <div id="assinged-persons-container">
             <div
-              *ngFor="let contact of ds.assignDropDownCtrl.selectedEmails |slice:0:8"
+              *ngFor="
+                let contact of ds.assignDropDownCtrl.selectedEmails
+                  | slice : 0 : 8
+              "
               [style.backgroundColor]="contact.color"
               class="assinged-person"
             >
@@ -301,8 +310,8 @@
           </div>
           <span
             *ngIf="
-              myForm.form.controls['date']?.touched &&
-              myForm.form.controls['date']?.invalid ||
+              (myForm.form.controls['date']?.touched &&
+                myForm.form.controls['date']?.invalid) ||
               (myForm.form.controls['date']?.invalid && myForm.submitted)
             "
             class="is-required"
@@ -465,15 +474,15 @@
             </label>
           </div>
           <span
-          *ngIf="
-            (myForm.form.controls['priority']?.touched &&
-              myForm.form.controls['priority']?.invalid) ||
-            (myForm.form.controls['priority']?.invalid && myForm.submitted)
-          "
-          class="is-required"
-        >
-          Please select a priority.
-        </span>
+            *ngIf="
+              (myForm.form.controls['priority']?.touched &&
+                myForm.form.controls['priority']?.invalid) ||
+              (myForm.form.controls['priority']?.invalid && myForm.submitted)
+            "
+            class="is-required"
+          >
+            Please select a priority.
+          </span>
         </div>
         <div class="addTaskSubtasks width95">
           <span class="captions">Subtasks</span>
@@ -514,13 +523,14 @@
             <img class="iconoirCancel3" src="assets/img/iconoir_cancel3.svg" />
           </button>
           <button type="submit" class="addTaskPrimCheckBtn">
-            <span *ngIf="!task" class="typographyPrimCheckBtn">Create Task</span>
+            <span *ngIf="!task" class="typographyPrimCheckBtn"
+              >Create Task</span
+            >
             <span *ngIf="task" class="typographyPrimCheckBtn">Edit Task</span>
             <img src="assets/img/akar-icons_check.svg" />
           </button>
         </div>
       </div>
-
     </form>
   </main>
 </div>

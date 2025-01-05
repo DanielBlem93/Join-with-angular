@@ -6,7 +6,10 @@
   <div id="temp-header-container">
     <span>Kanban Project Management Tool</span>
     <div class="temp-logout">
-      <div class="temp-vector-img">
+      <div
+        (click)="helpers.redirectTo('/panel/legal-notice', 100)"
+        class="temp-vector-img"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="31"
@@ -32,7 +35,7 @@
         *ngIf="logoutMenu"
         (click)="authService.signout()"
         id="logout"
-        class="logout-btn "
+        class="logout-btn"
       >
         Logout
       </button>

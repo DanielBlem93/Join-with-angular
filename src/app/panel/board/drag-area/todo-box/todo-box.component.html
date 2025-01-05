@@ -33,6 +33,7 @@
     <div class="todo-box-progress">
       <div class="todo-box-progress-bar">
         <div
+        *ngIf="task.subtasks.length > 0"
           class="todo-box-progress-bar-fill"
           [style.width]="
             ((task.subtasks | completedSubtasks) * 100) / task.subtasks.length +
@@ -40,7 +41,7 @@
           "
         ></div>
       </div>
-      <p *ngIf="task.subtasks.length > 0">
+      <p >
         {{ task.subtasks | completedSubtasks }}/{{ task.subtasks.length }}
         Done
       </p>

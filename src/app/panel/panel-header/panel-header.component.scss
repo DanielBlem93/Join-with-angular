@@ -49,8 +49,12 @@ header>div>span {
 }
 
 .temp-vector-img {
+    cursor: pointer;
     height: 31px;
     width: 31px;
+    &:hover{
+        scale: 1.2;
+    }
 }
 
 .temp-logout-symbol {
@@ -75,7 +79,7 @@ header>div>span {
     font-size: 16px;
     position: absolute;
     right: 100px;
-    top: 100px;
+    top: 89px;
     background-color: $background-dark;
     color: $background-white;
     border: none;
