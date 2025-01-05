@@ -1,4 +1,4 @@
-<div class="main-container">
+<div class="main-container" >
   <app-header></app-header>
   <form
     id="login-form"
@@ -8,9 +8,9 @@
   >
     <div class="input-headline">
       <h1 class="typo2t1 txtBlack">Log In</h1>
-      <hr class="form-hr" />
+      <hr />
     </div>
-    <div class="login-remember-content">
+    <div class="login">
       <div class="input-container">
         <input
           type="email"
@@ -49,14 +49,7 @@
           required
           minlength="6"
         />
-        <div
-          *ngIf="
-            myForm.invalid &&
-            myForm.submitted 
-          "
-          id="passwordError"
-          class="input-error"
-        >
+        <div *ngIf="myForm.invalid && myForm.submitted" class="input-error">
           Email or Password is wrong
         </div>
         <img
@@ -68,10 +61,17 @@
     </div>
     <div class="login-submit">
       <button type="submit" class="btn-login btnTextStyle">Log In</button>
-      <button type="button" (click)="loginGuest()" class="login-guest btnTextStyle btn-login">
+      <button
+        type="button"
+        (click)="loginGuest()"
+        class="login-guest btnTextStyle btn-login"
+      >
         Guest Log In
       </button>
     </div>
   </form>
+  <app-not-ajoin-user
+    *ngIf="responsiveService.isSmallScreen"
+  ></app-not-ajoin-user>
   <app-footer></app-footer>
 </div>

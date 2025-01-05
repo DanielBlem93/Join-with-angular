@@ -9,7 +9,7 @@
     <div onclick="window.location.href = 'index.html'" class="back">
       <img src="./assets/img/back-icon.png" alt="back" />
     </div>
-    <h1>Sign Up</h1>
+    <h1 class="typo2t1">Sign Up</h1>
     <hr class="form-hr" />
     <div class="input-container">
       <input
@@ -86,10 +86,35 @@
           myForm.controls['password']?.invalid &&
           myForm.form.controls['password']?.touched
         "
-        id="passwordError"
         class="input-error"
       >
         Please choose a longer password
+      </div>
+      <img
+        class="login-img"
+        src="./assets/img/schloss-logo.png"
+        alt="password-logo"
+      />
+    </div>
+    <div class="input-container">
+      <input
+        class="inputTextStyle"
+        type="password"
+        id="repeatPassword"
+        name="repeatPassword"
+        placeholder="Cofirm Password"
+        [(ngModel)]="repeatPassword"
+        required
+        minlength="8"
+      />
+      <div
+        *ngIf="
+          myForm.form.controls['repeatPassword']?.touched &&
+          inputPassword !== repeatPassword
+        "
+        class="input-error"
+      >
+        Passwords do not match
       </div>
       <img
         class="login-img"
@@ -103,7 +128,7 @@
         id="loginButton"
         class="btn-login-singup signup-btn"
       >
-        Sign Up
+        Sign up
       </button>
       <img
         id="loginImage"
@@ -111,10 +136,7 @@
         style="display: none"
       />
     </div>
-    
   </form>
-  <app-msg-box
-    [@openClose]="helpers.isOpen ? 'open' : 'closed'"
-  ></app-msg-box>
+  <app-msg-box [@openClose]="helpers.isOpen ? 'open' : 'closed'"></app-msg-box>
   <app-footer></app-footer>
 </div>

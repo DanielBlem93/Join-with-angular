@@ -1,22 +1,25 @@
 import { animate, state, style, transition, trigger } from "@angular/animations";
 
+
 export const introAnimation = trigger('introAnimation', [
   state(
     'start',
     style({
-      position: 'absolute',
-      top: '500%',
-      left: '47%',
-      scale: '2.5',
-    })
+
+      top: '{{top1}}',
+      left: '{{left}}',
+      scale: '{{scale1}}',
+    }),
+    { params: { scale1: '2.5', top1:'500%', left:'47%' } }
   ),
   state(
     'end',
     style({
-      top: '40%',
+      top: '{{top2}}',
       left: '4%',
-      scale: '1',
-    })
+      scale: '{{scale2}}',
+    }),
+    { params: { scale2: '1', top2: '40%' } }
   ),
   state('visable', style({
     opacity: 1,
@@ -24,6 +27,11 @@ export const introAnimation = trigger('introAnimation', [
   })), state('unvisable', style({
     opacity: 0,
     zIndex: -1
+  })),
+  state('overflow', style({
+    opacity: 1,
+  })), state('overflow-hidden', style({
+    opacity: 0,
   })),
   transition('start => end', [animate('0.5s')]),
   transition('end => start', [animate('0.5s')]),

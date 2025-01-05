@@ -2,28 +2,75 @@
 @import "../../mixin.scss";
 @import "../../globalStyles.scss";
 
-hr{
+app-header {
+  width: 100%;
+  min-height: 128px;
+}
+
+.login-form {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+
+  opacity: 1;
+  padding: 36px 109px;
+  gap: 24px;
+  border-radius: 30px;
+  background: $white;
+  box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+  transition: opacity 1s ease-in-out 500ms;
+}
+
+.input-headline {
+  @include dFlex($fDirection: column, $gap: 16px);
+}
+
+.typo2t1 {
+  font-family: "Inter" !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  line-height: 56.4px !important;
+  font-size: 47px;
+}
+
+hr {
   width: 150px;
   border: 2px solid $lightblue;
   border-radius: 3px;
-
+  
 }
 
-app-header {
+.login {
+  @include dFlex($fDirection: column, $justify: unset, $gap: 32px);
+}
+
+.input-container {
+  width: 422px;
+  height: 51px;
+  position: relative;
+
+  .input-error {
+    color: red;
+    font-size: 0.8em;
+  }
+}
+
+input {
   width: 100%;
-}
+  height: 100%;
+  border-radius: 10px;
+  border: 1px solid #d1d1d1;
+  padding: 13px 21px;
+  outline: none;
 
-h1 {
-  font-size: 71px;
-  font-weight: 700;
-}
-
-::placeholder {
-  font-family: "Inter" !important;
-  font-size: 20px !important;
-  font-style: normal !important;
-  font-weight: 400 !important;
-  line-height: 24px !important;
+  &::placeholder {
+    color: #bdbdbd;
+    font-family: "Inter" !important;
+    font-size: 20px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 24px !important;
+  }
 }
 
 .content-login {
@@ -63,29 +110,17 @@ h1 {
   }
 }
 
-
-
-.form-container {
-  display: flex;
-  justify-content: center;
+.login-img {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.login-form {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  
-  opacity: 1;
-  padding: 36px 109px;
-  gap: 24px;
-  border-radius: 30px;
-  background: $white;
-  box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
-  transition: opacity 1s ease-in-out 500ms;
-}
-
-.input-headline {
-  @include dFlex($fDirection: column, $gap: 16px );
+.login-submit {
+  padding-top: 16px;
+  width: 335px;
+  @include dFlex($fDirection: row, $justify: space-evenly);
 }
 
 button {
@@ -94,67 +129,6 @@ button {
   border-radius: 8px;
   padding: 4px 16px;
   color: #ffffff;
-}
-
-.input-container {
-  width: 422px;
-  height: 51px;
-  position: relative;
-}
-
-input {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  border: 1px solid #d1d1d1;
-  padding: 13px 21px;
-  outline: none;
-
-  &::placeholder {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19px;
-    color: #bdbdbd;
-  }
-}
-
-.login-img {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.login-remember {
-  @include dFlex($fDirection: row,$justify:space-between, $gap: 10px );
-  width: 335px;
-}
-
-.login-chackbox {
-  @include dFlex();
-  width: 146px;
-}
-
-.login-chakbox-insert {
-  width: 50px;
-  height: 18px;
-  padding: 5px 5px;
-}
-
-label {
-  width: 180px;
-}
-
-.login-link {
-  text-decoration: none;
-  color: #29abe2;
-  cursor: pointer;
-}
-
-.login-submit {
-  padding-top: 16px;
-  width: 335px;
-  @include dFlex($fDirection: row,$justify:space-evenly);
 }
 
 .login-guest {
@@ -166,268 +140,7 @@ label {
   padding: 4px 16px;
 }
 
-
-
-@keyframes slideInFromRight {
-  0% {
-    transform: translateX(100%);
-  }
-
-  100% {
-    transform: translateX(0);
-  }
-}
-
-#loginImage {
-  animation: slideInFromRight 1s;
-}
-
-.forgot-password {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  position: relative;
-  width: 826px;
-  padding: 36px 109px;
-  border-radius: 30px;
-  background: $white;
-  box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
-}
-
-.forgot-password h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #2a3647;
-}
-
-.forgot-password-btn {
-  width: 246px;
-  height: 51px;
-
-  &:hover {
-    background-color: #29abe2;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  }
-}
-
-.success-image {
-  display: none;
-  width: 246px;
-  object-fit: cover;
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.show {
-  display: block;
-  opacity: 0;
-}
-
-.new-pw {
-  position: relative;
-  width: 826px;
-  display: inline-flex;
-  padding: 36px 109px;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  border-radius: 30px;
-  background: $white;
-  box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
-
-  h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    color: #2a3647;
-  }
-}
-
-.bg-red {
-  background-color: #d7626246;
-}
-
-.input-error {
-  color: red;
-  font-size: 0.8em;
-}
-
-.login-remember-content {
-  @include dFlex($fDirection: column,$justify:unset, $gap: 32px );
-}
-
-/* overlay-------------------- */
-
-.loginOverlay {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  background-color: $darkblue;
-  opacity: 0;
-  transition: opacity 1s ease-in-out 500ms;
-  z-index: 100;
-}
-
-.loginOverlayMobile {
-  opacity: 0;
-}
-
 /* login responsive----------- */
 
 /* mobile-version */
-@media (max-width: 1000px) {
-  .movedImage {
-    width: 64px !important;
-  }
-
-  .login-form {
-    position: absolute;
-    top: 188px;
-    width: 396px;
-    width: 396px;
-    padding: 32px 0px;
-    gap: 32px;
-  }
-
-  .typo2t1 {
-    font-family: "Inter" !important;
-    font-size: 47px !important;
-    font-style: normal !important;
-    font-weight: 700 !important;
-    line-height: 56.4px !important;
-  }
-
-  .input-container {
-    width: 364px;
-  }
-
-  .login-header {
-    width: auto;
-    top: 778px;
-    left: calc(50% - 124px);
-  }
-
-  .login-header-signup {
-    padding-right: 0px;
-  }
-
-  .indexFooter {
-    bottom: 22px;
-  }
-
-  .login-submit {
-    flex-direction: column;
-    gap: 21px;
-  }
-
-  .btn-login {
-    width: 180px;
-  }
-
-  .login-guest {
-    width: 180px;
-  }
-
-  .login-remember {
-    @include dFlex($aItems: flex-start, $fDirection: column-reverse,$justify:space-between, $gap: 16px );
-    width: 327px;
-    padding: 0px 16px;
-  }
-
-  .login-remember-content {
-    @include dFlex($fDirection: column,$justify:left, $gap: 32px );
-    gap: 32px;
-  }
-  .indexFooter {
-    display: none;
-  }
-}
-
-/* =======SignUpMobile========== */
-@media (max-width: 1000px) {
-  .sign-up-form {
-    width: 70%;
-  }
-
-  .sign-up-form h1 {
-    font-size: 3rem;
-  }
-
-  .forgot-password {
-    width: 70%;
-  }
-
-  .forgot-password h1 {
-    font-size: 3rem;
-  }
-
-  .new-pw {
-    width: 70%;
-  }
-
-  .new-pw h1 {
-    font-size: 3rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .sign-up-form {
-    width: 80%;
-  }
-
-  .sign-up-form h1 {
-    font-size: 2rem;
-  }
-
-  .forgot-password {
-    width: 80%;
-  }
-
-  .forgot-password h1 {
-    font-size: 2rem;
-    text-align: center;
-  }
-
-  .new-pw {
-    width: 80%;
-  }
-
-  .new-pw h1 {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 500px) {
-  .sign-up-form {
-    width: 90%;
-    padding: 36px 30px;
-  }
-
-  .sign-up-form h1 {
-    font-size: 1.5rem;
-  }
-
-  .input-container {
-    width: 100%;
-  }
-
-  .forgot-password {
-    width: 90%;
-    padding: 36px 30px;
-  }
-
-  .forgot-password h1 {
-    font-size: 1.5rem;
-  }
-
-  .new-pw {
-    width: 90%;
-    padding: 36px 30px;
-  }
-
-  .new-pw h1 {
-    font-size: 1.5rem;
-  }
-}
+@import "login.component.mobile.scss";

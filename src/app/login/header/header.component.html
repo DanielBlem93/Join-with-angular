@@ -1,8 +1,17 @@
 <header>
   <div id="img-container" class="img-container">
-    @if(router.url !== '/singUp'){
+    @if(router.url === '/login'){
     <img
-      [@introAnimation]="backGroundAnimation ? 'start' : 'end'"
+      [@introAnimation]="{
+        value: backGroundAnimation ? 'start' : 'end',
+        params: {
+          scale1: responsiveService.isSmallScreen ? 1 : 2.5,
+          scale2: responsiveService.isSmallScreen ? 0.5 : 1,
+          top1: responsiveService.isSmallScreen ? '900%' : '500%',
+          top2: responsiveService.isSmallScreen ? '0%' : '40%',
+          left: responsiveService.isSmallScreen ? '37%' : '47%'
+        }
+      }"
       id="logo-image"
       class="logo-image"
       src="./assets/img/join-logo-gross-dunkel.svg"
@@ -12,19 +21,18 @@
       id="logo-image"
       class="logo-image"
       src="./assets/img/join-logo-gross-dunkel.svg"
-      style="top: 100%"
+
     />
     }
-  </div>
-  <div
+    <div
     *ngIf="router.url !== '/singUp'"
     [@introAnimation]="backGroundAnimation ? 'visable' : 'unvisable'"
     class="animation-background"
   ></div>
-  <div *ngIf="router.url !== '/singUp'" class="login-header-signup">
-    <p>Not a Join user?</p>
-    <button routerLink="/singUp" class="btn-login-singup btnTextStyle">
-      Sign up
-    </button>
   </div>
+
+  <app-not-ajoin-user
+    *ngIf="router.url !== '/singUp' && !responsiveService.isSmallScreen"
+  ></app-not-ajoin-user>
 </header>
+<!-- -->

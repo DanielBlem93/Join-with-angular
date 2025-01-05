@@ -21,6 +21,7 @@ import { HelpersService } from '../../services/helpers.service';
 export class SingUpComponent {
   username: string = '';
   inputPassword: string = '';
+  repeatPassword: string= ''
   inputMail: string = '';
 
 

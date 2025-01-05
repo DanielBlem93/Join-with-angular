@@ -1,0 +1,40 @@
+@media (max-width: 1000px) {
+  app-header {
+    min-height: 128px;
+  }
+
+  .main-container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .login-submit {
+    flex-direction: column;
+    gap: 21px;
+  }
+
+  .btn-login {
+    width: 180px;
+  }
+
+  .login-guest {
+    width: 180px;
+  }
+}
+
+@media (max-width: 720px) {
+
+  .login-form {
+    padding: 32px 32px;
+  }
+  
+  .input-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .login-form {
+    padding: 32px 0px;
+  }
+}
