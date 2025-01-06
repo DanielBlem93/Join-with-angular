@@ -2,7 +2,45 @@
 @import "../../../globalStyles.scss";
 @import "../../../styles.scss";
 
+.main-container {
+  align-items: flex-start;
+  position: relative;
+}
+
+.animation-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  transition: ease-out 500ms;
+  @include dFlex($fDirection: column);
+
+  & span:first-child {
+    font-family: Inter;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 43.2px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+  }
+  & span:last-child {
+    font-family: Inter;
+    font-size: 47px;
+    font-weight: 700;
+    line-height: 56.4px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: $lightblue;
+    
+  }
+}
 .summary-content {
+  transition: ease-in 500ms;
+  padding-top: 89px;
   padding-left: 64px;
   padding-bottom: 64px;
 }
@@ -166,7 +204,7 @@ hr {
 
 /*==============  Mobil  ====================*/
 
-@media (max-width: 1000px) {
+@media (max-width: 1280px) {
   #content-summary {
     width: 100%;
     display: flex;
@@ -174,26 +212,17 @@ hr {
     justify-content: center;
     align-items: center;
   }
-  .sum-content {
-    position: static;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+
   .summary-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding-top: 32px;
+    padding-left: 32px;
+    @include dFlex(flex-start, center, column, 32px);
   }
   .summary-container {
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: center;
-    align-items: center;
+    @include dFlex(flex-end, center, column-reverse, 70px);
     gap: 70px;
   }
+
   .summary-task {
     display: flex;
     flex-direction: column;
@@ -209,7 +238,7 @@ hr {
     font-size: 45px;
   }
 
-  .summary-trenner {
+  hr {
     height: 45px;
   }
 
