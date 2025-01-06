@@ -8,7 +8,7 @@ header {
   @include dFlex($justify: space-between);
   opacity: 1;
   padding: 32px 64px 0px;
-  transition: opacity 1s ease-in-out 500ms;
+
 }
 
 .animation-background {
@@ -18,22 +18,16 @@ header {
   height: 100vh;
   width: 100vw;
   background-color: $background-white;
-  transition: ease-out 1s;
+
 }
 
 .img-container {
   display: flex;
-  opacity: 1;
   width: 100px;
-  transition: width 1s ease-in-out 500ms, top 1s ease-in-out 500ms,
-    left 1s ease-in-out 500ms;
-  #logo-image {
+
+  .logo-image {
     position: absolute;
-    top: 40%;
-    left: 4%;
     width: 100px;
-    transition: width 1s ease-in-out 500ms;
-    opacity: 1;
     z-index: 2;
   }
 }

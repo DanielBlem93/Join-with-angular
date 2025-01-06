@@ -5,34 +5,28 @@ export const introAnimation = trigger('introAnimation', [
   state(
     'start',
     style({
-
-      top: '{{top1}}',
       left: '{{left}}',
-      scale: '{{scale1}}',
+      transform: 'scale({{scale1}}) translateY({{translateY1}})',
     }),
-    { params: { scale1: '2.5', top1:'500%', left:'47%' } }
+    { params: { scale1: '2.5', left: '47%', translateY1: '50%' } }
   ),
   state(
     'end',
     style({
-      top: '{{top2}}',
       left: '4%',
-      scale: '{{scale2}}',
+      transform: 'scale({{scale2}}) translateY({{translateY2}})',
     }),
-    { params: { scale2: '1', top2: '40%' } }
+    { params: { scale2: '1', top2: '0%', translateY2: '40%' } }
   ),
   state('visable', style({
     opacity: 1,
     zIndex: 1,
-  })), state('unvisable', style({
+  })), 
+  state('unvisable', style({
     opacity: 0,
     zIndex: -1
   })),
-  state('overflow', style({
-    opacity: 1,
-  })), state('overflow-hidden', style({
-    opacity: 0,
-  })),
+
   transition('start => end', [animate('0.5s')]),
   transition('end => start', [animate('0.5s')]),
   transition('visable => unvisable', [animate('0.5s')]),
