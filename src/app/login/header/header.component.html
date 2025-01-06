@@ -1,36 +1,38 @@
-<header>
-  <div id="img-container" class="img-container">
-    @if(router.url === '/login'){
-    <img
-      [@introAnimation]="{
-        value: backGroundAnimation ? 'start' : 'end',
-        params: {
-          scale1: 2.5,
-          scale2:  1,
-          left: responsiveService.isSmallScreen ? '40%' : '47%',
-          translateY1: responsiveService.isSmallScreen ? '200%' : '100%',
-          translateY2: responsiveService.isSmallScreen ? '0%' : '-25%',
-        }
-      }"
-      id="logo-image"
-      class="logo-image"
-      src="./assets/img/join-logo-gross-dunkel.svg"
-    />
-    }@else {
-    <img
-      id="logo-image"
-      class="logo-image"
-      src="./assets/img/join-logo-gross-dunkel.svg"
-    />
+@if (router.url == '/login') {
+<img
+  [@introAnimation]="{
+    value: backGroundAnimation ? 'start' : 'end',
+    params: {
+      leftEnd: responsiveService.isSmallScreen ? '15%' : '5%',
+      widthStart: responsiveService.isSmallScreen ? '120px' : '274px',
+      widthEnd: responsiveService.isSmallScreen ? '60px' : '100px',
     }
-    <div
-      *ngIf="router.url !== '/singUp'"
-      [@introAnimation]="backGroundAnimation ? 'visable' : 'unvisable'"
-      class="animation-background"
-    ></div>
-  </div>
+  }"
+  class="logo-image"
+  src="./assets/img/join-logo-gross-dunkel.svg"
+/>
+}@else {
+<img class="logo-image-singup" src="./assets/img/join-logo-gross-dunkel.svg" />
+}
+
+<header>
+  <div
+    *ngIf="router.url !== '/singUp'"
+    [@introAnimation]="backGroundAnimation ? 'visable' : 'unvisable'"
+    class="animation-background"
+  ></div>
 
   <app-not-ajoin-user
     *ngIf="router.url !== '/singUp' && !responsiveService.isSmallScreen"
   ></app-not-ajoin-user>
 </header>
+<!-- [@introAnimation]="{
+  value: backGroundAnimation ? 'start' : 'end',
+  params: {
+    scale1: 2.5,
+    scale2:  1,
+    left: responsiveService.isSmallScreen ? '40%' : '47%',
+    translateY1: responsiveService.isSmallScreen ? '200%' : '100%',
+    translateY2: responsiveService.isSmallScreen ? '0%' : '-25%',
+  }
+}" -->

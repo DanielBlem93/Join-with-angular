@@ -25,7 +25,9 @@ export class SummaryComponent implements OnInit {
   todoCounter: number = 0;
   doneCounter: number = 0;
 
-  constructor(private fireService: FirebaseService, public authService: AuthenticationService) {
+  constructor(
+    private fireService: FirebaseService, 
+    public authService: AuthenticationService) {
 
   }
   ngOnInit(): void {
@@ -70,7 +72,7 @@ export class SummaryComponent implements OnInit {
 
   }
 
-  
+
   async countStatus(data: Tasks) {
     switch (data['status']) {
       case 'in-progress':

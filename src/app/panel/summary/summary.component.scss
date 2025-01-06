@@ -2,25 +2,38 @@
 @import "../../../globalStyles.scss";
 @import "../../../styles.scss";
 
-.sum-content {
-  position: relative;
-  z-index: -2;
-}
 .summary-content {
-padding-left: 64px;
-padding-bottom: 64px;
+  padding-left: 64px;
+  padding-bottom: 64px;
 }
-h1 {
-  font-size: 61px;
-  font-weight: 700;
-  line-height: 73px;
-}
+
 .summary-haeder {
   @include dFlex(center, space-between);
-  width: 679px;
+  width: 60%;
   height: 73px;
-  margin: 60px;
+  margin-bottom: 60px;
+
+  h1 {
+    font-size: 61px;
+    font-weight: 700;
+    line-height: 73px;
+  }
 }
+
+hr {
+  background-color: #29abe2;
+  height: 59px;
+  width: 3px;
+  border: none;
+  border-radius: 2px;
+}
+
+.summary-p {
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 30px;
+}
+
 .summary-container {
   @include dFlex($fDirection: row, $gap: 70px);
 }
@@ -30,30 +43,18 @@ h1 {
   flex-direction: column;
   gap: 20px;
 }
-.summary-h1 {
-  font-size: 61px;
-}
-.summary-trenner {
-  background-color: #29abe2;
-  height: 59px;
-  width: 3px;
-  border: none;
-  border-radius: 2px;
-}
-.summary-p {
-  font-size: 21px;
-  font-weight: 400;
-  line-height: 30px;
-}
+
 .summary-tasks {
   @include dFlex(center, space-between);
   width: 560px;
   height: 170px;
   border-radius: 20px;
+
+  h1 {
+    font-size: 61px;
+  }
 }
-.summary-tasks h1 {
-  font-size: 61px;
-}
+
 .summary-task {
   @include dFlex(center, center, column, 10px);
   cursor: pointer;
@@ -61,13 +62,14 @@ h1 {
   height: 168px;
   background-color: #ffffff;
   border-radius: 20px;
-  transition: 0.3s ease-in-out;
-}
-div.summary-task:hover {
-  background-color: #2a3647;
-  color: #ffffff;
-  transform: scale(1.03);
-  cursor: pointer;
+  transition: 0.125s ease-in-out;
+
+  &:hover {
+    background-color: #2a3647;
+    color: #ffffff;
+    transform: scale(1.03);
+    cursor: pointer;
+  }
 }
 
 .summary-date {
@@ -76,13 +78,14 @@ div.summary-task:hover {
   border-radius: 20px;
   background-color: #ffffff;
   @include dFlex(center, space-evenly, row);
-  transition: 0.3s ease-in-out;
-}
-.summary-date:hover {
-  background-color: #2a3647;
-  color: #ffffff;
-  transform: scale(1.03);
-  cursor: pointer;
+  transition: 0.125s ease-in-out;
+
+  &:hover {
+    background-color: #2a3647;
+    color: #ffffff;
+    transform: scale(1.03);
+    cursor: pointer;
+  }
 }
 
 .summary-icon-urgent {
@@ -93,6 +96,11 @@ div.summary-task:hover {
   border-radius: 50%;
   padding: 10px;
 }
+
+.summary-display {
+  @include dFlex($fDirection: column);
+}
+
 .summary-date-hr {
   width: 3px;
   height: 60px;
@@ -113,14 +121,16 @@ div.summary-task:hover {
   height: 168px;
   background-color: #ffffff;
   border-radius: 20px;
-  transition: 0.3s ease-in-out;
+  transition: 0.125s ease-in-out;
+
+  &:hover {
+    background-color: #2a3647;
+    color: #ffffff;
+    transform: scale(1.03);
+    cursor: pointer;
+  }
 }
-.summary-todo:hover {
-  background-color: #2a3647;
-  color: #ffffff;
-  transform: scale(1.03);
-  cursor: pointer;
-}
+
 .summary-todo-icon {
   width: 60px;
   height: 60px;
@@ -129,37 +139,29 @@ div.summary-task:hover {
   @include dFlex();
   padding: 10px;
 }
-.summary-todo-icon-stift {
+
+.summary-todo-icon-pen {
   width: 40px;
   height: 40px;
 }
-.summary-display {
-  @include dFlex($fDirection: column);
-}
 
 .summary-greeting {
-
   @include dFlex(unset, flex-start, column, 30px);
-}
-.summary-greeting-p {
-  font-size: 47px;
-}
-.summary-greeting-h2 {
-  font-size: 67px;
-  font-weight: 700;
-  line-height: 30px;
-  color: #29abe2;
+
+  h2 {
+    font-size: 67px;
+    font-weight: 700;
+    line-height: 30px;
+    color: #29abe2;
+  }
+
+  p {
+    font-size: 47px;
+  }
 }
 
 #temp-summary {
   background-color: $background-dark-active;
-}
-#temp-summary p {
-  color: white;
-}
-
-#summary-icon-img-hover {
-  display: unset;
 }
 
 /*==============  Mobil  ====================*/
@@ -369,9 +371,7 @@ div.summary-task:hover {
   .summary-data p {
     font-size: 10px;
   }
-  #urgent-date {
-    font-size: 10px;
-  }
+
   p {
     font-size: 10px;
   }

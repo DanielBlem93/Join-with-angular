@@ -1,9 +1,9 @@
 <div class="main-container">
   <div class="summary-content">
     <div class="summary-haeder">
-      <h1 class="summary-h1">Summary</h1>
-      <hr class="summary-trenner" />
-      <p class="summary-p">Everything in a nutshell!</p>
+      <h1 class="summary-h1">Join 360</h1>
+      <hr />
+      <p class="summary-p">Key Metrics at a Glance</p>
     </div>
     <div class="summary-container">
       <div class="summary-body">
@@ -26,12 +26,12 @@
             <img src="./assets/img/urgent.svg" alt="" />
           </div>
           <div class="summary-display">
-            <h1 id="task-urgent">{{ urgentCounter }}</h1>
+            <h1>{{ urgentCounter }}</h1>
             <p>Urgent</p>
           </div>
           <hr class="summary-date-hr" />
           <div>
-            <h2 id="urgent-date">December 31, 2026</h2>
+            <h2>December 31, 2026</h2>
             <p>Upcoming Deadline</p>
           </div>
         </div>
@@ -39,13 +39,13 @@
           <div routerLink="/panel/board" class="summary-todo">
             <div class="summary-todo-icon">
               <img
-                class="summary-todo-icon-stift"
+                class="summary-todo-icon-pen"
                 src="./assets/img/stift.svg"
                 alt=""
               />
             </div>
             <div class="summary-display">
-              <h1 id="task-todo">{{ todoCounter }}</h1>
+              <h1>{{ todoCounter }}</h1>
               <p>Todo</p>
             </div>
           </div>
@@ -54,15 +54,17 @@
               <img src="./assets/img/chack.svg" alt="" />
             </div>
             <div class="summary-display">
-              <h1 id="task-done">{{ doneCounter }}</h1>
+              <h1>{{ doneCounter }}</h1>
               <p>Done</p>
             </div>
           </div>
         </div>
       </div>
-      <div id="summary-greeting" class="summary-greeting">
-        <p id="greeting" class="summary-greeting-p">{{ generateGreeting() }}</p>
-        <h2 id="summaryGreetingName" class="summary-greeting-h2">{{authService.auth.currentUser?.displayName || ''}}</h2>
+      <div class="summary-greeting">
+        <p>{{ generateGreeting() }}</p>
+        <h2>
+          {{ authService.auth.currentUser?.displayName || "" }}
+        </h2>
       </div>
     </div>
   </div>

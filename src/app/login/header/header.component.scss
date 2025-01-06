@@ -5,10 +5,9 @@
 
 header {
   position: relative;
-  @include dFlex($justify: space-between);
+  @include dFlex($justify: flex-end);
   opacity: 1;
   padding: 32px 64px 0px;
-
 }
 
 .animation-background {
@@ -18,28 +17,43 @@ header {
   height: 100vh;
   width: 100vw;
   background-color: $background-white;
-
 }
 
-.img-container {
-  display: flex;
-  width: 100px;
+.logo-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  transition: ease-out 500ms;
+}
 
-  .logo-image {
-    position: absolute;
-    width: 100px;
-    z-index: 2;
-  }
+.logo-image-singup {
+  position: absolute;
+  width: 100px;
+  left: 5%;
+  top: 10%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  transition: ease-out 500ms;
+}
+
+.relative-container {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 @media (max-width: 1000px) {
-  .img-container {
-    .logo-image {
-      scale: 0.5;
-    }
+  header {
+    padding: 0;
   }
 
-  header{
-    padding: 0;
+  .logo-image-singup {
+    position: sticky;
+    width: 60px;
+    left: 15%;
   }
 }

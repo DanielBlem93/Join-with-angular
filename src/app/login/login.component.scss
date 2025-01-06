@@ -7,6 +7,10 @@ app-header {
   min-height: 128px;
 }
 
+.main-container {
+  position: relative;
+}
+
 .login-form {
   display: inline-flex;
   flex-direction: column;
@@ -37,7 +41,6 @@ hr {
   width: 150px;
   border: 2px solid $lightblue;
   border-radius: 3px;
-  
 }
 
 .login {
