@@ -16,6 +16,7 @@
   z-index: 2;
   transition: ease-out 500ms;
   @include dFlex($fDirection: column);
+  background-color: $background-white;
 
   & span:first-child {
     font-family: Inter;
@@ -35,7 +36,6 @@
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     color: $lightblue;
-    
   }
 }
 .summary-content {
@@ -260,12 +260,11 @@ hr {
   }
   .summary-haeder {
     width: 400px;
+    h1 {
+      font-size: 38px;
+    }
   }
-  .summary-h1 {
-    font-size: 38px;
-  }
-
-  .summary-trenner {
+  hr {
     height: 38px;
   }
 

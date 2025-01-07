@@ -2,104 +2,183 @@
 @import "../../../globalStyles.scss";
 @import "../../../styles.scss";
 
-
-
-
-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 232px;
-    height: 100vh;
-    /* padding: 66px 20px 66px 20px; */
-    gap: 103px;
-    background-color: $background-dark;
-    box-shadow: 0px 0px 4px 0px #0000001A;
-    z-index: 112;
+.nav-mobile {
+  display: none;
 }
 
-nav>img {
+.nav-desktop {
+  @include dFlex(center, unset, column);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 232px;
+  height: 100vh;
+  /* padding: 66px 20px 66px 20px; */
+  gap: 103px;
+  background-color: $background-dark;
+  box-shadow: 0px 0px 4px 0px #0000001a;
+  z-index: 112;
+
+  & > img {
     margin-top: 66px;
     width: 100px;
     height: 121px;
-}
+  }
 
-#temp-reiter-container {
+  & #temp-reiter-container {
     display: flex;
     flex-direction: column;
     gap: 16px;
     width: 100%;
+  }
 }
 
 .temp-reiter-links {
-    width: 150px;
-    height: 50px;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    color: $font-color-not-active;
-    display: flex;
-    gap: 10px;
+  @include dFlex(center, left, unset, 10px);
+  width: 150px;
+  height: 50px;
+  color: $font-color-not-active;
 }
 
 .temp-reiter {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
+  @include dFlex(center, center, unset);
+  width: 100%;
+  cursor: pointer;
 
-.temp-reiter:hover {
+  &:hover {
     background-color: $background-dark-hover;
+  }
 }
 
 .temp-reiter:hover .temp-icon-hover-img {
-    display: unset;
+  display: unset;
 }
 
 .temp-reiter:hover .temp-reiter-links {
-    color: white;
+  color: white;
 }
 
 .temp-icon-imgs {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 .temp-icon-hover-img {
-    display: none;
-    z-index: 2;
-    position: absolute;
+  display: none;
+  z-index: 2;
+  position: absolute;
 }
 
 #impressum-container {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    width: 100%;
+  @include dFlex(unset, unset, column, 30px);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
 }
 
 #legal-notice-img {
-    width: 25px;
-    height: 25px;
+  width: 25px;
+  height: 25px;
 }
 
 .content {
+  display: flex;
+  position: absolute;
+  top: 89px;
+  left: 232px;
+  z-index: 2;
+}
+
+.activeLink {
+  background-color: $background-dark-active;
+}
+
+@media (max-width: 1024px) {
+  .nav-desktop {
+    display: none;
+  }
+  .nav-mobile {
+    @include dFlex(center, space-evenly, row);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 89px;
+    background-color: $background-dark;
+    box-shadow: 0px 4px 4px 0px #0000001a;
+    z-index: 112;
+
+    .nav-mobile-reiter {
+      width: 80px;
+      height: 76px;
+      padding: 8px 0px 8px 0px;
+      gap: 10px;
+      border-radius: 16px;
+
+      cursor: pointer;
+
+      &:hover {
+        background-color: $background-dark-active;
+      }
+
+      p {
+        color: $font-color-not-active;
+      }
+    }
+  }
+  header > div > span {
+    display: none;
+  }
+
+  .logo-img-mobile {
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-right: 120px;
+  }
+
+  .logo-img-mobile img {
+    width: 100%;
+    height: 100%;
+    margin-left: 20px;
+  }
+
+  #temp-header-container {
+    @include dFlex(center, flex-end);
+  }
+
+  #logout {
+    right: 40px;
+  }
+
+  .content {
     position: absolute;
-    top: 89px;
-    left: 232px;
+    top: 0;
+    left: 0;
     display: flex;
     z-index: 2;
-}
+  }
 
-.nav-mobile-container {
-    display: none;
-}
-
-.activeLink{
+  .nav-mobile-reiter {
+    @include dFlex(center, center, column, 5px);
+    color: $font-color-not-active;
+  }
+  .active {
+    height: 80px;
+    width: 80px;
+    border-radius: 10px;
     background-color: $background-dark-active;
+  }
+}
+
+@media (max-width: 700px) {
+  .nav-mobile-reiter {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    p {
+      font-size: 10px;
+    }
+  }
 }

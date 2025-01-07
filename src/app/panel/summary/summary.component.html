@@ -10,13 +10,7 @@
     <span>{{ authService.auth.currentUser?.displayName || "" }}</span>
   </div>
 
-  <div
-    [class.opacity]="!responsiveService.isSmallScreen"
-    [@introAnimation]="{
-    value: animationPlayed ? 'visable' : 'unvisable',
-  }"
-    class="summary-content"
-  >
+  <div class="summary-content">
     <div class="summary-haeder">
       <h1 class="summary-h1">Join 360</h1>
       <hr />

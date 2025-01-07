@@ -9,3 +9,13 @@
   padding-left: 232px;
   padding-top: 90px;
 }
+
+@media(max-width:1024px){
+  .content-container {
+    @include dFlex(flex-end, center);
+    padding-top: 81px;
+    padding-left: 0px;
+
+  }
+  
+}

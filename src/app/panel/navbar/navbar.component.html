@@ -1,4 +1,4 @@
-<nav>
+<nav class="nav-desktop">
   <img src="./assets/img/Join logo vector.svg" alt="" />
 
   <div id="temp-reiter-container">
@@ -108,5 +108,42 @@
         <p>Legal notice</p>
       </div>
     </div>
+  </div>
+</nav>
+
+<!-- Mobile version -->
+
+<nav class="nav-mobile">
+  <div
+    class="nav-mobile-reiter"
+    [class.activeLink]="router.url === '/panel/summary'"
+    routerLink="/panel/summary"
+  >
+    <img src="./assets/img/summary.png" />
+    <p>Summary</p>
+  </div>
+  <div
+    class="nav-mobile-reiter"
+    [class.activeLink]="router.url === '/panel/board'"
+    routerLink="/panel/board"
+  >
+    <img src="./assets/img/Board.png" alt="" />
+    <p>Board</p>
+  </div>
+  <div
+    class="nav-mobile-reiter"
+    [class.activeLink]="router.url === '/panel/add-task'"
+    routerLink="/panel/add-task"
+  >
+    <img src="./assets/img/Add Task.png" alt="" />
+    <p>Add Task</p>
+  </div>
+  <div
+    class="nav-mobile-reiter"
+    [class.activeLink]="router.url === '/panel/contacts'"
+    routerLink="/panel/contacts"
+  >
+    <img src="./assets/img/contacts.png" alt="" />
+    <p>Contacts</p>
   </div>
 </nav>
