@@ -5,9 +5,11 @@
 .main-container {
   align-items: flex-start;
   position: relative;
+  overflow: hidden;
 }
 
 .animation-container {
+  @include dFlex($fDirection: column);
   position: absolute;
   top: 0;
   left: 0;
@@ -15,7 +17,6 @@
   height: 100%;
   z-index: 2;
   transition: ease-out 500ms;
-  @include dFlex($fDirection: column);
   background-color: $background-white;
 
   & span:first-child {
@@ -24,8 +25,6 @@
     font-weight: 400;
     line-height: 43.2px;
     text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
   }
   & span:last-child {
     font-family: Inter;
@@ -33,8 +32,6 @@
     font-weight: 700;
     line-height: 56.4px;
     text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
     color: $lightblue;
   }
 }
@@ -43,6 +40,10 @@
   padding-top: 89px;
   padding-left: 64px;
   padding-bottom: 64px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .summary-haeder {
@@ -79,13 +80,12 @@ hr {
 .summary-body {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 .summary-tasks {
   @include dFlex(center, space-between);
   width: 560px;
-  height: 170px;
   border-radius: 20px;
 
   h1 {
@@ -150,7 +150,6 @@ hr {
 .summary-todos {
   @include dFlex(center, space-between, row);
   width: 560px;
-  height: 170px;
 }
 
 .summary-todo {
@@ -202,260 +201,4 @@ hr {
   background-color: $background-dark-active;
 }
 
-/*==============  Mobil  ====================*/
-
-@media (max-width: 1280px) {
-  #content-summary {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .summary-content {
-    padding-top: 32px;
-    padding-left: 32px;
-    @include dFlex(flex-start, center, column, 32px);
-  }
-  .summary-container {
-    @include dFlex(flex-end, center, column-reverse, 70px);
-    gap: 70px;
-  }
-
-  .summary-task {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    align-content: flex-start;
-  }
-  .summary-haeder {
-    width: 500px;
-    margin-bottom: 10px;
-  }
-  .summary-h1 {
-    font-size: 45px;
-  }
-
-  hr {
-    height: 45px;
-  }
-
-  .summary-p {
-    font-size: 18px;
-    line-height: 26px;
-  }
-}
-
-@media (max-width: 786px) {
-  .summary-body {
-    gap: 10px;
-  }
-  h1 {
-    line-height: inherit;
-  }
-  .summary-greeting {
-    display: none;
-  }
-  .summary-haeder {
-    width: 400px;
-    h1 {
-      font-size: 38px;
-    }
-  }
-  hr {
-    height: 38px;
-  }
-
-  .summary-p {
-    font-size: 16px;
-    line-height: 23px;
-  }
-  .summary-tasks {
-    width: 400px;
-    height: 120px;
-    align-content: flex-start;
-  }
-  .summary-task {
-    width: 120px;
-    height: 120px;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: center;
-  }
-  .summary-tasks h1 {
-    font-size: 30px;
-    margin-top: 10px;
-  }
-  .summary-tasks p {
-    font-size: 14px;
-  }
-  .summary-date {
-    width: 400px;
-    height: 120px;
-  }
-  .summary-icon-urgent img {
-    width: 30px;
-    height: 30px;
-  }
-  .summary-display h1 {
-    font-size: 30px;
-  }
-  .summary-display h2 {
-    font-size: 20px;
-  }
-  .summary-display p {
-    font-size: 14px;
-  }
-  .summary-data h1 {
-    font-size: 30px;
-  }
-  .summary-data p {
-    font-size: 14px;
-  }
-  .summary-date-hr {
-    height: 40px;
-  }
-  .summary-todos {
-    width: 400px;
-  }
-  .summary-todo {
-    width: 180px;
-    height: 120px;
-  }
-  .summary-todo-icon {
-    width: 40px;
-    height: 40px;
-  }
-  .summary-todo-icon img {
-    width: 30px;
-    height: 30px;
-  }
-  .summary-todo-icon-stift {
-    width: 30px;
-    height: 30px;
-  }
-  .summary-icon-urgent {
-    width: 40px;
-    height: 40px;
-  }
-}
-
-@media (max-width: 480px) {
-  .summary-body {
-    padding: 20px;
-  }
-  .summary-haeder {
-    width: 100%;
-    justify-content: space-evenly;
-    margin-bottom: -10px;
-  }
-  .summary-h1 {
-    font-size: 20px;
-  }
-
-  .summary-trenner {
-    height: 20px;
-  }
-
-  .summary-p {
-    font-size: 14px;
-    line-height: 10px;
-  }
-  .summary-tasks {
-    width: 320px;
-  }
-  .summary-task {
-    width: 80px;
-    height: 80px;
-  }
-  .summary-tasks h1 {
-    font-size: 20px;
-  }
-  .summary-tasks p {
-    font-size: 10px;
-  }
-  .summary-icon-urgent img {
-    width: 20px;
-    height: 20px;
-  }
-  .summary-date {
-    width: 320px;
-    height: 80px;
-  }
-  .summary-display h1 {
-    font-size: 20px;
-  }
-  .summary-display h2 {
-    font-size: 10px;
-  }
-  .summary-display p {
-    font-size: 10px;
-  }
-  .summary-data h1 {
-    font-size: 20px;
-  }
-  .summary-data p {
-    font-size: 10px;
-  }
-
-  p {
-    font-size: 10px;
-  }
-  .summary-date-hr {
-    height: 20px;
-  }
-  .summary-todos {
-    width: 320px;
-    height: 120px;
-  }
-  .summary-todo {
-    width: 120px;
-    height: 80px;
-  }
-  .summary-todo-icon {
-    width: 30px;
-    height: 30px;
-  }
-  .summary-todo-icon img {
-    width: 20px;
-    height: 20px;
-  }
-  .summary-todo-icon-stift {
-    width: 20px;
-    height: 20px;
-  }
-  .summary-icon-urgent {
-    width: 30px;
-    height: 30px;
-  }
-  .summary-greeting-p {
-    font-size: 30px;
-  }
-  .summary-greeting-h2 {
-    font-size: 40px;
-  }
-  .summary-greeting-h1 {
-    font-size: 40px;
-  }
-  .summary-greeting-h3 {
-    font-size: 30px;
-  }
-}
-
-@media (max-width: 320px) {
-  .summary-trenner {
-    height: 20px;
-  }
-  .summary-tasks {
-    width: 280px;
-  }
-  .summary-date {
-    width: 280px;
-  }
-  .summary-todos {
-    width: 280px;
-    height: 100px;
-  }
-}
+@import './summary.component.mobile.scss'

@@ -183,3 +183,15 @@ app-msg-box{
   transform: translate(-50%, -50%);
   z-index: 9999;
 }
+@media(max-width:1024px){
+  .main-container{
+    justify-content: center;
+  }
+
+
+
+
+}
+
+
+
