@@ -2,7 +2,7 @@
 @import "../../../globalStyles.scss";
 @import "../../../styles.scss";
 
-.main-container{
+.main-container {
   justify-content: flex-start;
 }
 
@@ -20,25 +20,27 @@
   width: 90%;
   height: 160px;
   margin-top: 128px;
+  h1 {
+    font-size: 61px;
+    font-weight: 700;
+  }
 }
 
-.board-header h1 {
-  font-size: 61px;
-  font-weight: 700;
-}
-
-.board-header-search {
+.board-header .board-header-search {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  gap: 24px;
 }
 
-app-task-modal{
+app-task-modal {
   position: absolute;
 }
 
 .input-container {
   height: 51px;
   position: relative;
+  width: 368px;
 }
 
 #searchInput {
@@ -84,11 +86,8 @@ app-task-modal{
   color: #ffffff;
   font-size: 16px;
   font-weight: 600;
-  margin-left: 20px;
   cursor: pointer;
 }
-
-
 
 /*======Shows active site=====  */
 #temp-board {
@@ -135,102 +134,99 @@ app-task-modal{
   z-index: 333;
 }
 
-app-task-modal{
+app-task-modal {
   @include dFlex(center, center);
 }
 
 /* ==============Add Task Popup ================ */
 .dropdown-assinged-to {
-    overflow: auto;
-    height: 250px;
-  }
-  
-  #addTaskPopup {
-      @include dFlex(center, center);
-    position: fixed;
-    margin-left: auto;
-    margin-right: auto;
-    opacity: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    transition: 125ms ease-in;
-    transform: translateX(3000px);
-  }
-  
-  .popupAnimation {
-    transform: translateX(0px) !important;
-  }
-  
-  #addTaskPopupContainer {
-    @include dFlex(center, center);
-    position: relative;
-    width: 70%;
-    height: 90%;
-    background-color: $background-white;
-    border-radius: 20px;
-    opacity: 0;
-  }
-  
-  .headline-container {
-    position: relative;
-  }
-  
+  overflow: auto;
+  height: 250px;
+}
 
-  
-  .platzhalter {
-    width: 100%;
-    height: 100%;
-    background-color: $background-dark-active;
-    border-radius: 20px;
-  }
-  
-  .add-task-button {
-    margin-left: 0 !important;
-    background-color: $white;
-  }
-  
-  .typography2T6 {
-    padding: 0;
-  }
-  
-  .typography2T6::placeholder {
-    font-size: 20px;
-  }
-  
-  #description::placeholder {
-    font-size: 20px;
-    opacity: 0.5;
-  }
-  
-  .chegeCategory {
-    display: none;
-  }
-  .chegeCategory img {
-    width: 25px;
-    height: 20px;
-  }
-  
-  /* Highlight */
-  
-  .nextPosition {
-    color: $background-white;
-    width: 100%;
-    height: 200px;
-    margin-top: 16px;
-    border-radius: 10px;
-    background-color: $background-white;
-    border: 5px solid $icon;
-  }
-  
-  .emptyFrame {
-    position: absolute;
-    top: 32px;
-    left: 0px;
-  }
-  
+#addTaskPopup {
+  @include dFlex(center, center);
+  position: fixed;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  transition: 125ms ease-in;
+  transform: translateX(3000px);
+}
+
+.popupAnimation {
+  transform: translateX(0px) !important;
+}
+
+#addTaskPopupContainer {
+  @include dFlex(center, center);
+  position: relative;
+  width: 70%;
+  height: 90%;
+  background-color: $background-white;
+  border-radius: 20px;
+  opacity: 0;
+}
+
+.headline-container {
+  position: relative;
+}
+
+.platzhalter {
+  width: 100%;
+  height: 100%;
+  background-color: $background-dark-active;
+  border-radius: 20px;
+}
+
+.add-task-button {
+  margin-left: 0 !important;
+  background-color: $white;
+}
+
+.typography2T6 {
+  padding: 0;
+}
+
+.typography2T6::placeholder {
+  font-size: 20px;
+}
+
+#description::placeholder {
+  font-size: 20px;
+  opacity: 0.5;
+}
+
+.chegeCategory {
+  display: none;
+}
+.chegeCategory img {
+  width: 25px;
+  height: 20px;
+}
+
+/* Highlight */
+
+.nextPosition {
+  color: $background-white;
+  width: 100%;
+  height: 200px;
+  margin-top: 16px;
+  border-radius: 10px;
+  background-color: $background-white;
+  border: 5px solid $icon;
+}
+
+.emptyFrame {
+  position: absolute;
+  top: 32px;
+  left: 0px;
+}
 
 /* ==================RESPONSIVE=========================== */
 @media (max-width: 1450px) {
@@ -247,7 +243,7 @@ app-task-modal{
   }
 
   .board-header {
-    align-self: flex-end;
+    align-self: flex-start;
   }
 }
 
@@ -280,10 +276,14 @@ app-task-modal{
     align-items: flex-start;
     gap: 20px;
     height: 250px;
+    width: 100%;
   }
 }
 
 @media (max-width: 1024px) {
+  .board-content {
+    width: 95%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -295,16 +295,9 @@ app-task-modal{
     width: 280px;
   }
 
-  .board-body-container {
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
   h3 {
     font-size: 1rem;
   }
-
-
 
   .editTodoBox {
     width: 100%;
@@ -328,8 +321,6 @@ app-task-modal{
     justify-content: center;
   }
 
-
-
   .drag-area {
     height: auto;
     flex-basis: 100%;
@@ -341,7 +332,7 @@ app-task-modal{
   }
 
   .board-header h1 {
-    margin-bottom: -80px;
+
   }
 
   #btn-add-board {

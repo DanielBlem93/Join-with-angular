@@ -61,7 +61,7 @@ firebaseApp = initializeApp({
       this.helpers.redirectTo('/panel/summary', 3000)
 
     } else {
-      this.helpers.redirectTo('/panel/summary', 0)
+      this.helpers.redirectTo('/panel/board', 0)
     }
   }
 

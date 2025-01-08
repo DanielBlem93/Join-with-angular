@@ -2,31 +2,91 @@
 @import "../../../../globalStyles.scss";
 @import "../../../../styles.scss";
 
-#kanban-board {
-  @include dFlex(flex-start, unset, row, 50px);
-    width: 100%;
-    height: 100%;
-    padding-bottom: 32px;
-  }
-  
-  #kanban-board::-webkit-scrollbar {
+.cdk-drag {
+  height: 100%;
+  &::-webkit-scrollbar {
     display: none;
   }
-  
-  .board-body-container {
-    @include dFlex(center, unset, row, 50px);
-    width: 80%;
-  }
-  
-  .board-body-haeder {
-    @include dFlex(unset, space-between, row);
-    width: 260px;
-  }
-  
+}
+
+#kanban-board {
+  @include dFlex(flex-start, unset, row, 50px);
+  width: 100%;
+  height: 100%;
+  padding-bottom: 32px;
+}
+
+#kanban-board::-webkit-scrollbar {
+  display: none;
+}
+
+.board-body-container {
+  @include dFlex(center, unset, row, 50px);
+  width: 80%;
+}
+
+.board-body-header {
+  @include dFlex(unset, space-between, row);
+  width: 100%;
+}
 
 .drag-area {
-    position: relative;
-height: 100%;
-    width: 250px;
+  position: relative;
+  width: 250px;
+  min-height: 320px;
+}
+
+.column {
+  position: relative;
+  width: 250px;
+  min-height: 320px;
+}
+
+@media (max-width: 1024px) {
+  #kanban-board {
+    flex-wrap: wrap;
   }
-  
+  .board-body {
+    padding: 0;
+  }
+  .drag-area {
+    padding-bottom: 64px;
+  }
+
+  .drag-area {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    &::-webkit-scrollbar {
+      height: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $background-grey-hover;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $background-dark-hover;
+      border-radius: 3px;
+    }
+  }
+
+  #kanban-board {
+    @include dFlex(flex-start, unset, row, 50px);
+    width: 100%;
+    height: 100%;
+    padding-bottom: 90px;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 600px) {
+  .board-body {
+    width: 100%;
+  }
+  .drag-area {
+    width: 100%;
+  }
+}

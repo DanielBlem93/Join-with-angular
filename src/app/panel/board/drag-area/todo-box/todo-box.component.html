@@ -1,20 +1,20 @@
 <div class="todo-box" draggable="true">
-  <!-- <div class="chegeCategory">
-  <img
-    id="up"
-    onclick="upCategory(event, 3)"
-    src="./assets/img/up.png"
-    style="display: none"
-  />
-  <br />
-  <img
-    id="down"
-    onclick="downCategory(event, 3)"
-    src="./assets/img/down.png"
-    style="display: block"
-  />
-</div> -->
-  <div
+  <div class="chegeCategory">
+    <img
+      *ngIf="task.status !== 'todo'"
+      id="up"
+      (click)="changeStatus($event, 'up')"
+      src="./assets/img/up.png"
+    />
+    <br />
+    <img
+      *ngIf="task.status !== 'done'"
+      id="down"
+      (click)="changeStatus($event, 'down')"
+      src="./assets/img/down.png"
+    />
+  </div>
+  <div (click)="helpers.toggleShowTask(task)"
     id="todoBoxHeader3"
     class="todo-box-header"
     [style]="{ backgroundColor: task.categoryColor }"
@@ -22,18 +22,18 @@
     <h4>{{ task.category }}</h4>
   </div>
 
-  <div class="todo-box-title">
+  <div (click)="helpers.toggleShowTask(task)" class="todo-box-title">
     <h3>{{ task.title }}</h3>
   </div>
 
-  <div class="todo-box-body">
+  <div (click)="helpers.toggleShowTask(task)" class="todo-box-body">
     <p>{{ task.description }}</p>
   </div>
-  <div>
-    <div class="todo-box-progress">
+  <div >
+    <div (click)="helpers.toggleShowTask(task)" class="todo-box-progress">
       <div class="todo-box-progress-bar">
         <div
-        *ngIf="task.subtasks.length > 0"
+          *ngIf="task.subtasks.length > 0"
           class="todo-box-progress-bar-fill"
           [style.width]="
             ((task.subtasks | completedSubtasks) * 100) / task.subtasks.length +
@@ -41,7 +41,7 @@
           "
         ></div>
       </div>
-      <p >
+      <p>
         {{ task.subtasks | completedSubtasks }}/{{ task.subtasks.length }}
         Done
       </p>
@@ -51,7 +51,7 @@
       <div class="todo-box-footer">
         <div class="todo-box-footer-right">
           <div
-            *ngFor="let person of task.assigendTo | slice:0:5"
+            *ngFor="let person of task.assigendTo | slice : 0 : 5"
             [style.backgroundColor]="person.color"
             class="todo-icon-name"
           >
@@ -71,5 +71,4 @@
       </div>
     </div>
   </div>
-  <div id="open0" class="nextPosition display-none">open0</div>
 </div>

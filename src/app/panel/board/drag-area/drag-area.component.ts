@@ -6,12 +6,13 @@ import { Status } from '../../../interfaces/status';
 import { HelpersService } from '../../../services/helpers.service';
 import { onSnapshot, Unsubscribe, updateDoc } from 'firebase/firestore';
 import { TodoBoxComponent } from './todo-box/todo-box.component';
-
+import { CdkDragDrop, CdkDragEnd, CdkDragStart, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Task } from '../../../models/task.class';
 
 @Component({
   selector: 'app-drag-area',
   standalone: true,
-  imports: [CommonModule, TodoBoxComponent],
+  imports: [CommonModule, TodoBoxComponent, DragDropModule],
   templateUrl: './drag-area.component.html',
   styleUrl: './drag-area.component.scss'
 })
@@ -25,88 +26,79 @@ export class DragAreaComponent {
   @Input() inProgress: Tasks[] = []
   @Input() awaitingFeedback: Tasks[] = []
   @Input() done: Tasks[] = []
+  private dragTimeout: any;
+  private isDragging: boolean = false;
 
-  constructor(public fireService: FirebaseService, public helpers: HelpersService) {
+  constructor(public fireService: FirebaseService, public helpers: HelpersService) { }
 
+  ngOnInit(): void {
+    this.sortTasks();
   }
 
-
-  /**
-    *  Drag and drop functions
-    * @param event The DragEvent
-    * @param task  The task to be dragged
-    * @param sourceArrayName   The name of the array from which the task is dragged
-    */
-  onDragStart(event: DragEvent, task: any, sourceArrayName: 'todos' | 'inProgress' | 'awaitingFeedback' | 'done') {
-
-    this.draggedTask = task;
-    this.sourceArray = this[sourceArrayName as keyof DragAreaComponent];
+  onDragStart(event: CdkDragStart) {
+    this.isDragging = true;
   }
 
-
-  /**
-   *  Prevent the default behavior of the browser
-   * @param event   The DragEvent
-   */
-  onDragOver(event: DragEvent) {
-    event.preventDefault();
+  onDragEnd(event: CdkDragEnd) {
+    this.isDragging = false;
+    this.sortTasks(); // Sortieren Sie die Tasks nach dem Drag-and-Drop
   }
 
+  async drop(event: CdkDragDrop<Tasks[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+      const task = event.container.data[event.currentIndex];
+      const newStatus = this.getStatusFromContainerId(event.container.id);
+      await this.changeTaskStatus(task, newStatus);
+    }
+    this.sortTasks(); // Sortieren Sie die Tasks nach dem Drag-and-Drop
+  }
 
-  /**
-   *  Drop the task in the target array and change the status of the task
-   * @param event   The DragEvent
-   * @param targetArrayName   The name of the array in which the task is dropped
-   * @param status  The new status of the task
-   */
-  async onDrop(event: DragEvent, targetArrayName: 'todos' | 'inProgress' | 'awaitingFeedback' | 'done', status: Status) {
-    event.preventDefault();
-    if (this.draggedTask) {
-      this.handleDrop(targetArrayName);
-      await this.changeTaskStatus(this.draggedTask, status);
+  private getStatusFromContainerId(containerId: string): Status {
+    switch (containerId) {
+      case 'open':
+        return 'todo';
+      case 'inProgress':
+        return 'in-progress';
+      case 'feedback':
+        return 'awaiting-feedback';
+      case 'done':
+        return 'done';
+      default:
+        return 'todo';
     }
   }
 
-
-  /**
-   *  Drop the task in the target array
-   * @param targetArrayName   The name of the array in which the task is dropped
-   */
-  handleDrop(targetArrayName: string) {
-    const targetArray = this[targetArrayName as keyof DragAreaComponent] as Tasks[];
-
-    const index = this.sourceArray.indexOf(this.draggedTask);
-    if (index > -1) {
-      this.sourceArray.splice(index, 1);
-    }
-
-    targetArray.push(this.draggedTask);
-  }
-
-
-  /**
-   *  Change the status of the task
-   * @param task  The task to be updated
-   * @param status  The new status of the task
-   */
   async changeTaskStatus(task: Tasks, status: Status) {
     let docRef = await this.fireService.getDocRef(this.fireService.tasksDatabase, task.docId);
-    task.status = status
-    await updateDoc(docRef, { status: task.status });;
+    task.status = status;
+    await updateDoc(docRef, { status: task.status });
   }
 
-
-  /**
-   * Reset the dragged task and the source array
-   */
-  onDragEnd() {
-    this.draggedTask = null;
-    this.sourceArray = [];
-  }
-
-
-  showTask(task: Tasks) {
+  showTask(task: Task) {
     this.currentTask = task;
+  }
+
+  private sortTasks(): void {
+    const sortFunction = (a: Tasks, b: Tasks) => {
+      if (a.priority === b.priority) {
+        return new Date(a.date).getTime() - new Date(b.date).getTime();
+      }
+      const priorityOrder = { 'urgent': 1, 'medium': 2, 'low': 3 };
+      return priorityOrder[a.priority] - priorityOrder[b.priority];
+    };
+
+    this.todos.sort(sortFunction);
+    this.inProgress.sort(sortFunction);
+    this.awaitingFeedback.sort(sortFunction);
+    this.done.sort(sortFunction);
   }
 
 }
