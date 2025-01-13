@@ -2,186 +2,178 @@
 @import "../../../globalStyles.scss";
 @import "../../../styles.scss";
 
-
-
 /* classes for the small color circles */
 
 $circle-size: 20px;
 $circle-radius: 50%;
 
-
 .circle-pink {
-    height: $circle-size;
-    width: $circle-size;
-    border-radius: $circle-radius;
-    background-color: $pink;
+  height: $circle-size;
+  width: $circle-size;
+  border-radius: $circle-radius;
+  background-color: $pink;
 }
 
 .circle-mint {
-    height: $circle-size;
-    width: $circle-size;
-    border-radius: $circle-radius;
-    background-color: $mint;
+  height: $circle-size;
+  width: $circle-size;
+  border-radius: $circle-radius;
+  background-color: $mint;
 }
 
 .circle-lightblue {
-    height: $circle-size;
-    width: $circle-size;
-    border-radius: $circle-radius;
-    background-color: $lightblue;
+  height: $circle-size;
+  width: $circle-size;
+  border-radius: $circle-radius;
+  background-color: $lightblue;
 }
 
 .circle-red {
-    height: $circle-size;
-    width: $circle-size;
-    border-radius: $circle-radius;
-    background-color: $red;
+  height: $circle-size;
+  width: $circle-size;
+  border-radius: $circle-radius;
+  background-color: $red;
 }
 
 .circle-green {
-    height: $circle-size;
-    width: $circle-size;
-    border-radius: $circle-radius;
-    background-color: $green;
+  height: $circle-size;
+  width: $circle-size;
+  border-radius: $circle-radius;
+  background-color: $green;
 }
 
 .circle-orange {
-    height: $circle-size;
-    width: $circle-size;
-    border-radius: $circle-radius;
-    background-color: $orange;
+  height: $circle-size;
+  width: $circle-size;
+  border-radius: $circle-radius;
+  background-color: $orange;
 }
 
 .circle-purple {
-    height: $circle-size;
-    width: $circle-size;
-    border-radius: $circle-radius;
-    background-color: $purple;
+  height: $circle-size;
+  width: $circle-size;
+  border-radius: $circle-radius;
+  background-color: $purple;
 }
 
 .circle-darkblue {
-    height: $circle-size;
-    width: $circle-size;
-    border-radius: $circle-radius;
-    background-color: $darkblue;
+  height: $circle-size;
+  width: $circle-size;
+  border-radius: $circle-radius;
+  background-color: $darkblue;
 }
 .circle-blue {
-    height: $circle-size;
-    width: $circle-size;
-    border-radius: $circle-radius;
-    background-color: $color-blue;
+  height: $circle-size;
+  width: $circle-size;
+  border-radius: $circle-radius;
+  background-color: $color-blue;
 }
 
 /* ======================================================= */
 
-
 /* Add task */
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-}
-
-.displayNone {
-    display: none;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 body {
-    background: $background-white;
+  background: $background-white;
 }
 
 main {
-    @include dFlex(center, center);
-    height: 100vh;
-    width: 100%;
-    position: relative;
-    padding-left: 64px;
+  @include dFlex(center, flex-start);
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  padding-left: 64px;
 }
 
 #options {
-    @include dFlex(center, center, row, 128px);
-    position: relative;
+  @include dFlex(center, center, row, 128px);
+  position: relative;
 }
 
 #left-side {
-    @include dFlex(flex-start, flex-start, column, 14px);
-    position: relative;
-    width: 422px;
-    height: 501px;
+  @include dFlex(flex-start, flex-start, column, 14px);
+  position: relative;
+  width: 422px;
+  height: 501px;
 }
 
 #right-side {
-    @include dFlex(flex-start, flex-start, column, 14px);
+  @include dFlex(flex-start, flex-start, column, 14px);
 }
 
 .headline-container {
-    @include dFlex(center, center);
-    width: 100%;
+  @include dFlex(center, center);
+  width: 100%;
 }
 
 .headline-container2 {
-    opacity: 0;
+  opacity: 0;
 }
 
 .headline {
-    font-family: 'Inter';
-    font-size: 61px;
-    font-weight: 700;
-    line-height: 73px;
-    text-align: left;
+  font-family: "Inter";
+  font-size: 61px;
+  font-weight: 700;
+  line-height: 73px;
+  text-align: left;
 }
 
 .addTaskTitle {
-    @include dFlex(flex-start, flex-start, column, 8px);
-    width: 422px;
-    height: 102px;
+  @include dFlex(flex-start, flex-start, column, 8px);
+  width: 422px;
+  height: 102px;
 }
 
 .captions {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 24px;
-    color: #000000;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
 }
 
 .is-required {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
-    color: red;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: red;
 }
 
 .addTaskDescription {
-    @include dFlex(flex-start, flex-start, column, 8px);
-    width: 422px;
-    height: 171px;
-    position: relative;
+  @include dFlex(flex-start, flex-start, column, 8px);
+  width: 422px;
+  height: 171px;
+  position: relative;
 }
 
 /* Frame 17 */
 .textarea-container {
-    @include dFlex(flex-start, unset, row);
-    padding: 18px 21px;
-    gap: 10px;
-    width: 422px;
-    height: 119px;
-    background: #FFFFFF;
-    border: 1px solid #D1D1D1;
-    border-radius: 10px;
+  @include dFlex(flex-start, unset, row);
+  padding: 18px 21px;
+  gap: 10px;
+  width: 422px;
+  height: 119px;
+  background: #ffffff;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
 }
 
 .textareaFrame {
-    width: 100%;
-    height: 100%;
-    border: none;
-    outline: none;
-    resize: none;
-    overflow: hidden;
-    padding: 0px;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  padding: 0px;
 }
 
 /* Category v1 */
@@ -189,686 +181,742 @@ main {
 /* ===============Dropdown ================== */
 
 .addTaskDropdown {
-    @include dFlex(flex-start, unset, column, 8px);
-    width: 422px;
-    margin-bottom: 16px;
+  @include dFlex(flex-start, unset, column, 8px);
+  width: 422px;
+  margin-bottom: 16px;
 }
 
 .input-container {
-    @include dFlex(center, center);
-    width: 422px;
-    height: 51px;
-    padding: 6px 21px;
-    border-radius: 10px;
-    border: 1px solid #D1D1D1;
-    background: #FFF;
-    cursor: pointer;
+  @include dFlex(center, center);
+  width: 422px;
+  height: 51px;
+  padding: 6px 21px;
+  border-radius: 10px;
+  border: 1px solid #d1d1d1;
+  background: #fff;
+  cursor: pointer;
 }
 
 .circle-lightblue {
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background-color: $lightblue;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: $lightblue;
 }
 
 .dropdown {
-    @include dFlex(left, flex-start, column, 0px);
-    min-height: 51px;
-    height: 51px;
-    min-width: 422px;
-    border: 2px solid $background-grey-hover;
-    border-radius: 10px;
-    background-color: white;
-    overflow: hidden;
-    z-index: 2;
-    transition: 100ms ease-in-out;
+  @include dFlex(left, flex-start, column, 0px);
+  min-height: 51px;
+  height: 51px;
+  min-width: 422px;
+  border: 2px solid $background-grey-hover;
+  border-radius: 10px;
+  background-color: white;
+  overflow: hidden;
+  z-index: 2;
+  transition: 100ms ease-in-out;
 }
 
 .dropdown {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .dropdown::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 /* Set height to open and close the dropdown menu */
 .dropdown-category {
-    height: 51px;
+  height: 51px;
 }
 
 #select-box {
-    width: 100%;
-    z-index: 3;
+  width: 100%;
+  z-index: 3;
 }
 
 .dropdown-start-text {
-    @include dFlex(center, space-between);
-    width: 100%;
-    z-index: 9;
+  @include dFlex(center, space-between);
+  width: 100%;
+  z-index: 9;
 }
 
 #input-container {
-    @include dFlex(center, flex-end);
-    width: 100%;
-    z-index: 5;
+  @include dFlex(center, flex-end);
+  width: 100%;
+  z-index: 5;
 }
 
 #input-container:hover {
-    background-color: unset !important;
+  background-color: unset !important;
 }
 
 .check-container {
-    position: absolute;
-    @include dFlex();
-    height: 31px;
-    width: 66px;
-    gap: 9px;
-    z-index: 10;
+  position: absolute;
+  @include dFlex();
+  height: 31px;
+  width: 66px;
+  gap: 9px;
+  z-index: 10;
 }
 
 #colors-container {
-    @include dFlex();
-    gap: 14px;
-    border: none;
+  @include dFlex();
+  gap: 14px;
+  border: none;
 }
 
 input[type="radio"] {
-    display: none;
+  display: none;
 }
 
-input[type="radio"]:checked+label {
-    box-shadow: 0px 4px 4px 0px #00000040;
+input[type="radio"]:checked + label {
+  box-shadow: 0px 4px 4px 0px #00000040;
 }
 
 .color-circle {
-    height: 20px;
-    width: 20px;
-    border: 2px solid white;
-    border-radius: 50%;
-    cursor: pointer;
+  height: 20px;
+  width: 20px;
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .color-circle:hover {
-    box-shadow: 0px 4px 4px 0px #00000040;
+  box-shadow: 0px 4px 4px 0px #00000040;
 }
 
 .dropdown-content {
-    @include dFlex(flex-start, unset, column, 2px);
-    height: 100%;
-    z-index: 0;
+  @include dFlex(flex-start, unset, column, 2px);
+  height: 100%;
+  z-index: 0;
 }
 
-#categorys{
-    width: 100%;
+#categorys {
+  width: 100%;
 }
 
 .category {
-    @include dFlex();
-    width: 100%;
+  @include dFlex();
+  width: 100%;
 }
 
 .dropdown-option {
-    @include dFlex(center, space-between, row, 10px);
-    width: 100%;
-    padding: 12px 21px;
-    cursor: pointer;
+  @include dFlex(center, space-between, row, 10px);
+  width: 100%;
+  padding: 12px 21px;
+  cursor: pointer;
 }
 
-
 .dropdown-option:hover {
-    background-color: $background-grey-hover;
+  background-color: $background-grey-hover;
 }
 
 .dropdown-start-text:hover {
-    background-color: unset;
+  background-color: unset;
 }
 
 .dropdown-option-img {
-    @include dFlex(center, space-between);
+  @include dFlex(center, space-between);
 }
 
 .check-button {
-    width: 20px;
-    height: 22px;
+  width: 20px;
+  height: 22px;
 }
 
 .check-button-checked {
-    width: 20px;
-    height: 22px;
+  width: 20px;
+  height: 22px;
 }
 
 #input-container2 {
-    @include dFlex(flex-end);
-    width: 100%;
-    z-index: 5;
+  @include dFlex(flex-end);
+  width: 100%;
+  z-index: 5;
 }
 
 /* Assinged to */
 #input-container2:hover {
-    background-color: unset !important;
+  background-color: unset !important;
 }
 
 .dropdown-assinged-to {
-    height: 51px;
-    /* height: 204px; */
+  height: 51px;
+  /* height: 204px; */
 }
 
-#contacts{
-    width: 100%;
+#contacts {
+  width: 100%;
 }
 
-#emails{
-    width: 100%;
+#emails {
+  width: 100%;
 }
 
 .send-email:hover {
-    background-color: unset;
-    cursor: auto;
+  background-color: unset;
+  cursor: auto;
 }
 
 #assinged-to-input:hover {
-    background-color: unset !important;
+  background-color: unset !important;
 }
 
 #assinged-persons-container {
-    @include dFlex(flex-start, unset, row, 8px);
-    margin-bottom: 21px;
+  @include dFlex(flex-start, unset, row, 8px);
+  margin-bottom: 21px;
 }
 
 .assinged-person {
-    height: 45px;
-    width: 45px;
-    background-color: $darkblue;
-    border: 1px solid white;
-    border-radius: 50%;
-    @include dFlex(center);
-    color: white;
-    font-size: 1.2rem;
+  height: 45px;
+  width: 45px;
+  background-color: $darkblue;
+  border: 1px solid white;
+  border-radius: 50%;
+  @include dFlex(center);
+  color: white;
+  font-size: 1.2rem;
 }
 
 #select-box2 {
-    width: 100%;
-    z-index: 3;
-    padding: 0;
+  width: 100%;
+  z-index: 3;
+  padding: 0;
 }
 
 .input-container option {
-    border: 1px solid transparent;
-    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
 }
 
 .selectBackground {
-    /* design */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    /* Remove default arrow */
-    background: url(../../../assets/img/vector2.svg) 97% / 4% no-repeat white;
-    outline: none;
+  /* design */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* Remove default arrow */
+  background: url(../../../assets/img/vector2.svg) 97% / 4% no-repeat white;
+  outline: none;
 }
 
 /* Vector 2 */
 .addTaskVector2 {
-    /* layout */
-    width: 16px;
-    height: 8px;
-    /* position */
-    position: absolute;
-    right: 14px;
-    top: 21px;
+  /* layout */
+  width: 16px;
+  height: 8px;
+  /* position */
+  position: absolute;
+  right: 14px;
+  top: 21px;
 }
 
 .addTaskAssignedTo {
-    @include dFlex(flex-start, unset, column, 8px);
-    width: 422px;
-    height: 83px;
+  @include dFlex(flex-start, unset, column, 8px);
+  width: 422px;
+  height: 83px;
 }
-
 
 /* Vector 4 */
 
 .addTaskVector4 {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50px;
-    margin-right: auto;
-    margin-left: auto;
-    width: 0px;
-    height: 551px;
-    border: 1px solid #D1D1D1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 0px;
+  height: 551px;
+  border: 1px solid #d1d1d1;
 }
-
 
 /* -------------------------------------- */
 
 .addTaskDueDate {
-    @include dFlex(flex-start, unset, column, 8px);
+  @include dFlex(flex-start, unset, column, 8px);
 }
 
 .calendarEventFill {
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
 }
 
 .inputFrame {
-    width: 100%;
-    border: none;
-    outline: none;
+  width: 100%;
+  border: none;
+  outline: none;
 }
 
 .addTaskPriority {
-    @include dFlex(center, center, row, 10px);
-    height: 61px;
-    flex-shrink: 0;
+  @include dFlex(center, center, row, 10px);
+  height: 61px;
+  flex-shrink: 0;
 }
 
 .input-containerPrio {
-    @include dFlex(center, center, row, 10px);
-    width: 136px;
-    height: 51px;
-    padding: 18px 10px;
-    border-radius: 10px;
-    background: $white !important;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
+  @include dFlex(center, center, row, 10px);
+  width: 136px;
+  height: 51px;
+  padding: 18px 10px;
+  border-radius: 10px;
+  background: $white !important;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
 .buttonFramePrio {
-    border: 0px;
-    cursor: pointer;
+  border: 0px;
+  cursor: pointer;
 }
 
 .buttonFramePrio:hover {
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 /* subtasks */
 
 .subtask {
-    @include dFlex(center, space-between);
-    width: 93%;
-    font-size: 20px;
+  @include dFlex(center, space-between);
+  width: 93%;
+  font-size: 20px;
 }
 
 ul {
-    @include dFlex(flex-start, unset, column, 16px);
-    width: 100%;
+  @include dFlex(flex-start, unset, column, 16px);
+  width: 100%;
 }
 
-.plus{
-    cursor: pointer;
+.plus {
+  cursor: pointer;
 }
 
 .subtask img {
-    cursor: pointer;
-    opacity: 0;
+  cursor: pointer;
+  opacity: 0;
 }
 
 .subtask:hover img {
-    opacity: 1;
+  opacity: 1;
 }
 
 .addTaskSubtasks {
-    @include dFlex(flex-start, unset, column, 8px);
+  @include dFlex(flex-start, unset, column, 8px);
 }
 
 .iconnoirCancel {
-    width: 28px;
-    height: 28px;
+  width: 28px;
+  height: 28px;
 }
 
 .subtaskContainer {
-    @include dFlex(center, center, column, 30px);
-    width: 100%;
-    margin-top: 8px;
+  @include dFlex(center, center, column, 30px);
+  width: 100%;
+  margin-top: 8px;
 }
 
-
 .subtaskContainer label {
-    position: relative;
+  position: relative;
 }
 
 .rectangle6 {
-    width: 16px;
-    height: 16px;
-    position: absolute;
-    top: 1px;
-    left: 1px;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 1px;
+  left: 1px;
 }
 
 .typography2body {
-    font-family: 'Inter';
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 19.2px;
+  font-family: "Inter";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19.2px;
 }
 
 .subtaskContainer {
-    @include dFlex(flex-start, unset, column, unset);
+  @include dFlex(flex-start, unset, column, unset);
 }
 
 .subtaskContainer input {
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
 
 .checkmark:after {
-    content: url(../../../assets/img/rectangle6checked.svg);
-    display: none;
+  content: url(../../../assets/img/rectangle6checked.svg);
+  display: none;
 }
 
 /* Show the checkmark when checked */
 
 .subtaskContainer input:checked ~ .checkmark:after {
-    display: block;
+  display: block;
 }
 
 /* Hide the image "empty-Box" when checked */
 
 .subtaskContainer input:checked ~ .checkmark img {
-    display: none;
+  display: none;
 }
 
 .buttons-container {
-    @include dFlex(center, center, row, 25px);
+  @include dFlex(center, center, row, 25px);
 }
 
 /* Keyframe for secondary button change effect */
 @keyframes changeSecondary {
-    from {
-        border: 1px solid $lightblue;
-    }
-    to {
-        border: 4px solid $lightblue;
-    }
+  from {
+    border: 1px solid $lightblue;
+  }
+  to {
+    border: 4px solid $lightblue;
+  }
 }
 
 .addTaskSecondary {
-    @include dFlex(center, center, row, 10px);
-    width: 136px;
-    height: 55px;
-    padding: 18px 10px;
-    border-radius: 10px;
-    border: 1px solid $background-dark;
-    cursor: pointer;
-    color: $background-dark;
-    // hier eventuell was ändern an den farben
+  @include dFlex(center, center, row, 10px);
+  width: 136px;
+  height: 55px;
+  padding: 18px 10px;
+  border-radius: 10px;
+  border: 1px solid $background-dark;
+  cursor: pointer;
+  color: $background-dark;
+  // hier eventuell was ändern an den farben
 }
 
 .addTaskSecondary:hover {
-    border: 4px solid $lightblue;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    animation-name: changeSecondary;
-    animation-fill-mode: forwards;
-    animation-duration: 100ms;
-    animation-timing-function: ease-in-out;
+  border: 4px solid $lightblue;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  animation-name: changeSecondary;
+  animation-fill-mode: forwards;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
 }
 
 .iconoirCancel3 {
-    display: none;
+  display: none;
 }
 
 .addTaskSecondary:hover span {
-    color: $lightblue !important;
+  color: $lightblue !important;
 }
 
 .addTaskSecondary:hover .iconoirCancel3 {
-    display: block;
+  display: block;
 }
 
 .addTaskSecondary:hover .iconoirCancel2 {
-    display: none;
+  display: none;
 }
 
 /* Keyframe for primary button change effect */
 @keyframes changePrimCheckBtn {
-    from {
-        background: $background-dark;
-    }
-    to {
-        background: $lightblue;
-    }
-        // hier eventuell was ändern an den farben
+  from {
+    background: $background-dark;
+  }
+  to {
+    background: $lightblue;
+  }
+  // hier eventuell was ändern an den farben
 }
 
 .addTaskPrimCheckBtn {
-    @include dFlex(center, center, row, 10px);
-    height: 55px;
-    padding: 18px 15px;
-    border-radius: 10px;
-    background: $background-dark;
-    cursor: pointer;
-    border: none;
-        // hier eventuell was ändern an den farben
+  @include dFlex(center, center, row, 10px);
+  height: 55px;
+  padding: 18px 15px;
+  border-radius: 10px;
+  background: $background-dark;
+  cursor: pointer;
+  border: none;
+  // hier eventuell was ändern an den farben
 }
 
 .typographyPrimCheckBtn {
-    color: #FFF;
-    font-family: 'Inter';
-    font-size: 21px;
-    font-weight: 700;
-    line-height: 22.2px;
+  color: #fff;
+  font-family: "Inter";
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 22.2px;
 }
 
 .addTaskPrimCheckBtn:hover {
-    background: $lightblue;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    animation-name: changePrimCheckBtn;
-    animation-fill-mode: forwards;
-    animation-duration: 100ms;
-    animation-timing-function: ease-in-out;
+  background: $lightblue;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  animation-name: changePrimCheckBtn;
+  animation-fill-mode: forwards;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
 }
 
 #created-task-massage-container {
-    @include dFlex(center, center, row, unset);
-    position: fixed;
-    width: 326px;
-    height: 75px;
-    border-radius: 20px;
-    background-color: $background-dark-active;
-    box-shadow: 0px 0px 4px 0px #0000001A;
-    color: white;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    transition: 300ms;
-    z-index: 9999;
+  @include dFlex(center, center, row, unset);
+  position: fixed;
+  width: 326px;
+  height: 75px;
+  border-radius: 20px;
+  background-color: $background-dark-active;
+  box-shadow: 0px 0px 4px 0px #0000001a;
+  color: white;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  transition: 300ms;
+  z-index: 9999;
 }
 
 #created-task-massage {
-    @include dFlex(center, center, row, 30px);
-    width: 80%;
-    font-size: 20px;
+  @include dFlex(center, center, row, 30px);
+  width: 80%;
+  font-size: 20px;
 }
 
 #created-task-massage img {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 #created-task-massage-text {
-    text-align: center;
+  text-align: center;
 }
-
-
 
 /*======Shows active site=====  */
 
 #temp-add-task {
-    background-color: $background-dark-active;
+  background-color: $background-dark-active;
 }
 
 #temp-add-task p {
-    color: white;
+  color: white;
 }
 
 #add-task-icon-img-hover {
-    display: unset;
+  display: unset;
 }
 
-
 /* ========================================= */
-
 
 /* For JS usage */
 
 .txtWhite {
-    color: white;
+  color: white;
 }
 
 .urgent {
-    background-color: $prio-red !important;
+  background-color: $prio-red !important;
 }
 
 .medium {
-    background-color: $prio-orange !important;
+  background-color: $prio-orange !important;
 }
 
 .low {
-    background-color: $prio-green !important;
+  background-color: $prio-green !important;
 }
 
 .whiteColor path {
-    fill: white;
+  fill: white;
 }
 
 .flyIn {
-    top: 50vh;
-    bottom: 50vh;
+  top: 50vh;
+  bottom: 50vh;
 }
 
 body {
-    /* transform: translateX(100%); */
-    transition: 500ms;
+  /* transform: translateX(100%); */
+  transition: 500ms;
 }
-
 
 /* ================ Responsive ========================== */
 
-@media(max-width: 1450px) {
-    main {
-        justify-content: center;
-        left: 116px;
-        overflow-y: scroll;
-    }
+@media (max-width: 1450px) {
+  main {
+    justify-content: center;
+  }
 }
 
-@media(max-width: 1333px) {
-    #options {
-        width: 100%;
-        height: 75%;
-    }
-    #left-side {
-        height: unset;
-        gap: 0;
-    }
-    #right-side {
-        padding-bottom: 50px;
-    }
-    #assinged-to-dropdown {
-        display: none;
-    }
-    .mobile-dropdown {
-        display: flex !important;
-    }
-    main {
-        justify-content: center;
-    }
-    #options {
-        flex-direction: column;
-        gap: 0;
-    }
-    .headline-container2 {
-        display: none;
-    }
-    .addTaskVector4 {
-        display: none;
-    }
-    .addTaskDropdown {
-        margin: 0;
-    }
-    .addTaskDropdown:last-of-type {
-        margin-top: 12px;
-    }
-    .buttons-container {
-        width: 422px;
-        justify-content: space-between;
-    }
+@media (max-width: 1333px) {
+  .main-container {
+    padding-top: 90px;
+  }
+
+  main {
+    padding: 0;
+  }
+  #options {
+    padding-top: 16px;
+    justify-content: unset;
+    width: 100%;
+    height: 100%;
+  }
+  #left-side {
+    height: unset;
+    gap: 0;
+  }
+  #right-side {
+    padding-bottom: 50px;
+  }
+  #assinged-to-dropdown {
+    display: none;
+  }
+  .mobile-dropdown {
+    display: flex !important;
+  }
+  main {
+    justify-content: center;
+  }
+  #options {
+    flex-direction: column;
+    gap: 0;
+  }
+  .headline-container2 {
+    display: none;
+  }
+  .addTaskVector4 {
+    display: none;
+  }
+  .addTaskDropdown {
+    margin: 0;
+  }
+  .addTaskDropdown:last-of-type {
+    margin-top: 12px;
+  }
+  .buttons-container {
+    width: 422px;
+    justify-content: space-between;
+  }
 }
 
-@media(max-width: 1024px) {
-    .headline-container {
-        padding-top: 32px;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
+@media (max-width: 1024px) {
+  .headline-container {
+    padding-top: 32px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    span {
+      font-size: 47px;
     }
-    main {
-        justify-content: center;
-        left: unset
+  }
+
+  main {
+    justify-content: center;
+    left: unset;
+  }
+  #options {
+    margin-right: 0;
+  }
+  #left-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 95% !important;
+  }
+
+  .captions {
+    font-size: $mobileFontSizeMain;
+  }
+
+  
+
+  #right-side {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 100px;
+    width: 95%;
+  }
+
+  .addTaskTitle{
+    width: 100%;
+  }
+
+  .input-container{
+    width: 100%;
+  }
+
+  .addTaskDescription{
+    width: 100%;
+  }
+
+  .textarea-container{
+    width: 100%;
+  }
+  .dropdown{
+    min-width: unset;
+    width: 100%;
+  }
+
+  .addTaskDropdown{
+    width: 100%;
+  }
+
+  .addTaskDueDate{
+    width: 100%;
+  }
+
+  .priority-container{
+    width: 100%;
+  }
+
+  .addTaskSubtasks{
+    width: 100%;
+  }
+
+  .buttons-container {
+    width: 100%;
+
+    button > span{
+       font-size:  $mobileFontSizeMain;
     }
-    #options {
-        margin-right: 0;
-    }
-    #left-side {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100% !important;
-    }
-    #right-side {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding-bottom: 100px;
-        width: 100%;
-    }
+  }
+
 }
 
-@media(max-width: 450px) {
-    .marginLRauto {
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .width95 {
-        width: 95%;
-        min-width: 0;
-    }
-    .textarea-container{
-        width: 70%;
-    }
-    .addTaskTitle{
-        width: 90%;
-    }
-    .editTodoBox{
-        overflow: scroll;
-    }
-}
+// @media (max-width: 450px) {
+// //   .marginLRauto {
+// //     margin-left: auto;
+// //     margin-right: auto;
+// //   }
+//   .width95 {
+//     width: 95%;
+//     min-width: 0;
+//   }
+//   .textarea-container {
+//     width: 70%;
+//   }
+//   .addTaskTitle {
+//     width: 90%;
+//   }
+//   .editTodoBox {
+//     overflow: scroll;
+//   }
+// }
 
-@media(max-width: 400px) {
-    .addTaskPriority {
-        align-items: baseline;
-        flex-direction: column;
-        height: 212px;
-        align-items: center;
-    }
-    .addTaskPriority button {
-        width: 100%
-    }
-}
+// @media (max-width: 400px) {
+//   .addTaskPriority {
+//     align-items: baseline;
+//     flex-direction: column;
+//     height: 212px;
+//     align-items: center;
+//   }
+//   .addTaskPriority button {
+//     width: 100%;
+//   }
+// }
 
-@media(max-width: 350px) {
-    body * {
-        font-size: 16px;
-    }
-}
+// @media (max-width: 350px) {
+//   body * {
+//     font-size: 16px;
+//   }
+// }
