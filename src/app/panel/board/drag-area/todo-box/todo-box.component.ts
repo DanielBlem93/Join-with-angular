@@ -7,6 +7,7 @@ import { FirebaseService } from '../../../../services/firebase.service';
 import { Status } from '../../../../interfaces/status';
 import { updateDoc } from 'firebase/firestore';
 import { HelpersService } from '../../../../services/helpers.service';
+import { ResponsiveService } from '../../../../services/responsive.service';
 
 
 @Component({
@@ -24,10 +25,13 @@ export class TodoBoxComponent {
 
 
 
-  constructor(private fireService: FirebaseService, public helpers: HelpersService) { }
+  constructor(private fireService: FirebaseService,
+    public helpers: HelpersService,
+    public responsiveService : ResponsiveService
+  ) { }
 
   async changeStatus(event: Event, direction: 'up' | 'down') {
-  
+
     const statusOrder: Status[] = ['todo', 'in-progress', 'awaiting-feedback', 'done'];
     let currentIndex = statusOrder.indexOf(this.task.status);
 

@@ -5,17 +5,20 @@ import { Tasks } from '../../../../interfaces/tasks';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { GetInitalsPipe } from '../../../../pipes/get-initals.pipe';
 import { CommonModule } from '@angular/common';
+import { ResponsiveService } from '../../../../services/responsive.service';
 
 @Component({
   selector: 'app-show-task',
   standalone: true,
-  imports: [GetInitalsPipe,CommonModule],
+  imports: [GetInitalsPipe, CommonModule],
   templateUrl: './show-task.component.html',
   styleUrl: './show-task.component.scss'
 })
 export class ShowTaskComponent {
-  
- constructor(public helpers: HelpersService, private fireService: FirebaseService) { }
+
+  constructor(public helpers: HelpersService, 
+    private fireService: FirebaseService, 
+    public responsiveService: ResponsiveService) { }
 
 
 
@@ -44,10 +47,10 @@ export class ShowTaskComponent {
   }
 
 
- 
 
 
-   editTask() {
+
+  editTask() {
     this.helpers.modalControls.showTaskMode = false;
     this.helpers.modalControls.editTaskMode = true;
   }

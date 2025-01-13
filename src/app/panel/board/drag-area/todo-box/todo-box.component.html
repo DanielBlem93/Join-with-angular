@@ -1,10 +1,12 @@
 <div class="todo-box" draggable="true">
-  <div class="chegeCategory">
+  <div *ngIf="responsiveService.isSmallScreen" class="changeCategory">
     <img
       *ngIf="task.status !== 'todo'"
       id="up"
       (click)="changeStatus($event, 'up')"
-      src="./assets/img/up.png"
+      src="./assets/img/down.png"
+      style="rotate: 180deg"
+      class="arrow"
     />
     <br />
     <img
@@ -12,9 +14,11 @@
       id="down"
       (click)="changeStatus($event, 'down')"
       src="./assets/img/down.png"
+      class="arrow"
     />
   </div>
-  <div (click)="helpers.toggleShowTask(task)"
+  <div
+    (click)="helpers.toggleShowTask(task)"
     id="todoBoxHeader3"
     class="todo-box-header"
     [style]="{ backgroundColor: task.categoryColor }"
@@ -29,7 +33,7 @@
   <div (click)="helpers.toggleShowTask(task)" class="todo-box-body">
     <p>{{ task.description }}</p>
   </div>
-  <div >
+  <div>
     <div (click)="helpers.toggleShowTask(task)" class="todo-box-progress">
       <div class="todo-box-progress-bar">
         <div
@@ -47,7 +51,11 @@
       </p>
     </div>
 
-    <div id="todoBoxFooterBar3" class="todo-box-footer-bar">
+    <div
+      (click)="helpers.toggleShowTask(task)"
+      id="todoBoxFooterBar3"
+      class="todo-box-footer-bar"
+    >
       <div class="todo-box-footer">
         <div class="todo-box-footer-right">
           <div

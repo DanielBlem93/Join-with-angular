@@ -65,6 +65,12 @@ $circle-radius: 50%;
     border-radius: $circle-radius;
     background-color: $darkblue;
 }
+.circle-blue {
+    height: $circle-size;
+    width: $circle-size;
+    border-radius: $circle-radius;
+    background-color: $color-blue;
+}
 
 /* ======================================================= */
 

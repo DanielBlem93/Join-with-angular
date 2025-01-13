@@ -8,10 +8,7 @@
         src="./assets/img/add-icon.png"
       />
     </div>
-    <div
-      id="openEmptyFrame"
-      class="nextPosition emptyFrame display-none"
-    ></div>
+    <div id="openEmptyFrame" class="nextPosition emptyFrame display-none"></div>
     <div
       id="open"
       class="drag-area"
@@ -25,14 +22,13 @@
         cdkDrag
         (cdkDragStarted)="onDragStart($event)"
         (cdkDragEnded)="onDragEnd($event)"
-       
         [task]="task"
         [arrayName]="'todos'"
       ></app-todo-box>
     </div>
   </div>
 
-  <div class="board-body  board-in-progress column">
+  <div class="board-body board-in-progress column">
     <div class="board-body-header">
       <h3>In progress</h3>
       <img
@@ -62,7 +58,7 @@
     </div>
   </div>
 
-  <div class="board-body  board-awaiting-feedback column">
+  <div class="board-body board-awaiting-feedback column">
     <div class="board-body-header">
       <h3>Awaiting Feedback</h3>
       <img
@@ -82,19 +78,21 @@
       [cdkDropListData]="awaitingFeedback"
       [cdkDropListConnectedTo]="['open', 'inProgress', 'done']"
       (cdkDropListDropped)="drop($event)"
+      cdkScrollable
     >
       <app-todo-box
         *ngFor="let task of awaitingFeedback; let i = index"
         cdkDrag
         (cdkDragStarted)="onDragStart($event)"
         (cdkDragEnded)="onDragEnd($event)"
+        cdkScrollable
         [task]="task"
         [arrayName]="'awaitingFeedback'"
       ></app-todo-box>
     </div>
   </div>
 
-  <div class="board-body  board-done column">
+  <div class="board-body board-done column">
     <div class="board-body-header">
       <h3>Done</h3>
       <img
@@ -110,13 +108,14 @@
       [cdkDropListData]="done"
       [cdkDropListConnectedTo]="['open', 'inProgress', 'feedback']"
       (cdkDropListDropped)="drop($event)"
+      cdkScrollable
     >
       <app-todo-box
         *ngFor="let task of done; let i = index"
         cdkDrag
         (cdkDragStarted)="onDragStart($event)"
         (cdkDragEnded)="onDragEnd($event)"
-
+        cdkScrollable
         [task]="task"
         [arrayName]="'done'"
       ></app-todo-box>

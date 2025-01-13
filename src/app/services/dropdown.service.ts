@@ -29,6 +29,10 @@ export class DropdownService {
       'category': 'Testing',
       'color': 'purple'
     },
+    {
+      'category': 'User Story',
+      'color': 'blue'
+    },
   ]
   catDropDownCtrl = {
     open: false,

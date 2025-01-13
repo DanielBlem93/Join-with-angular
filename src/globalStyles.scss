@@ -11,14 +11,14 @@ $red: #ff0000;
 $green: #2ad300;
 $orange: #ff8a00;
 $purple: #e200be;
-$darkblue: #0038ff;
-$mint: #1FD7C1;
-$pink: #FC71FF;
+// $darkblue: #0038ff;
+$mint: #1fd7c1;
+$pink: #fc71ff;
 // Schriftfarben
 $white: rgba(251, 251, 251);
 $black: rgba(0, 0, 0);
 $icon: rgb(168, 168, 168);
-$lightBlack: #42526E;
+$lightBlack: #42526e;
 // Hintergrundfarben
 $darkblue: #2a3647;
 $lightgrey: rgb(246, 247, 248);
@@ -37,58 +37,60 @@ $color-blue: #0000ff;
 $color-yellow: #ffff00;
 $color-purple: #800080;
 
+// Font-sizes
+
+$mobileFontSizeMain: 16px;
 
 // Hintergrundfarben-Klassen
 .bg-color-red {
-    background-color: $color-red;
+  background-color: $color-red;
 }
 
 .bg-color-black {
-    background-color: $color-black;
+  background-color: $color-black;
 }
 
 .bg-color-green {
-    background-color: $color-green;
+  background-color: $color-green;
 }
 
 .bg-color-blue {
-    background-color: $color-blue;
+  background-color: $color-blue;
 }
 
 .bg-color-yellow {
-    background-color: $color-yellow;
+  background-color: $color-yellow;
 }
 
 .bg-color-purple {
-    background-color: $color-purple;
+  background-color: $color-purple;
 }
 
 // Kategorien-Hintergrundfarben-Klassen
 
 .bg-cat-color-lightblue {
-    background-color: $lightblue;
+  background-color: $lightblue;
 }
 
 .bg-cat-color-red {
-    background-color: $red;
+  background-color: $red;
 }
 
 .bg-cat-color-green {
-    background-color: $green;
+  background-color: $green;
 }
 
 .bg-cat-color-orange {
-    background-color: $orange;
+  background-color: $orange;
 }
 
 .bg-cat-color-purple {
-    background-color: $purple;
+  background-color: $purple;
 }
 
 .bg-cat-color-darkblue {
-    background-color: $darkblue;
+  background-color: $darkblue;
 }
-
 
 /* -----------------helpers------------------- */
 
@@ -190,4 +192,25 @@ button {
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
+}
+
+// Scrollbar
+
+.scrollbar-main {
+
+  // overflow x or y : scroll
+
+  &::-webkit-scrollbar {
+    width: 3px !important;
+    height: 3px !important;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $background-grey-hover;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $background-dark-hover;
+    border-radius: 3px;
+  }
 }

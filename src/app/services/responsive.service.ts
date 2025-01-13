@@ -34,7 +34,7 @@ export class ResponsiveService implements OnDestroy {
   }
 
   ngOnDestroy() {
-   
+   this.unsubscribe()
   }
 
   unsubscribe(){
