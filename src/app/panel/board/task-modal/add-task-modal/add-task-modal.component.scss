@@ -2,19 +2,23 @@
 @import "../../../../../globalStyles.scss";
 @import "../../../../../styles.scss";
 
-
 .dropdown-assinged-to {
   overflow: auto;
   height: 250px;
 }
+app-add-task {
+  height: 80vh !important;
+  border-radius: 30px !important;
+  width: 100%;
+}
 
 #addTaskPopupContainer app-add-task {
-    .main {
-      height: 80vh ;
-      padding-left: 0;
-      padding: 32px;
-      align-items: baseline;
-    }
+  .main {
+    height: 80vh;
+    padding-left: 0;
+    padding: 32px;
+    align-items: baseline;
+  }
 }
 
 #addTaskPopup {
@@ -37,8 +41,6 @@
 #addTaskPopupContainer {
   @include dFlex(center, center);
   position: relative;
-  width: 70%;
-  height: 90%;
   background-color: $background-white;
   border-radius: 20px;
   opacity: 1;
@@ -52,8 +54,8 @@
   height: 70px;
   width: 70px;
   position: absolute;
-  right: -492px;
-  top: -345px;
+  right: 8px;
+  top: 8px;
   cursor: pointer;
   z-index: 999;
 }
@@ -107,4 +109,50 @@
   position: absolute;
   top: 32px;
   left: 0px;
+}
+
+@media (max-width: 1333px) {
+  #add-task-close-button {
+    height: 56px;
+    width: 56px;
+  }
+
+  .main-container {
+    overflow-y: scroll;
+    padding: 0 !important;
+    width: 100vw;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+@media (max-width: 1024px) {
+
+  #right-side {
+    padding-bottom: 32px !important;
+  }
+}
+@media (max-width: 768px) {
+  #addTaskPopupContainer {
+    padding: 0;
+  }
+
+  main {
+    padding: 0 !important;
+  }
+
+  .headline-container {
+    padding: 0 !important;
+  }
+
+  app-add-task {
+    height: 100vh !important;
+    width: 100vw;
+    border-radius: 0px !important;
+  }
+  .main-container {
+    width: 100vw !important;
+    justify-content: flex-start !important;
+  }
 }

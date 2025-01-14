@@ -1,10 +1,11 @@
 <div id="addTaskPopup" style="display: flex">
-  <img
+
+  <div class="popupAnimation" id="addTaskPopupContainer">
+    <img
     (click)="helpers.closeModal()"
     id="add-task-close-button"
     src="assets/img/icons/dropdown-close-button.svg"
   />
-  <div class="popupAnimation" id="addTaskPopupContainer">
     <app-add-task (taskAdded)="showTask()"></app-add-task>
   </div>
 </div>

@@ -6,9 +6,9 @@
           <span class="headline">Add Task</span>
         </div>
 
-        <div class="addTaskTitle width95">
+        <div class="addTaskTitle">
           <span class="captions">Title</span>
-          <div class="input-container width95">
+          <div class="input-container">
             <input
               id="title"
               type="text"
@@ -30,9 +30,9 @@
             >This field is required</span
           >
         </div>
-        <div class="addTaskDescription width95">
+        <div class="addTaskDescription">
           <span class="captions">Description</span>
-          <div class="textarea-container width95">
+          <div class="textarea-container">
             <textarea
               id="description"
               name="description"
@@ -53,11 +53,11 @@
             >This field is required</span
           >
         </div>
-        <div class="addTaskDropdown width95">
+        <div class="addTaskDropdown">
           <span class="captions">Category</span>
           <div
             style="height: 51px"
-            class="dropdown dropdown-category captions width95"
+            class="dropdown dropdown-category captions"
             #dropdownCategory
           >
             <div class="dropdown-content">
@@ -75,10 +75,10 @@
                     'display-flex': !ds.catDropDownCtrl.newCatMode
                   }"
                 >
-                  <div id="select-task-category width95" style="display: unset">
+                  <div id="select-task-category " style="display: unset">
                     Select task category
                   </div>
-                  <div id="select-task-category-img width95">
+                  <div id="select-task-category-img ">
                     <img src="../../../assets/img/vector2.svg" />
                   </div>
                 </div>
@@ -128,7 +128,7 @@
                 </div>
               </div>
 
-              <div (click)="ds.newCategory()" class="dropdown-option width95">
+              <div (click)="ds.newCategory()" class="dropdown-option">
                 New Category
               </div>
               <div id="categorys">
@@ -203,11 +203,11 @@
           >
         </div>
 
-        <div class="addTaskDropdown width95">
+        <div class="addTaskDropdown">
           <span class="captions">Assigned to</span>
           <div
             style="height: 51px"
-            class="dropdown dropdown-assinged-to captions width95"
+            class="dropdown dropdown-assinged-to captions"
             #dropdownAssignedTo
           >
             <div class="dropdown-content">
@@ -260,7 +260,7 @@
             <div
               *ngFor="
                 let contact of ds.assignDropDownCtrl.selectedEmails
-                  | slice : 0 : 8
+                  | slice : 0 : 7
               "
               [style.backgroundColor]="contact.color"
               class="assinged-person"
@@ -276,15 +276,15 @@
       <div class="addTaskVector4"><img src="./assets/img/vector4.svg" /></div>
 
       <div id="right-side">
-        <div class="addTaskDueDate width95">
-          <span class="captions width95">Due date</span>
-          <div class="input-container width95">
+        <div class="addTaskDueDate">
+          <span class="captions">Due date</span>
+          <div class="input-container">
             <input
               id="date"
               type="date"
               name="date"
               [(ngModel)]="ds.date"
-              class="captions inputFrame width95"
+              class="captions inputFrame"
               placeholder="dd/mm/yyyy"
               min="2024-01-01"
               required
@@ -300,10 +300,10 @@
             >This field is required</span
           >
         </div>
-        <div class="priority-container width95">
+        <div class="priority-container">
           <span class="captions">Priority</span>
 
-          <div class="addTaskPriority width95">
+          <div class="addTaskPriority">
             <label
               [ngClass]="{ urgent: ds.selectedPriority === 'urgent' }"
               class="input-containerPrio buttonFramePrio"
@@ -466,12 +466,12 @@
             Please select a priority.
           </span>
         </div>
-        <div class="addTaskSubtasks width95">
+        <div class="addTaskSubtasks">
           <span class="captions">Subtasks</span>
-          <div class="input-container width95">
+          <div class="input-container">
             <input
               id="newSubtaskInput"
-              class="captions inputFrame width95"
+              class="captions inputFrame"
               placeholder="Add new Subtasks"
               [(ngModel)]="ds.subtask"
               name="subtask"
@@ -498,7 +498,7 @@
           </div>
         </div>
 
-        <div class="buttons-container width95">
+        <div class="buttons-container">
           <button type="reset" (click)="reset()" class="addTaskSecondary">
             <span class="captions">Clear</span>
             <img class="iconoirCancel2" src="assets/img/iconoir_cancel2.svg" />
