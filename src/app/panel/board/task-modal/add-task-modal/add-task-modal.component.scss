@@ -112,6 +112,7 @@ app-add-task {
 }
 
 @media (max-width: 1333px) {
+
   #add-task-close-button {
     height: 56px;
     width: 56px;
@@ -129,10 +130,16 @@ app-add-task {
 }
 @media (max-width: 1024px) {
 
+  .headline-container {
+    padding: 0 !important;
+  }
+
   #right-side {
     padding-bottom: 32px !important;
   }
 }
+
+
 @media (max-width: 768px) {
   #addTaskPopupContainer {
     padding: 0;
@@ -142,15 +149,13 @@ app-add-task {
     padding: 0 !important;
   }
 
-  .headline-container {
-    padding: 0 !important;
-  }
-
   app-add-task {
     height: 100vh !important;
     width: 100vw;
     border-radius: 0px !important;
   }
+
+  
   .main-container {
     width: 100vw !important;
     justify-content: flex-start !important;
