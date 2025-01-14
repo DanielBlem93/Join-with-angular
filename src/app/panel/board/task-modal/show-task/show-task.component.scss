@@ -123,6 +123,10 @@
 
 .modal-subtasks {
   @include dFlex(flex-start, flex-start, column, 4px);
+
+  &::-webkit-scrollbar{
+    display: none;
+  }
 }
 
 .modal-actions {
