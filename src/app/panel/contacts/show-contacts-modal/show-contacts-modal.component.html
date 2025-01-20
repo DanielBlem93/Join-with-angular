@@ -1,0 +1,45 @@
+
+  <div  id="contact-content">
+    <div class="contact-header">
+      <div
+        [style.background-color]="selectedUser.color"
+        class="contact-header-icon"
+      >
+        {{ selectedUser.username | getInitals }}
+      </div>
+      <div>
+        <div class="contact-header-name">{{ selectedUser.username }}</div>
+        <div class="contact-header-add-task">
+          <div (click)="openEditContact()" class="contact-body-header-edit">
+            <img class="icons" src="./assets/img/edit.png" />
+            <span>Edit</span>
+          </div>
+          <div
+            (click)="deleteContact(myForm)"
+            class="contact-body-header-delete"
+          >
+            <img class="icons" src="./assets/img/delete.png" />
+            <span>Delete</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-body">
+      <div class="contact-body-header">
+        <div class="contact-body-header-title">Contact Information</div>
+      </div>
+      <div class="contact-body-item">
+        <div class="contact-body-item-title">Email</div>
+        <div class="contact-body-item-value-email">
+          {{ selectedUser.email }}
+        </div>
+      </div>
+      <div class="contact-body-item">
+        <div class="contact-body-item-title">Phone</div>
+        <div class="contact-body-item-value">
+          {{ selectedUser.number }}
+        </div>
+      </div>
+    </div>
+  </div>
+

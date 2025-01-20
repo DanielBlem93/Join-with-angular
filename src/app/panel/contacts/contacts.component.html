@@ -1,140 +1,7 @@
 <div class="main-container">
-  <div id="add-contakt-modal">
-    <div class="add-contacts-container">
-      <div class="add-contact-greeting-container">
-        <img src="./assets/img/join-icon weiss.png" />
-        @if (!editMode) {
-        <h1><span id="header-add-edit">Add</span> contact</h1>
-        <p id="header-text">Tasks are better with a team!</p>
-        }@else {
-        <h1><span id="header-add-edit">Edit</span> contact</h1>
-        }
-        <hr class="add-contact-hr" />
-      </div>
-
-      <div class="add-contact-form-container">
-        <div id="contact-icon" class="contact-member-icon">
-          <img src="./assets/img/member-icon.png" />
-        </div>
-        <form
-          #myForm="ngForm"
-          (ngSubmit)="onSubmit(myForm)"
-          class="add-contact-form"
-        >
-          <div class="input-container">
-            <input
-              id="contactName"
-              type="text"
-              name="contact_name"
-              placeholder="Name"
-              [(ngModel)]="inputName"
-              required
-              minlength="2"
-              pattern="^[a-zA-Z]+ [a-zA-Z]+$"
-            />
-            <span
-              *ngIf="
-                myForm.form.controls['contact_name']?.touched &&
-                myForm.form.controls['contact_name']?.invalid
-              "
-              id="contactNameError"
-              class="error-message"
-              >Please enter a first- and lastname: John Doe</span
-            >
-            <img
-              class="add-contact-img"
-              src="./assets/img/member-icon-klein.png"
-              alt=""
-            />
-          </div>
-          <div class="input-container">
-            <input
-              id="contactEmail"
-              type="email"
-              name="contact_email"
-              placeholder="Email"
-              [(ngModel)]="inputMail"
-              required
-              email
-              minlength="5"
-              [pattern]="authService.emailRegex"
-            />
-            <span
-              *ngIf="
-                myForm.form.controls['contact_email']?.touched &&
-                myForm.form.controls['contact_email']?.invalid
-              "
-              id="contactEmailError"
-              class="error-message"
-              >Please enter a correct email</span
-            >
-            <img
-              class="add-contact-img"
-              src="./assets/img/email-logo.png"
-              alt=""
-            />
-          </div>
-          <div class="input-container">
-            <input
-              id="contactPhone"
-              type="number"
-              name="contact_phone"
-              placeholder="Phone"
-              [(ngModel)]="inputNumber"
-              required
-              minlength="6"
-            />
-            <span
-              *ngIf="
-                myForm.form.controls['contact_phone']?.touched &&
-                myForm.form.controls['contact_phone']?.invalid
-              "
-              id="contactPhoneError"
-              class="error-message"
-              >Please enter a correct phone number</span
-            >
-            <img
-              class="add-contact-img"
-              src="./assets/img/phone-icon.png"
-              alt=""
-            />
-          </div>
-          @if (!editMode) {
-          <div id="btn-add" class="btn">
-            <button type="button" (click)="closeModal(myForm)" class="add-contact">
-              Cancel
-              <img src="./assets/img/close-icon.png" alt="" />
-            </button>
-            <button type="submit" class="create-contact">
-              Create contact
-              <img src="./assets/img/chack-icon.png" alt="" />
-            </button>
-          </div>
-          }@else if (editMode) {
-          <div id="btn-edit" class="btn">
-            <div class="btn">
-              <button type="button" (click)="deleteContact(myForm)"  class="add-contact">
-                Delete
-              </button>
-              <button (click)="editContact(myForm)" type="button"  class="create-contact">
-                Save
-              </button>
-            </div>
-          </div>
-          }
-        </form>
-      </div>
-      <button type="button" (click)="closeModal(myForm)" class="close">
-        <img
-          class="close-icon"
-          src="../../../assets/img/close-icon.png"
-          alt="close-icon"
-        />
-      </button>
-    </div>
-  </div>
+  <app-add-contacts-modal ></app-add-contacts-modal>
   <div class="content" id="contakt-mobiel">
-    <button type="button" (click)="openModalAddContakt()" class="contact-btn">
+    <button type="button" (click)="openAddContactModal()" class="contact-btn">
       <span class="btn-deskription">New contact</span>
       <img src="./assets/img/memberaddweiss.png" />
     </button>
@@ -151,7 +18,7 @@
           <hr *ngIf="contact.showInitial" class="contact-list-hr" />
 
           <!-- Kontaktblock -->
-          <div (click)="toggleContactInfo('open', contact)" class="contacts-list-item">
+          <div (click)="showContactInfo(contact)" class="contacts-list-item">
             <div
               [style.background-color]="contact.color"
               #contactIcon
@@ -166,8 +33,7 @@
           </div>
         </div>
       </div>
-
-      <div id="contact-m" class="contact">
+      <div id="contacts-modal">
         <div id="back-to-contacts" class="back">
           <img src="./assets/img/back-icon.png" alt="" />
         </div>
@@ -176,48 +42,16 @@
           <hr class="contact-header-hr" />
           <div class="contact-header-title-name">Better with a team</div>
         </div>
-        <div id="contact-content">
-          <div class="contact-header">
-            <div
-              [style.background-color]="selectedUser.color"
-              class="contact-header-icon"
-            >
-              {{ removeCharacter(getInitials(selectedUser.username)) }}
-            </div>
-            <div>
-              <div class="contact-header-name">{{ selectedUser.username }}</div>
-              <div class="contact-header-add-task">
-                <div (click)="openEditContact()" class="contact-body-header-edit">
-                  <img class="icons" src="./assets/img/edit.png" />
-                  <span>Edit</span>
-                </div>
-                <div (click)="deleteContact(myForm)" class="contact-body-header-delete">
-                  <img class="icons" src="./assets/img/delete.png" />
-                  <span>Delete</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="contact-body">
-            <div class="contact-body-header">
-              <div class="contact-body-header-title">Contact Information</div>
-            </div>
-            <div class="contact-body-item">
-              <div class="contact-body-item-title">Email</div>
-              <div class="contact-body-item-value-email">
-                {{ selectedUser.email }}
-              </div>
-            </div>
-            <div class="contact-body-item">
-              <div class="contact-body-item-title">Phone</div>
-              <div class="contact-body-item-value">
-                {{ selectedUser.number }}
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-contacts-modal
+          [@contactModalToggleAnimation]="
+            helpers.contactsModal.showContactInfo ? 'open' : 'closed'
+          "
+          [selectedUser]="selectedUser"
+        ></app-contacts-modal>
       </div>
     </div>
+    <app-msg-box
+      [@openClose]="helpers.isOpen ? 'open' : 'closed'"
+    ></app-msg-box>
   </div>
- <app-msg-box [@openClose]="helpers.isOpen ? 'open' : 'closed'" ></app-msg-box>
 </div>

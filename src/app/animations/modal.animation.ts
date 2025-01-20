@@ -29,3 +29,29 @@ export const modalAnimation = trigger('modalToggleAnimation', [
   transition('visable => unvisable', [animate('0.2s')]),
   transition('unvisable => visable', [animate('0.2s')]),
 ]);
+export const contactModalAnimation = trigger('contactModalToggleAnimation', [
+  state(
+    'open',
+    style({
+      right: '0%',
+
+    })
+  ),
+  state(
+    'closed',
+    style({
+      right: '-200%',
+    })
+  ),
+  state('visable', style({
+    opacity: 1,
+    zIndex: 333,
+  })), state('unvisable', style({
+    opacity: 0,
+    zIndex: -1
+  })),
+  transition('open => closed', [animate('0.2s')]),
+  transition('closed => open', [animate('0.2s')]),
+  transition('visable => unvisable', [animate('0.2s')]),
+  transition('unvisable => visable', [animate('0.2s')]),
+]);

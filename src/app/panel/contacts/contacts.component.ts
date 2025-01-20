@@ -4,37 +4,42 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Observable, Subscription } from 'rxjs';
-import { addDoc, collectionData, getDocs} from '@angular/fire/firestore';
+import { addDoc, collectionData, getDocs } from '@angular/fire/firestore';
 import { Users } from '../../interfaces/users';
 import { HelpersService } from '../../services/helpers.service';
 import { msgBoxAnimation } from '../../animations/msgBox.animations';
 import { MsgBoxComponent } from '../../msg-box/msg-box.component';
+import { ResponsiveService } from '../../services/responsive.service';
+import { ContactsModalComponent } from "./show-contacts-modal/show-contacts-modal.component";
+import { contactModalAnimation } from '../../animations/modal.animation';
+import { AddContactsModalComponent } from "./add-contacts-modal/add-contacts-modal.component";
 
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [CommonModule, FormsModule, MsgBoxComponent],
+  imports: [CommonModule, FormsModule, MsgBoxComponent, ContactsModalComponent, AddContactsModalComponent],
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss'],
 
-  animations: [msgBoxAnimation]
+  animations: [msgBoxAnimation, contactModalAnimation]
 })
 
 
 export class ContactsComponent implements OnInit {
-  inputName: any;
-  inputMail: any;
-  inputNumber: any;
-  randomColor!: string; // Variable für die zufällige Farbe
-  public isOpen: boolean = false
+
+
+
+
+
   contacts$: Observable<any[]>; // Stream für die Kontakte
+  private contactsSubscription: Subscription | undefined;
+
   sortedContacts: any[] = []; // Sortierte Kontakte mit Gruppierung
   selectedUser: Users
-  color!: string
-  editMode: boolean = false
+
+  isOpen: boolean = false
   currentMessage: string = 'Contact succesfuly created'
-  private contactsSubscription: Subscription | undefined;
 
 
 
@@ -42,6 +47,7 @@ export class ContactsComponent implements OnInit {
     private fireService: FirebaseService,
     public authService: AuthenticationService,
     public helpers: HelpersService,
+    public responsiveService: ResponsiveService
   ) {
 
     this.contacts$ = collectionData(this.fireService.contactsDatabase, { idField: 'id' });
@@ -124,78 +130,6 @@ export class ContactsComponent implements OnInit {
 
 
   /**
-   * A method to get random colors
-   * @returns a #color code as string
-   */
-  getRandomColor(): string {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-
-
-  /**
-   * Handels whats happen if the form is submitted
-   * @param myForm the NgForm form the HTML
-   */
-  onSubmit(myForm: NgForm) {
-    if (myForm.valid) {
-      this.createContact(myForm);
-    }
-  }
-
-
-  /**
-   * creates a contact in firebase
-   */
-  async createContact(myForm: NgForm) {
-    const data: Users = this.setContact()
-    if (await this.checkEmail(data.email)) {
-      try {
-        this.sendContact(data, myForm)
-      } catch (error) {
-        console.error('Fehler beim Hinzufügen des Dokuments:', error);
-      }
-    } else {
-      this.helpers.toggleMsg('Email allready exist')
-    }
-  }
-
-
-  /**
-   * Set User Objekt
-   * @returns Userobjekt with data from inputs
-   */
-  setContact() {
-    return {
-      username: this.inputName,
-      email: this.inputMail,
-      number: this.inputNumber,
-      color: this.getRandomColor()
-    }
-  }
-
-
-  /**
-   * creates a doc in FIrebase with contact data
-   * @param data the data from the contact
-   */
-  async sendContact(data: Users, form: NgForm) {
-    try {
-      const docRef = await addDoc(this.fireService.contactsDatabase, data);
-      console.log('Dokument erfolgreich hinzugefügt mit ID:', docRef.id);
-      this.closeModal(form)
-      this.helpers.toggleMsg('User successfully created')
-    } catch (error) {
-      this.helpers.toggleMsg('Somthing went wrong')
-    }
-  }
-
-
-  /**
    * Check If email exist
    * @param email string you want to check
    * @returns boolean if email is in the contacts database
@@ -209,10 +143,10 @@ export class ContactsComponent implements OnInit {
   }
 
   /**
- * Checks if the email is exitend in the Contacts Database
- * @param email email you want to check
- * @returns null or the email you want to check
- */
+* Checks if the email is exitend in the Contacts Database
+* @param email email you want to check
+* @returns null or the email you want to check
+*/
   async getUserEmail(email: string) {
     const querySnapshot = await getDocs(this.fireService.contactsDatabase);
     let userMail: string | null = null;
@@ -231,51 +165,27 @@ export class ContactsComponent implements OnInit {
 
 
   /**
-   * Opens the "add-contact" modal by adjusting its position on the screen.
+   * Opens the "modal" modal by adjusting its position on the screen.
    * Prior to opening, it resets the modal to its initial state.
    */
-  openModalAddContakt() {
-    this.resetInput()
-    const modal = document.getElementById('add-contakt-modal') as HTMLElement | null;
+  openAddContactModal() {
 
-    if (modal && !this.editMode) {
-      modal.style.right = '0';
+    this.helpers.contactsModal.newContact = true
+    this.helpers.contactsModal.editMode = false
 
-    } else if (modal && this.editMode) {
-      modal.style.right = '0';
-      this.setUserInput(this.selectedUser)
-    }
   }
 
 
-  /**
-  * Closes the "add-contact" modal by moving it off the visible screen area.
-  */
-  closeModal(form: NgForm) {
-    this.resetInput()
-    form.reset()
-    this.editMode = false
-    const modal = document.getElementById('add-contakt-modal');
-    if (modal) {
-      modal.style.right = '-200%';
-    }
-  }
+
 
 
   /**
    * Displays the contact information of the selected contact
-   * @param job  'open' or 'close' for toggle
    * @param contact a userobject with contactinformation
    */
-  toggleContactInfo(job: string, contact: Users): void {
-    const contactContent = document.getElementById('contact-content');
-    if (contactContent) {
-      contactContent.style.right = job === 'open' ? '0' : '-200%';
-
-      if (job === 'open') {
-        this.setSelectedUser(contact)
-      }
-    }
+  showContactInfo(contact: Users): void {
+    this.helpers.contactsModal.showContactInfo = true
+    this.setSelectedUser(contact)
   }
 
 
@@ -290,65 +200,8 @@ export class ContactsComponent implements OnInit {
     this.selectedUser.color = contact.color
   }
 
-  /**
-   * Fills inputs with the contact information
-   * @param contact the contact object with the contactinformations
-   */
-  setUserInput(contact: Users) {
-    this.resetInput()
-    this.inputName = contact.username
-    this.inputNumber = contact.number
-    this.inputMail = contact.email
-  }
-
-  /**
-   * Clears all inputs
-   */
-  resetInput() {
-    this.inputName = ''
-    this.inputNumber = ''
-    this.inputMail = ''
-  }
-
-  /**
-   * Opens the EditContact Form
-   */
-  openEditContact() {
-    this.editMode = true
-    this.openModalAddContakt()
-  }
 
 
-  /**
-   * Edit the contact with the new Contactinformations
-   */
-  async editContact(myForm: NgForm) {
-    if (!await this.checkEmail(this.selectedUser.email)) {
-      let id = await this.fireService.getContactIdByEmail(this.selectedUser.email)
-      const updatedData = this.setContact()
-      this.setSelectedUser(updatedData)
-      this.fireService.updateContact(id!, updatedData)
-      this.helpers.toggleMsg('User Updated')
-    } else {
-      this.helpers.toggleMsg('Something went wrong')
-    }
-    this.closeModal(myForm)
-  }
-
-
-  /**
-   * Deletes the contact from Firebase
-   */
-  deleteContact(myForm: NgForm) {
-    try {
-      this.fireService.deleteContact(this.selectedUser.email)
-      this.closeModal(myForm)
-      this.helpers.toggleMsg('User deleted')
-    } catch (error) {
-      this.helpers.toggleMsg('Somthing went wrong')
-    }
-    this.toggleContactInfo('close', this.selectedUser)
-  }
 
 
 

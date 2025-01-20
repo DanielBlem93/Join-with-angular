@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Tasks } from '../interfaces/tasks';
 import { Task } from '../models/task.class';
 import { Status } from '../interfaces/status';
+import { Users } from '../interfaces/users';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,14 @@ export class HelpersService {
     showTaskMode: boolean;
   }
 
+  public contactsModal: {
+    showContactInfo: boolean;
+    editMode: boolean,
+    newContact: boolean,
+    inputs: Users,
+  }
+
+
 
   constructor(public router: Router) {
     this.modalControls = {
@@ -30,8 +39,19 @@ export class HelpersService {
       editTaskMode: false,
       showTaskMode: false
     }
-  }
 
+    this.contactsModal = {
+      showContactInfo: false,
+      editMode: false,
+      newContact: false,
+      inputs: {
+        username: 'Max Mustermann',
+        number: '0123456789',
+        email: 'max@mustermann.de',
+        color: '#258E7D'
+      }
+    }
+  }
 
   doNotClose(event: Event) {
     this.modalControls.isModalClosed = false;
