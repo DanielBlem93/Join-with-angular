@@ -4,21 +4,22 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Observable, Subscription } from 'rxjs';
-import { addDoc, collectionData, getDocs } from '@angular/fire/firestore';
+import { collectionData } from '@angular/fire/firestore';
 import { Users } from '../../interfaces/users';
 import { HelpersService } from '../../services/helpers.service';
 import { msgBoxAnimation } from '../../animations/msgBox.animations';
 import { MsgBoxComponent } from '../../msg-box/msg-box.component';
 import { ResponsiveService } from '../../services/responsive.service';
-import { ContactsModalComponent } from "./show-contacts-modal/show-contacts-modal.component";
+import { ShowcontactsModalControlsComponent } from "./show-contacts-modal/show-contacts-modal.component";
 import { contactModalAnimation } from '../../animations/modal.animation';
-import { AddContactsModalComponent } from "./add-contacts-modal/add-contacts-modal.component";
+import { AddcontactsModalControlsComponent } from "./add-contacts-modal/add-contacts-modal.component";
+import { GetInitalsPipe } from '../../pipes/get-initals.pipe';
 
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [CommonModule, FormsModule, MsgBoxComponent, ContactsModalComponent, AddContactsModalComponent],
+  imports: [CommonModule, FormsModule, MsgBoxComponent, AddcontactsModalControlsComponent, ShowcontactsModalControlsComponent, GetInitalsPipe],
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss'],
 
@@ -29,19 +30,13 @@ import { AddContactsModalComponent } from "./add-contacts-modal/add-contacts-mod
 export class ContactsComponent implements OnInit {
 
 
-
-
-
   contacts$: Observable<any[]>; // Stream für die Kontakte
   private contactsSubscription: Subscription | undefined;
 
   sortedContacts: any[] = []; // Sortierte Kontakte mit Gruppierung
-  selectedUser: Users
 
   isOpen: boolean = false
   currentMessage: string = 'Contact succesfuly created'
-
-
 
   constructor(
     private fireService: FirebaseService,
@@ -51,7 +46,7 @@ export class ContactsComponent implements OnInit {
   ) {
 
     this.contacts$ = collectionData(this.fireService.contactsDatabase, { idField: 'id' });
-    this.selectedUser = {
+    this.helpers.contactsModalControls.selectedUser = {
       username: 'Max Mustermann',
       email: 'max@muster.de',
       number: '0123456789',
@@ -61,6 +56,7 @@ export class ContactsComponent implements OnInit {
 
   ngOnInit() {
     this.sortContacts();
+    this.helpers.contactsModalControls.showContactInfo = false
   }
 
   ngOnDestroy() {
@@ -116,53 +112,6 @@ export class ContactsComponent implements OnInit {
   }
 
 
-  /**
-   * Removes the "," from the Initals
-   * @param initals The Initals from the username
-   * @returns a clean string without "," : 'DB'
-   */
-  removeCharacter(initals: string[]) {
-    const first = initals[0]
-    const second = initals[1]
-    const string = `${first}${second}`
-    return string
-  }
-
-
-  /**
-   * Check If email exist
-   * @param email string you want to check
-   * @returns boolean if email is in the contacts database
-   */
-  async checkEmail(email: string) {
-    const usermail = await this.getUserEmail(email)
-    if (usermail)
-      return false
-    else
-      return true
-  }
-
-  /**
-* Checks if the email is exitend in the Contacts Database
-* @param email email you want to check
-* @returns null or the email you want to check
-*/
-  async getUserEmail(email: string) {
-    const querySnapshot = await getDocs(this.fireService.contactsDatabase);
-    let userMail: string | null = null;
-    querySnapshot.forEach((doc) => {
-      const data = doc.data()
-      const mail = data['email']
-
-      if (mail === email) {
-        userMail = mail
-      }
-    });
-    return userMail
-  }
-
-
-
 
   /**
    * Opens the "modal" modal by adjusting its position on the screen.
@@ -170,13 +119,10 @@ export class ContactsComponent implements OnInit {
    */
   openAddContactModal() {
 
-    this.helpers.contactsModal.newContact = true
-    this.helpers.contactsModal.editMode = false
+    this.helpers.contactsModalControls.newContact = true
+    this.helpers.contactsModalControls.editMode = false
 
   }
-
-
-
 
 
   /**
@@ -184,21 +130,12 @@ export class ContactsComponent implements OnInit {
    * @param contact a userobject with contactinformation
    */
   showContactInfo(contact: Users): void {
-    this.helpers.contactsModal.showContactInfo = true
-    this.setSelectedUser(contact)
+    this.helpers.contactsModalControls.showContactInfo = true
+    this.helpers.setSelectedContact(contact)
+    console.log('selected contact is:', contact)
   }
 
 
-  /**
-   * Set the values vor the Contactinformations
-   * @param contact a userobject with contactinformation
-   */
-  setSelectedUser(contact: Users) {
-    this.selectedUser.username = contact.username
-    this.selectedUser.number = contact.number
-    this.selectedUser.email = contact.email
-    this.selectedUser.color = contact.color
-  }
 
 
 

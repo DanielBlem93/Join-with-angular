@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HelpersService } from '../../../services/helpers.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -6,15 +6,17 @@ import { Users } from '../../../interfaces/users';
 import { addDoc, getDocs } from 'firebase/firestore';
 import { FirebaseService } from '../../../services/firebase.service';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { contactModalAnimation, modalAnimation } from '../../../animations/modal.animation';
 
 @Component({
   selector: 'app-add-contacts-modal',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule,],
   templateUrl: './add-contacts-modal.component.html',
-  styleUrl: './add-contacts-modal.component.scss'
+  styleUrl: './add-contacts-modal.component.scss',
+  animations: [contactModalAnimation, modalAnimation]
 })
-export class AddContactsModalComponent {
+export class AddcontactsModalControlsComponent implements OnInit {
   randomColor!: string;
   color!: string
 
@@ -22,6 +24,9 @@ export class AddContactsModalComponent {
     private fireService: FirebaseService,
     public authService: AuthenticationService) {
 
+  }
+  ngOnInit(): void {
+    this.helpers.resetContactsInput()
   }
 
 
@@ -41,99 +46,37 @@ export class AddContactsModalComponent {
 */
   async createContact(myForm: NgForm) {
     const data: Users = this.setContact()
-    if (await this.checkEmail(data.email)) {
+    if (await this.helpers.checkEmail(data.email)) {
       try {
-        this.sendContact(data, myForm)
+        this.addContactToDB(data, myForm)
       } catch (error) {
         console.error('Fehler beim Hinzufügen des Dokuments:', error);
+        this.helpers.toggleMsg(`${error}`)
       }
     } else {
       this.helpers.toggleMsg('Email allready exist')
     }
   }
 
-  /**
-   * Check If email exist
-   * @param email string you want to check
-   * @returns boolean if email is in the contacts database
-   */
-  async checkEmail(email: string) {
-    const usermail = await this.getUserEmail(email)
-    if (usermail)
-      return false
-    else
-      return true
-  }
 
   /**
-* Checks if the email is exitend in the Contacts Database
-* @param email email you want to check
-* @returns null or the email you want to check
-*/
-  async getUserEmail(email: string) {
-    const querySnapshot = await getDocs(this.fireService.contactsDatabase);
-    let userMail: string | null = null;
-    querySnapshot.forEach((doc) => {
-      const data = doc.data()
-      const mail = data['email']
-
-      if (mail === email) {
-        userMail = mail
-      }
-    });
-    return userMail
-  }
-
-
-  /**
-   * creates a doc in FIrebase with contact data
-   * @param data the data from the contact
-   */
-  async sendContact(data: Users, form: NgForm) {
-    try {
-      const docRef = await addDoc(this.fireService.contactsDatabase, data);
-      console.log('Dokument erfolgreich hinzugefügt mit ID:', docRef.id);
-      this.closeModal(form)
-      this.helpers.toggleMsg('User successfully created')
-    } catch (error) {
-      this.helpers.toggleMsg('Somthing went wrong')
-    }
-  }
-
-
-  /**
-* Closes the "add-contact" modal by moving it off the visible screen area.
-*/
-  closeModal(form: NgForm) {
-    this.resetInput()
-    form.reset()
-    this.helpers.contactsModal.editMode = false
-    const modal = document.getElementById('add-contakt-modal');
-    if (modal) {
-      modal.style.right = '-200%';
-    }
-  }
-
-
-
-  /**
-   * Set User Objekt
-   * @returns Userobjekt with data from inputs
-   */
+ * Set User Objekt
+ * @returns Userobjekt with data from inputs
+ */
   setContact() {
     return {
-      username: this.helpers.contactsModal.inputs.username,
-      email: this.helpers.contactsModal.inputs.email,
-      number: this.helpers.contactsModal.inputs.number,
+      username: this.helpers.contactsModalControls.inputs.username,
+      email: this.helpers.contactsModalControls.inputs.email,
+      number: this.helpers.contactsModalControls.inputs.number,
       color: this.getRandomColor()
     }
   }
 
 
   /**
- * A method to get random colors
- * @returns a #color code as string
- */
+  * A method to get random colors
+  * @returns a #color code as string
+  */
   getRandomColor(): string {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -144,26 +87,36 @@ export class AddContactsModalComponent {
   }
 
 
-
   /**
-   * Fills inputs with the contact information
-   * @param contact the contact object with the contactinformations
+   * creates a doc in FIrebase with contact data
+   * @param data the data from the contact
    */
-  setUserInput(contact: Users) {
-    this.resetInput()
-    this.helpers.contactsModal.inputs.username = contact.username
-    this.helpers.contactsModal.inputs.number = contact.number
-    this.helpers.contactsModal.inputs.email = contact.email
+  async addContactToDB(data: Users, form: NgForm) {
+    try {
+      const docRef = await addDoc(this.fireService.contactsDatabase, data);
+      console.log('Dokument erfolgreich hinzugefügt mit ID:', docRef.id);
+      this.helpers.closecontactsModal(form)
+      this.helpers.toggleMsg('User successfully created')
+    } catch (error) {
+      this.helpers.toggleMsg('Somthing went wrong')
+    }
   }
 
-  /**
-   * Clears all inputs
-   */
-  resetInput() {
-    this.helpers.contactsModal.inputs.username = ''
-    this.helpers.contactsModal.inputs.number = ''
-    this.helpers.contactsModal.inputs.email = ''
+
+
+  async editContact(myForm: NgForm) {
+    if (!await this.helpers.checkEmail(this.helpers.contactsModalControls.selectedUser.email)) {
+      let id = await this.fireService.getContactIdByEmail(this.helpers.contactsModalControls.selectedUser.email)
+      const updatedData = this.setContact()
+      this.helpers.setSelectedContact(updatedData)
+      this.fireService.updateContact(id!, updatedData)
+      this.helpers.toggleMsg('User Updated')
+    } else {
+      this.helpers.toggleMsg('Something went wrong')
+    }
+    this.helpers.closecontactsModal(myForm)
   }
+
 
 
 

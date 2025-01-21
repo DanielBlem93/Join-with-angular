@@ -1,148 +1,159 @@
-<div id="add-contakt-modal">
-    <div class="add-contacts-container">
-      <div class="add-contact-greeting-container">
-        <img src="./assets/img/join-icon weiss.png" />
-        @if (!this.helpers.contactsModal.editMode) {
-        <h1><span id="header-add-edit">Add</span> contact</h1>
-        <p id="header-text">Tasks are better with a team!</p>
-        }@else {
-        <h1><span id="header-add-edit">Edit</span> contact</h1>
-        }
-        <hr class="add-contact-hr" />
-      </div>
+<div
+  [@contactModalToggleAnimation]="
+    helpers.contactsModalControls.newContact ? 'visable' : 'unvisable'
+  "
+  [@contactModalToggleAnimation]="
+    helpers.contactsModalControls.newContact ? 'open' : 'closed'
+  "
+  id="add-contakt-modal"
+>
+  <div class="add-contacts-container">
+    <div class="add-contact-greeting-container">
+      <img src="./assets/img/join-icon weiss.png" />
+      @if (!this.helpers.contactsModalControls.editMode) {
+      <h1><span id="header-add-edit">Add</span> contact</h1>
+      <p id="header-text">Tasks are better with a team!</p>
+      }@else {
+      <h1><span id="header-add-edit">Edit</span> contact</h1>
+      }
+      <hr class="add-contact-hr" />
+    </div>
 
-      <div class="add-contact-form-container">
-        <div id="contact-icon" class="contact-member-icon">
-          <img src="./assets/img/member-icon.png" />
+    <div class="add-contact-form-container">
+      <div id="contact-icon" class="contact-member-icon">
+        <img src="./assets/img/member-icon.png" />
+      </div>
+      <form
+        #myForm="ngForm"
+        (ngSubmit)="onSubmit(myForm)"
+        class="add-contact-form"
+      >
+        <div class="input-container">
+          <input
+            id="contactName"
+            type="text"
+            name="contact_name"
+            placeholder="Name"
+            [(ngModel)]="helpers.contactsModalControls.inputs.username"
+            required
+            minlength="2"
+            pattern="^[a-zA-Z]+ [a-zA-Z]+$"
+          />
+          <span
+            *ngIf="
+              myForm.form.controls['contact_name']?.touched &&
+              myForm.form.controls['contact_name']?.invalid
+            "
+            id="contactNameError"
+            class="error-message"
+            >Please enter a first- and lastname: John Doe</span
+          >
+          <img
+            class="add-contact-img"
+            src="./assets/img/member-icon-klein.png"
+            alt=""
+          />
         </div>
-        <form
-          #myForm="ngForm"
-          (ngSubmit)="onSubmit(myForm)"
-          class="add-contact-form"
-        >
-          <div class="input-container">
-            <input
-              id="contactName"
-              type="text"
-              name="contact_name"
-              placeholder="Name"
-              [(ngModel)]="helpers.contactsModal.inputs.username"
-              required
-              minlength="2"
-              pattern="^[a-zA-Z]+ [a-zA-Z]+$"
-            />
-            <span
-              *ngIf="
-                myForm.form.controls['contact_name']?.touched &&
-                myForm.form.controls['contact_name']?.invalid
-              "
-              id="contactNameError"
-              class="error-message"
-              >Please enter a first- and lastname: John Doe</span
-            >
-            <img
-              class="add-contact-img"
-              src="./assets/img/member-icon-klein.png"
-              alt=""
-            />
-          </div>
-          <div class="input-container">
-            <input
-              id="contactEmail"
-              type="email"
-              name="contact_email"
-              placeholder="Email"
-              [(ngModel)]="helpers.contactsModal.inputs.email"
-              required
-              email
-              minlength="5"
-              [pattern]="authService.emailRegex"
-            />
-            <span
-              *ngIf="
-                myForm.form.controls['contact_email']?.touched &&
-                myForm.form.controls['contact_email']?.invalid
-              "
-              id="contactEmailError"
-              class="error-message"
-              >Please enter a correct email</span
-            >
-            <img
-              class="add-contact-img"
-              src="./assets/img/email-logo.png"
-              alt=""
-            />
-          </div>
-          <div class="input-container">
-            <input
-              id="contactPhone"
-              type="number"
-              name="contact_phone"
-              placeholder="Phone"
-              [(ngModel)]="helpers.contactsModal.inputs.number"
-              required
-              minlength="6"
-            />
-            <span
-              *ngIf="
-                myForm.form.controls['contact_phone']?.touched &&
-                myForm.form.controls['contact_phone']?.invalid
-              "
-              id="contactPhoneError"
-              class="error-message"
-              >Please enter a correct phone number</span
-            >
-            <img
-              class="add-contact-img"
-              src="./assets/img/phone-icon.png"
-              alt=""
-            />
-          </div>
-          @if (!this.helpers.contactsModal.editMode) {
-          <div id="btn-add" class="btn">
+        <div class="input-container">
+          <input
+            id="contactEmail"
+            type="email"
+            name="contact_email"
+            placeholder="Email"
+            [(ngModel)]="helpers.contactsModalControls.inputs.email"
+            required
+            email
+            minlength="5"
+            [pattern]="authService.emailRegex"
+          />
+          <span
+            *ngIf="
+              myForm.form.controls['contact_email']?.touched &&
+              myForm.form.controls['contact_email']?.invalid
+            "
+            id="contactEmailError"
+            class="error-message"
+            >Please enter a correct email</span
+          >
+          <img
+            class="add-contact-img"
+            src="./assets/img/email-logo.png"
+            alt=""
+          />
+        </div>
+        <div class="input-container">
+          <input
+            id="contactPhone"
+            type="text"
+            name="contact_phone"
+            placeholder="Phone"
+            [(ngModel)]="helpers.contactsModalControls.inputs.number"
+            required
+            minlength="6"
+            pattern="^\+?[0-9]*$"
+          />
+          <span
+            *ngIf="
+              myForm.form.controls['contact_phone']?.touched &&
+              myForm.form.controls['contact_phone']?.invalid
+            "
+            id="contactPhoneError"
+            class="error-message"
+            >Please enter a correct phone number</span
+          >
+          <img
+            class="add-contact-img"
+            src="./assets/img/phone-icon.png"
+            alt=""
+          />
+        </div>
+        @if (!this.helpers.contactsModalControls.editMode) {
+        <div id="btn-add" class="btn">
+          <button
+            type="button"
+            (click)="helpers.closecontactsModal(myForm)"
+            class="add-contact"
+          >
+            Cancel
+            <img src="./assets/img/close-icon.png" alt="" />
+          </button>
+          <button type="submit" class="create-contact">
+            Create contact
+            <img src="./assets/img/chack-icon.png" alt="" />
+          </button>
+        </div>
+        } @else if (this.helpers.contactsModalControls.editMode) {
+        <div id="btn-edit" class="btn">
+          <div class="btn">
             <button
               type="button"
-              (click)="closeModal(myForm)"
+              (click)="helpers.deleteContact(myForm)"
               class="add-contact"
             >
-              Cancel
-              <img src="./assets/img/close-icon.png" alt="" />
+              Delete
             </button>
-            <button type="submit" class="create-contact">
-              Create contact
-              <img src="./assets/img/chack-icon.png" alt="" />
+            <button
+              (click)="editContact(myForm)"
+              type="button"
+              class="create-contact"
+            >
+              Save
             </button>
           </div>
-          }
-          
-          <!-- @else if (this.helpers.contactsModal.editMode) {
-          <div id="btn-edit" class="btn">
-            <div class="btn">
-              <button
-                type="button"
-                (click)="deleteContact(myForm)"
-                class="add-contact"
-              >
-                Delete
-              </button>
-              <button
-                (click)="editContact(myForm)"
-                type="button"
-                class="create-contact"
-              >
-                Save
-              </button>
-            </div>
-          </div>
-          } -->
-        </form>
-      </div>
-      <button type="button" (click)="closeModal(myForm)" class="close">
-        <img
-          class="close-icon"
-          src="../../../assets/img/close-icon.png"
-          alt="close-icon"
-        />
-      </button>
+        </div>
+        }
+      </form>
     </div>
+    <button
+      type="button"
+      (click)="helpers.closecontactsModal(myForm)"
+      class="close"
+    >
+      <img
+        class="close-icon"
+        src="../../../assets/img/close-icon.png"
+        alt="close-icon"
+      />
+    </button>
   </div>
+</div>

@@ -2,8 +2,7 @@
 @import "../../../globalStyles.scss";
 @import "../../../styles.scss";
 
-
-app-contacts-modal{
+app-show-contacts-modal {
   position: relative;
 }
 
@@ -110,9 +109,6 @@ app-contacts-modal{
   font-size: 47px;
   font-weight: 500;
 }
-
-
-
 
 .contact-header-add-task {
   @include dFlex(flex-start, flex-start, row, 50px);
@@ -224,7 +220,7 @@ app-contacts-modal{
   height: 100%;
   position: fixed;
   top: 0;
-  right: -200%; // - 200% for close
+  right: 0%; // - 200% for close
   background-color: rgba(42, 54, 71, 0.5);
   z-index: 222;
   transition: all 0.7s ease-in-out;

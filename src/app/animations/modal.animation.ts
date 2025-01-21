@@ -43,15 +43,8 @@ export const contactModalAnimation = trigger('contactModalToggleAnimation', [
       right: '-200%',
     })
   ),
-  state('visable', style({
-    opacity: 1,
-    zIndex: 333,
-  })), state('unvisable', style({
-    opacity: 0,
-    zIndex: -1
-  })),
-  transition('open => closed', [animate('0.2s')]),
-  transition('closed => open', [animate('0.2s')]),
-  transition('visable => unvisable', [animate('0.2s')]),
-  transition('unvisable => visable', [animate('0.2s')]),
+  transition('open => closed', [animate('0.225s')]),
+  transition('closed => open', [animate('0.225s')]),
+  transition('visable => unvisable', [animate('0.125s')]),
+  transition('unvisable => visable', [animate('0.125s')]),
 ]);

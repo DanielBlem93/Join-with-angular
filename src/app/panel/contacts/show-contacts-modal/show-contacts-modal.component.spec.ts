@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContactsModalComponent } from './show-contacts-modal.component';
+import { contactsModalControlsComponent } from './show-contacts-modal.component';
 
-describe('ContactsModalComponent', () => {
-  let component: ContactsModalComponent;
-  let fixture: ComponentFixture<ContactsModalComponent>;
+describe('contactsModalControlsComponent', () => {
+  let component: contactsModalControlsComponent;
+  let fixture: ComponentFixture<contactsModalControlsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContactsModalComponent]
+      imports: [contactsModalControlsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ContactsModalComponent);
+    fixture = TestBed.createComponent(contactsModalControlsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

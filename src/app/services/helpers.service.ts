@@ -4,6 +4,10 @@ import { Tasks } from '../interfaces/tasks';
 import { Task } from '../models/task.class';
 import { Status } from '../interfaces/status';
 import { Users } from '../interfaces/users';
+import { User } from '../models/user.class';
+import { NgForm } from '@angular/forms';
+import { FirebaseService } from './firebase.service';
+import { getDocs } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +26,8 @@ export class HelpersService {
     showTaskMode: boolean;
   }
 
-  public contactsModal: {
+  public contactsModalControls: {
+    selectedUser: Users
     showContactInfo: boolean;
     editMode: boolean,
     newContact: boolean,
@@ -31,7 +36,9 @@ export class HelpersService {
 
 
 
-  constructor(public router: Router) {
+  constructor(public router: Router, private fireService: FirebaseService) {
+
+
     this.modalControls = {
       isModalClosed: true,
       modalToggleAnimation: false,
@@ -40,7 +47,8 @@ export class HelpersService {
       showTaskMode: false
     }
 
-    this.contactsModal = {
+    this.contactsModalControls = {
+      selectedUser: new User(),
       showContactInfo: false,
       editMode: false,
       newContact: false,
@@ -53,12 +61,32 @@ export class HelpersService {
     }
   }
 
+  /**
+* open/close the messagebox
+*/
+  toggleMsg(message: string) {
+    this.currentMessage = message
+    setTimeout(() => {
+      this.isOpen = !this.isOpen
+    }, 500);
+    setTimeout(() => {
+      this.isOpen = !this.isOpen
+    }, 2500);
+  }
+
+
+  redirectTo(url: string, time: number) {
+    setTimeout(() => {
+      this.router.navigate([url])
+    }, time);
+  }
+
   doNotClose(event: Event) {
     this.modalControls.isModalClosed = false;
   }
 
 
-
+  //=============Board ===============
   closeModal() {
     this.modalControls.isModalClosed = true;
     this.modalControls.modalToggleAnimation = false;
@@ -83,25 +111,95 @@ export class HelpersService {
     this.modalControls.modalToggleAnimation = !this.modalControls.modalToggleAnimation
     this.currentStatus = status
   }
+
+  //=============Contacts===============
+
+
   /**
-  * open/close the messagebox
-  */
-  toggleMsg(message: string) {
-    this.currentMessage = message
-    setTimeout(() => {
-      this.isOpen = !this.isOpen
-    }, 500);
-    setTimeout(() => {
-      this.isOpen = !this.isOpen
-    }, 2500);
+ * Clears all inputs
+ */
+  resetContactsInput() {
+    this.contactsModalControls.inputs.username = ''
+    this.contactsModalControls.inputs.number = ''
+    this.contactsModalControls.inputs.email = ''
   }
 
 
-  redirectTo(url: string, time: number) {
-    setTimeout(() => {
-      this.router.navigate([url])
-    }, time);
+  /**
+   * Closes the "add-contact" modal by moving it off the visible screen area.
+   */
+  closecontactsModal(form: NgForm) {
+    this.resetContactsInput()
+    form.reset()
+    this.contactsModalControls.editMode = false
+    this.contactsModalControls.newContact = false
   }
+
+
+  /**
+ * Deletes the contact from Firebase
+ */
+  async deleteContact(myForm: NgForm) {
+    try {
+      await this.fireService.deleteContact(this.contactsModalControls.selectedUser.email)
+      this.toggleMsg('User deleted')
+      if (myForm) {
+        this.closecontactsModal(myForm)
+      }
+    } catch (error) {
+      console.log(error)
+      this.toggleMsg('Somthing went wrong')
+    }
+    this.contactsModalControls.showContactInfo = false
+  }
+
+
+  /**
+ * Set the values vor the Contactinformations
+ * @param contact a userobject with contactinformation
+ */
+  setSelectedContact(contact: Users) {
+    this.contactsModalControls.selectedUser.username = contact.username
+    this.contactsModalControls.selectedUser.number = contact.number
+    this.contactsModalControls.selectedUser.email = contact.email
+    this.contactsModalControls.selectedUser.color = contact.color
+  }
+
+  /**
+   * Check If email exist
+   * @param email string you want to check
+   * @returns boolean if email is in the contacts database
+   */
+  async checkEmail(email: string) {
+    const usermail = await this.getUserEmail(email)
+    if (usermail)
+      return false
+    else
+      return true
+  }
+
+
+  /**
+* Checks if the email is exitend in the Contacts Database
+* @param email email you want to check
+* @returns null or the email you want to check
+*/
+  async getUserEmail(email: string) {
+    const querySnapshot = await getDocs(this.fireService.contactsDatabase);
+    let userMail: string | null = null;
+    querySnapshot.forEach((doc) => {
+      const data = doc.data()
+      const mail = data['email']
+
+      if (mail === email) {
+        userMail = mail
+      }
+    });
+    return userMail
+  }
+
+
+
 
 
 }

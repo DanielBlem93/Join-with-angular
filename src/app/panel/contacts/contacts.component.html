@@ -1,5 +1,5 @@
 <div class="main-container">
-  <app-add-contacts-modal ></app-add-contacts-modal>
+  <app-add-contacts-modal></app-add-contacts-modal>
   <div class="content" id="contakt-mobiel">
     <button type="button" (click)="openAddContactModal()" class="contact-btn">
       <span class="btn-deskription">New contact</span>
@@ -11,7 +11,6 @@
           *ngFor="let contact of sortedContacts; let i = index"
           class="contact-block"
         >
-          <!-- Erste Initiale anzeigen, wenn sich die Gruppe ändert -->
           <div *ngIf="contact.showInitial" class="contact-list-first-latter">
             {{ contact.firstInitial.toUpperCase() }}
           </div>
@@ -42,12 +41,11 @@
           <hr class="contact-header-hr" />
           <div class="contact-header-title-name">Better with a team</div>
         </div>
-        <app-contacts-modal
+        <app-show-contacts-modal
           [@contactModalToggleAnimation]="
-            helpers.contactsModal.showContactInfo ? 'open' : 'closed'
+            helpers.contactsModalControls.showContactInfo ? 'open' : 'closed'
           "
-          [selectedUser]="selectedUser"
-        ></app-contacts-modal>
+        ></app-show-contacts-modal>
       </div>
     </div>
     <app-msg-box
