@@ -13,13 +13,12 @@ import { ResponsiveService } from '../../services/responsive.service';
 import { ShowcontactsModalControlsComponent } from "./show-contacts-modal/show-contacts-modal.component";
 import { contactModalAnimation } from '../../animations/modal.animation';
 import { AddcontactsModalControlsComponent } from "./add-contacts-modal/add-contacts-modal.component";
-import { GetInitalsPipe } from '../../pipes/get-initals.pipe';
 
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [CommonModule, FormsModule, MsgBoxComponent, AddcontactsModalControlsComponent, ShowcontactsModalControlsComponent, GetInitalsPipe],
+  imports: [CommonModule, FormsModule, MsgBoxComponent, AddcontactsModalControlsComponent, ShowcontactsModalControlsComponent],
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss'],
 
