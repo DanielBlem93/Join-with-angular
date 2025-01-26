@@ -2,12 +2,35 @@
 @import "../../../../globalStyles.scss";
 @import "../../../../styles.scss";
 
-
 .contacts-content {
   display: flex;
 }
+#contacts-headline {
+  @include dFlex(flex-start, flex-start, column, 16px);
+  display: none;
+}
+
+.headline-name {
+  font-size: 47px;
+  font-weight: 700;
+  line-height: 56.4px;
+}
+
+.headline-text {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+hr {
+  width: 90px;
+  height: 3px;
+  background-color: #29abe2;
+  border: none;
+  border-radius: 3px;
+}
+
 #contacts-list {
-  width: 453px;
   height: 100vh;
   padding-top: 128px;
   background-color: #ffffff;
@@ -43,7 +66,7 @@
 
 .contacts-list-item {
   @include dFlex(center, start);
-  margin: 10px;
+
   cursor: pointer;
 }
 
@@ -57,36 +80,7 @@
   border-radius: 10px;
 }
 
-#contacts-modal {
-  @include dFlex(flex-start, flex-start, column, 21px);
-  position: fixed;
-  left: 40%;
-  padding-top: 128px;
-}
-
-.contact-header-title {
-  @include dFlex(center, space-evenly);
-  width: 569px;
-  font-size: 20px;
-  font-weight: 400;
-  margin-top: 50px;
-  margin-left: 10px;
-}
-
-.contact-header-title-icon {
-  font-size: 61px;
-  font-weight: 700;
-}
-
-.contact-header-hr {
-  width: 3px;
-  height: 59px;
-  background-color: #29abe2;
-  border: none;
-  border-radius: 3px;
-}
-
-.contact-header-icon {
+.contact-header-circle {
   @include dFlex(center, center);
   width: 120px;
   height: 120px;
@@ -97,9 +91,7 @@
 }
 
 .contact-header {
-  @include dFlex(center, center, $gap: 54px);
-  margin: 20px;
-  padding-left: 30px;
+  @include dFlex(center, flex-start, $gap: 54px);
 }
 
 .contact-header-name {
@@ -115,21 +107,20 @@
 }
 
 #contact-content {
-  @include dFlex(unset, unset, column, 21px);
+  @include dFlex(unset, unset, column, 60px);
   position: relative;
 
   // right: 0%;
   transition: all 0.7s ease-in-out;
 }
-
+.contact-body {
+  @include dFlex(unset, flex-start, column, 22px);
+}
 .contact-body-header {
   @include dFlex(flex-start, baseline, row, 90px);
-  margin: 20px;
-  padding-left: 30px;
 }
 
 .contact-body-header-title {
-  padding-bottom: 24px;
   font-size: 20px;
   font-weight: 400;
 }
@@ -157,10 +148,7 @@
 }
 
 .contact-body-item {
-  @include dFlex(flex-start, null, column, 10px);
-  margin: 20px;
-  margin-bottom: 30px;
-  padding-left: 30px;
+  @include dFlex(flex-start, unset, column, 15px);
 }
 
 .contact-body-item-title {
@@ -223,81 +211,6 @@
   transition: all 0.7s ease-in-out;
 }
 
-.add-contacts-container {
-  @include dFlex(center, flex-end, unset, 120px);
-  width: 80%;
-  height: 70%;
-  position: relative;
-  background-color: #ffffff;
-  border-radius: 30px;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
-}
-
-.add-contact-greeting-container {
-  @include dFlex(flex-start, center, column, 10px);
-  width: 40%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  background-color: #2a3647;
-  border-radius: 30px 0px 0px 30px;
-  color: #ffffff;
-  padding-left: 40px;
-}
-
-.add-contact-greeting-container h1 {
-  font-size: 61px;
-  font-weight: 700;
-}
-.add-contact-greeting-container p {
-  font-size: 27px;
-  font-weight: 400;
-}
-.add-contact-hr {
-  background-color: #29abe2;
-  width: 90px;
-  height: 3px;
-  border-radius: 3px;
-  border: none;
-}
-
-.add-contact-form-container {
-  @include dFlex(center, center, row, 60px);
-  margin-right: 40px;
-}
-
-.contact-member-icon {
-  @include dFlex(center, center);
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background-color: #d1d1d1;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
-}
-
-.add-contact-form {
-  @include dFlex(unset, unset, column, 40px);
-  width: 422px;
-  margin-right: 20px;
-}
-.input-container {
-  width: 422px;
-  height: 51px;
-  position: relative;
-}
-input {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  border: 1px solid #d1d1d1;
-  padding: 13px 21px;
-}
-input::placeholder {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 19px;
-  color: #bdbdbd;
-}
 .add-contact-img {
   position: absolute;
   right: 20px;
@@ -309,7 +222,7 @@ input::placeholder {
   @include dFlex(unset, flex-start, row, 20px);
 }
 
-.add-contact {
+.delete-contact {
   width: 138px;
   height: 57px;
   font-size: 20px;
@@ -369,9 +282,87 @@ input::placeholder {
   display: none;
 }
 #back-to-contacts {
+  position: absolute;
+  top: 66px;
+  right: 32px;
   display: none;
   cursor: pointer;
 }
 .error-message {
   color: red;
+}
+.btn {
+  display: none;
+}
+@media (max-width: 1024px) {
+  .btn {
+    @include dFlex(center, space-between, row);
+    position: absolute;
+    bottom: 8px;
+    transform: translate(50%, -50%);
+    right: 50%;
+  }
+  .contact-header-add-task {
+    display: none;
+  }
+  #back-to-contacts {
+    display: unset;
+  }
+
+  #contacts-headline {
+    display: flex;
+  }
+  #contact-content {
+    align-items: flex-start;
+    height: 100%;
+    padding-top: 48px;
+  }
+}
+@media (max-width: 720px) {
+  .main-container {
+    width: 100vw;
+  }
+
+
+  #contact-content {
+    padding: 16px;
+    width: 100%;
+  }
+
+  .contact-header {
+    gap: 20px;
+  }
+
+  .contact-header-circle {
+    width: 80px;
+    height: 80px;
+    font-size: 27px;
+    border: 3px solid white;
+  }
+
+  .contact-header-name {
+    font-size: 36px;
+    font-weight: 700;
+  }
+
+  .contact-body {
+
+  }
+  .contact-body-header {
+
+  }
+
+  .btn {
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+
+    button{
+      width: 144px;
+      height: 48px;
+      font-size: 16px;
+    }
+  }
+}
+@media (max-width: 600px) {
 }

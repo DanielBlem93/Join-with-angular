@@ -1,5 +1,10 @@
 <div class="main-container">
   <app-add-contacts-modal></app-add-contacts-modal>
+  <app-show-contacts-modal
+  [@contactModalToggleAnimation]="
+    helpers.contactsModalControls.showContactInfo ? 'open' : 'closed'
+  "
+></app-show-contacts-modal>
   <div class="content" id="contakt-mobiel">
     <button type="button" (click)="openAddContactModal()" class="contact-btn">
       <span class="btn-deskription">New contact</span>
@@ -33,20 +38,13 @@
         </div>
       </div>
       <div id="contacts-modal">
-        <div id="back-to-contacts" class="back">
-          <img src="./assets/img/back-icon.png" alt="" />
-        </div>
         <div class="contact-header-title">
           <div class="contact-header-title-icon">Contacts</div>
           <hr class="contact-header-hr" />
           <div class="contact-header-title-name">Better with a team</div>
         </div>
-        <app-show-contacts-modal
-          [@contactModalToggleAnimation]="
-            helpers.contactsModalControls.showContactInfo ? 'open' : 'closed'
-          "
-        ></app-show-contacts-modal>
       </div>
+ 
     </div>
     <app-msg-box
       [@openClose]="helpers.isOpen ? 'open' : 'closed'"

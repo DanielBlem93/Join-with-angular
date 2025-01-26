@@ -1,41 +1,73 @@
-<div id="contact-content">
-  <div class="contact-header">
-    <div
-      [style.background-color]="helpers.contactsModalControls.selectedUser.color"
-      class="contact-header-icon"
-    >
-      {{ helpers.contactsModalControls.selectedUser.username | getInitals }}
+<div class="main-container">
+  <div id="contact-content">
+    <div id="contacts-headline">
+      <span class="headline-name">Contacts</span>
+      <span class="headline-text">Better with a team</span>
+      <hr />
     </div>
-    <div>
-      <div class="contact-header-name">
-        {{ helpers.contactsModalControls.selectedUser.username }}
+    <div id="back-to-contacts" class="back">
+      <img src="./assets/img/back-icon.png" alt="" />
+    </div>
+    <div class="contact-header">
+      <div
+        [style.background-color]="
+          helpers.contactsModalControls.selectedUser.color
+        "
+        class="contact-header-circle"
+      >
+        {{ helpers.contactsModalControls.selectedUser.username | getInitals }}
       </div>
-      <div class="contact-header-add-task">
-        <div (click)="openEditContact()" class="contact-body-header-edit">
-          <img class="icons" src="./assets/img/edit.png" />
-          <span>Edit</span>
+      <div>
+        <div class="contact-header-name">
+          {{ helpers.contactsModalControls.selectedUser.username }}
         </div>
-        <div (click)="helpers.deleteContact(myForm)" class="contact-body-header-delete">
-          <img class="icons" src="./assets/img/delete.png" />
-          <span>Delete</span>
+        <div class="contact-header-add-task">
+          <div (click)="openEditContact()" class="contact-body-header-edit">
+            <img class="icons" src="./assets/img/edit.png" />
+            <span>Edit</span>
+          </div>
+          <div
+            (click)="helpers.deleteContact(myForm)"
+            class="contact-body-header-delete"
+          >
+            <img class="icons" src="./assets/img/delete.png" />
+            <span>Delete</span>
+          </div>
+        </div>
+
+        <div class="btn">
+          <button
+            type="button"
+            (click)="helpers.deleteContact(myForm)"
+            class="delete-contact"
+          >
+            Delete
+          </button>
+          <button
+            (click)="openEditContact()"
+            type="button"
+            class="create-contact"
+          >
+            Edit
+          </button>
         </div>
       </div>
     </div>
-  </div>
-  <div class="contact-body">
-    <div class="contact-body-header">
-      <div class="contact-body-header-title">Contact Information</div>
-    </div>
-    <div class="contact-body-item">
-      <div class="contact-body-item-title">Email</div>
-      <div class="contact-body-item-value-email">
-        {{ helpers.contactsModalControls.selectedUser.email }}
+    <div class="contact-body">
+      <div class="contact-body-header">
+        <div class="contact-body-header-title">Contact Information</div>
       </div>
-    </div>
-    <div class="contact-body-item">
-      <div class="contact-body-item-title">Phone</div>
-      <div class="contact-body-item-value">
-        {{ helpers.contactsModalControls.selectedUser.number }}
+      <div class="contact-body-item">
+        <div class="contact-body-item-title">Email</div>
+        <div class="contact-body-item-value-email">
+          {{ helpers.contactsModalControls.selectedUser.email }}
+        </div>
+      </div>
+      <div class="contact-body-item">
+        <div class="contact-body-item-title">Phone</div>
+        <div class="contact-body-item-value">
+          {{ helpers.contactsModalControls.selectedUser.number }}
+        </div>
       </div>
     </div>
   </div>

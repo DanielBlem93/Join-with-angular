@@ -3,7 +3,12 @@
 @import "../../../styles.scss";
 
 app-show-contacts-modal {
-  position: relative;
+  position: absolute;
+  top: 460px; 
+  right: 50%;
+  transform: translate(50%, -50%);
+  left: 460px;
+  min-width: 608px;
 }
 
 .contacts-content {
@@ -63,7 +68,7 @@ app-show-contacts-modal {
 #contacts-modal {
   @include dFlex(flex-start, flex-start, column, 21px);
   position: fixed;
-  left: 40%;
+  left: 720px;
   padding-top: 128px;
 }
 
@@ -386,6 +391,11 @@ input::placeholder {
     flex-direction: column;
     margin-right: 100px;
   }
+
+  #contacts-modal {
+    align-items: flex-end;
+  }
+
   .contact {
     left: 60%;
   }
@@ -398,6 +408,9 @@ input::placeholder {
 }
 
 @media (max-width: 1300px) {
+
+  
+
 }
 @media (max-width: 1200px) {
   .close {
@@ -449,6 +462,18 @@ input::placeholder {
     margin-bottom: -30px;
   }
 }
+@media (max-width: 1024px) {
+  app-show-contacts-modal {
+    position: absolute;
+    top: 50%; 
+    right: 0;
+    transform: translate(0%, -50%);
+    left: 0;
+    background-color: $background-white;
+    height: calc(100vh - 161px);
+    width: 100vw;
+  }
+}
 @media (max-width: 1150px) {
   .contact {
     left: 64%;
@@ -460,6 +485,9 @@ input::placeholder {
   }
 }
 @media (max-width: 1024px) {
+  .contact-header-title {
+    display: none;
+  }
   .contact {
     display: none;
   }

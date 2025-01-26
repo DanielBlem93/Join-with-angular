@@ -33,14 +33,17 @@ export const contactModalAnimation = trigger('contactModalToggleAnimation', [
   state(
     'open',
     style({
-      right: '0%',
-
+      right: '50%',
+      opacity: 1,
+      zIndex: 333,
     })
   ),
   state(
     'closed',
     style({
       right: '-200%',
+      opacity: 0,
+      zIndex: -1
     })
   ),
   transition('open => closed', [animate('0.225s')]),
