@@ -20,6 +20,7 @@ export class ShowcontactsModalControlsComponent {
   color!: string
 
 
+
   showInfo: boolean = false
 
 
@@ -49,6 +50,10 @@ export class ShowcontactsModalControlsComponent {
     this.setUserInput()
   }
 
+  closeModal() {
+    this.helpers.contactsModalControls.showContactInfo = false
+  }
+
 
   /**
    * Fills inputs with the contact information
@@ -65,5 +70,12 @@ export class ShowcontactsModalControlsComponent {
 
 
 
+  changeIcon(event: MouseEvent, iconName: string): void {
+    const target = event.currentTarget as HTMLElement;
+    const imgElement = target.querySelector('img') as HTMLImageElement;
+    if (imgElement) {
+        imgElement.src = `./assets/img/${iconName}`;
+    }
+}
 
 }

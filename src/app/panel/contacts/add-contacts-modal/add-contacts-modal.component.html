@@ -5,16 +5,16 @@
   [@contactModalToggleAnimation]="
     helpers.contactsModalControls.newContact ? 'open' : 'closed'
   "
-  id="add-contakt-modal"
+  id="add-contact-modal"
 >
   <div class="add-contacts-container">
     <div class="add-contact-greeting-container">
       <img src="./assets/img/join-icon weiss.png" />
       @if (!this.helpers.contactsModalControls.editMode) {
-      <h1><span id="header-add-edit">Add</span> contact</h1>
+      <h1><span>Add</span> contact</h1>
       <p id="header-text">Tasks are better with a team!</p>
       }@else {
-      <h1><span id="header-add-edit">Edit</span> contact</h1>
+      <h1><span>Edit</span> contact</h1>
       }
       <hr class="add-contact-hr" />
     </div>
@@ -107,39 +107,31 @@
             alt=""
           />
         </div>
+
         @if (!this.helpers.contactsModalControls.editMode) {
-        <div id="btn-add" class="btn">
-          <button
-            type="button"
-            (click)="helpers.closecontactsModal(myForm)"
-            class="add-contact"
-          >
-            Cancel
-            <img src="./assets/img/close-icon.png" alt="" />
-          </button>
-          <button type="submit" class="create-contact">
+        <div class="action-btn" style="justify-content: center;">
+          <button type="submit" class="create-contact-btn">
             Create contact
-            <img src="./assets/img/chack-icon.png" alt="" />
+            <img src="./assets/img/chack-icon.png"/>
           </button>
         </div>
+
         } @else if (this.helpers.contactsModalControls.editMode) {
-        <div id="btn-edit" class="btn">
-          <div class="btn">
-            <button
-              type="button"
-              (click)="helpers.deleteContact(myForm)"
-              class="add-contact"
-            >
-              Delete
-            </button>
-            <button
-              (click)="editContact(myForm)"
-              type="button"
-              class="create-contact"
-            >
-              Save
-            </button>
-          </div>
+        <div class="action-btn">
+          <button
+            type="button"
+            (click)="helpers.deleteContact(myForm)"
+            class="add-contact-btn"
+          >
+            Delete
+          </button>
+          <button
+            (click)="editContact(myForm)"
+            type="button"
+            class="create-contact-btn"
+          >
+            Save
+          </button>
         </div>
         }
       </form>

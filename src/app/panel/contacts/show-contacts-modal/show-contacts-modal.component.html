@@ -5,7 +5,7 @@
       <span class="headline-text">Better with a team</span>
       <hr />
     </div>
-    <div id="back-to-contacts" class="back">
+    <div (click)="closeModal()" id="back-to-contacts">
       <img src="./assets/img/back-icon.png" alt="" />
     </div>
     <div class="contact-header">
@@ -21,21 +21,28 @@
         <div class="contact-header-name">
           {{ helpers.contactsModalControls.selectedUser.username }}
         </div>
-        <div class="contact-header-add-task">
-          <div (click)="openEditContact()" class="contact-body-header-edit">
+        <div class="contact-header-actions">
+          <div
+          class="action-btn"
+            (click)="openEditContact()"
+            (mouseenter)="changeIcon($event, 'edit-hover.png')"
+            (mouseleave)="changeIcon($event, 'edit.png')"
+          >
             <img class="icons" src="./assets/img/edit.png" />
             <span>Edit</span>
           </div>
           <div
+          class="action-btn"
             (click)="helpers.deleteContact(myForm)"
-            class="contact-body-header-delete"
+            (mouseenter)="changeIcon($event, 'delete-hover.png')"
+            (mouseleave)="changeIcon($event, 'delete.png')"
           >
             <img class="icons" src="./assets/img/delete.png" />
             <span>Delete</span>
           </div>
         </div>
 
-        <div class="btn">
+        <div class="btn-mobile">
           <button
             type="button"
             (click)="helpers.deleteContact(myForm)"
@@ -65,7 +72,7 @@
       </div>
       <div class="contact-body-item">
         <div class="contact-body-item-title">Phone</div>
-        <div class="contact-body-item-value">
+        <div>
           {{ helpers.contactsModalControls.selectedUser.number }}
         </div>
       </div>

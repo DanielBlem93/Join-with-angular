@@ -2,8 +2,12 @@
 @import "../../../../globalStyles.scss";
 @import "../../../../styles.scss";
 
-.contacts-content {
-  display: flex;
+// cleared
+
+#contact-content {
+  @include dFlex(unset, unset, column, 60px);
+  position: relative;
+  transition: all 0.125s ease-in;
 }
 #contacts-headline {
   @include dFlex(flex-start, flex-start, column, 16px);
@@ -30,54 +34,13 @@ hr {
   border-radius: 3px;
 }
 
-#contacts-list {
-  height: 100vh;
-  padding-top: 128px;
-  background-color: #ffffff;
-  overflow: scroll;
-}
-::-webkit-scrollbar {
+#back-to-contacts {
   display: none;
-}
-
-.contact-list-first-latter {
-  font-size: 20px;
-  font-weight: 400;
-  margin: 0 40px 20px 40px;
-}
-
-.contact-list-hr {
-  width: 100%;
-  height: 1px;
-  background-color: #d1d1d1;
-  border: none;
-}
-
-.contact-list-icon {
-  @include dFlex(center, center);
-  width: 42px;
-  height: 42px;
-  color: #ffffff;
-  border-radius: 50%;
-  border: 1px solid #ffffff;
-  background-color: #29abe2;
-  margin: 20px;
-}
-
-.contacts-list-item {
-  @include dFlex(center, start);
-
   cursor: pointer;
 }
 
-.contacts-list-item-email {
-  color: #29abe2;
-}
-
-.contacts-list-item:hover {
-  background-color: #2a3647;
-  color: #ffffff;
-  border-radius: 10px;
+.contact-header {
+  @include dFlex(center, flex-start, $gap: 54px);
 }
 
 .contact-header-circle {
@@ -90,56 +53,30 @@ hr {
   font-size: 47px;
 }
 
-.contact-header {
-  @include dFlex(center, flex-start, $gap: 54px);
-}
 
 .contact-header-name {
   font-size: 47px;
   font-weight: 500;
 }
 
-.contact-header-add-task {
+.contact-header-actions {
   @include dFlex(flex-start, flex-start, row, 50px);
   margin-top: 10px;
   font-size: 16px;
   font-weight: 400;
 }
 
-#contact-content {
-  @include dFlex(unset, unset, column, 60px);
-  position: relative;
-
-  // right: 0%;
-  transition: all 0.7s ease-in-out;
-}
-.contact-body {
-  @include dFlex(unset, flex-start, column, 22px);
-}
-.contact-body-header {
-  @include dFlex(flex-start, baseline, row, 90px);
-}
-
-.contact-body-header-title {
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.contact-body-header-edit {
+.action-btn {
   @include dFlex();
   gap: 10px;
   font-size: 16px;
   font-weight: 400;
   cursor: pointer;
+  &:hover  {
+    color: $lightblue;
+  }
 }
 
-.contact-body-header-delete {
-  @include dFlex();
-  gap: 10px;
-  font-size: 16px;
-  font-weight: 400;
-  cursor: pointer;
-}
 
 .icons {
   object-fit: cover;
@@ -147,80 +84,13 @@ hr {
   width: 20px;
 }
 
-.contact-body-item {
-  @include dFlex(flex-start, unset, column, 15px);
-}
 
-.contact-body-item-title {
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.contact-body-item-value-email {
-  color: #29abe2;
-  font-size: 16px;
-  font-weight: 400;
-  cursor: pointer;
-}
-
-.contact-btn {
-  @include dFlex(center, center, row, 5px);
-  width: 180px;
-  height: 53px;
-  position: fixed;
-  bottom: 50px;
-  right: 50px;
-  background-color: #2a3647;
-  border-radius: 10px;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 400;
-  cursor: pointer;
-  margin: 20px;
-  margin-left: 30px;
-  border: none;
-}
-
-.contact-btn img {
-  width: 30px;
-}
-
-#temp-contacts {
-  background-color: var(--background-dark-active);
-}
-
-#temp-contacts p {
-  color: white;
-}
-
-#contacts-icon-img-hover {
-  display: unset;
-}
-
-/**=========== ADD CONTACTS ===================**/
-
-#add-contakt-modal {
-  @include dFlex(center, center);
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  right: -200%; // - 200% for close
-  background-color: rgba(42, 54, 71, 0.5);
-  z-index: 222;
-  transition: all 0.7s ease-in-out;
-}
-
-.add-contact-img {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.btn {
+.btn-mobile {
   @include dFlex(unset, flex-start, row, 20px);
+  width: 100%;
+  display: none;
 }
+
 
 .delete-contact {
   width: 138px;
@@ -247,70 +117,66 @@ hr {
   cursor: pointer;
 }
 
-.add-contact img {
-  margin-left: 10px;
+
+.contact-body {
+  @include dFlex(unset, flex-start, column, 22px);
 }
-.create-contact {
-  @include dFlex(center, space-evenly, row);
-  width: 211px;
-  height: 56px;
-  border: none;
-  border-radius: 10px;
+.contact-body-header {
+  @include dFlex(flex-start, baseline, row, 90px);
+}
+
+.contact-body-header-title {
   font-size: 20px;
+  font-weight: 400;
+}
+
+.contact-body-item {
+  @include dFlex(flex-start, unset, column, 15px);
+}
+
+.contact-body-item-title {
+  font-size: 16px;
   font-weight: 700;
-  background-color: #2a3647;
-  color: #ffffff;
+}
+
+.contact-body-item-value-email {
+  color: #29abe2;
+  font-size: 16px;
+  font-weight: 400;
   cursor: pointer;
 }
-.close {
-  @include dFlex(center, center);
-  position: absolute;
-  border: none;
-  background-color: transparent;
-  top: 20px;
-  right: 20px;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-}
-.contact-member-icon h1 {
-  color: #ffffff;
-  font-size: 47px;
-  font-weight: 500;
-}
-.displaynone {
-  display: none;
-}
-#back-to-contacts {
-  position: absolute;
-  top: 66px;
-  right: 32px;
-  display: none;
-  cursor: pointer;
-}
-.error-message {
-  color: red;
-}
-.btn {
-  display: none;
-}
+
+
+
 @media (max-width: 1024px) {
-  .btn {
+  .btn-mobile {
     @include dFlex(center, space-between, row);
     position: absolute;
     bottom: 8px;
     transform: translate(50%, -50%);
     right: 50%;
   }
-  .contact-header-add-task {
+  .contact-header-actions {
     display: none;
   }
   #back-to-contacts {
     display: unset;
+    position: absolute;
+    top: 34px;
+    right: 32px;
   }
 
   #contacts-headline {
     display: flex;
+
+  }
+
+  .headline-name{
+    line-height: unset;
+  }
+
+  .contact-header{
+    padding-top: 16px;
   }
   #contact-content {
     align-items: flex-start;
@@ -318,15 +184,16 @@ hr {
     padding-top: 48px;
   }
 }
+
+
 @media (max-width: 720px) {
   .main-container {
     width: 100vw;
   }
 
-
   #contact-content {
     padding: 16px;
-    width: 100%;
+    width: 80%;
   }
 
   .contact-header {
@@ -345,24 +212,44 @@ hr {
     font-weight: 700;
   }
 
-  .contact-body {
-
-  }
-  .contact-body-header {
-
-  }
-
-  .btn {
+  .btn-mobile {
     width: 100%;
     padding-left: 16px;
     padding-right: 16px;
 
-    button{
+    button {
       width: 144px;
       height: 48px;
       font-size: 16px;
     }
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 500px) {
+
+  #contacts-headline{
+    gap: 6px;
+  }
+
+  .headline-name{
+    font-size: 32px;
+  }
+
+  .headline-text{
+    font-size: 16px;
+  }
+  
+  .contact-header-name{
+    font-size: 22px;
+  }
+
+  .contact-header-circle{
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  #contact-content{
+    width: 100%;
+    gap: 16px;
+  }
 }

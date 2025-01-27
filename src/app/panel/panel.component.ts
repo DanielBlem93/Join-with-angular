@@ -12,11 +12,12 @@ import { AuthenticationService } from '../services/authentication.service';
 import { HelpersService } from '../services/helpers.service';
 import { MsgBoxComponent } from "../msg-box/msg-box.component";
 import { msgBoxAnimation } from '../animations/msgBox.animations';
+import { HelpComponent } from './help/help.component';
 
 @Component({
   selector: 'app-panel',
   standalone: true,
-  imports: [NavbarComponent, PanelHeaderComponent, SummaryComponent, CommonModule, BoardComponent, AddTaskComponent, ContactsComponent, LegalNoticeComponent, MsgBoxComponent],
+  imports: [NavbarComponent, PanelHeaderComponent, SummaryComponent, CommonModule, BoardComponent, AddTaskComponent,HelpComponent, ContactsComponent, LegalNoticeComponent, MsgBoxComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss',
   animations: [msgBoxAnimation]

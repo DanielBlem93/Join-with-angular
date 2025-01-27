@@ -1,0 +1,66 @@
+@import "../../../mixin.scss";
+@import "../../../globalStyles.scss";
+@import "../../../styles.scss";
+
+.main-container {
+  padding-top: 128px;
+  padding-left: 64px;
+  padding-bottom: 81px;
+  justify-content: unset;
+  align-items: flex-start;
+  gap: 24px;
+  width: 90%;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+h3 {
+  font-size: 61px;
+}
+
+h4 {
+  font-size: 27px;
+}
+.lightblue {
+  color: $lightblue;
+}
+
+.headline{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+p {
+  font-size: 16px;
+}
+
+ol {
+    counter-reset: list-counter;
+    list-style: none;
+    padding-left: 0;
+  
+    li {
+      counter-increment: list-counter;
+      margin-bottom: 20px;
+      position: relative;
+      padding-left: 40px;
+  
+      &::before {
+        content: counter(list-counter) ".";
+        position: absolute;
+        left: 0;
+        font-weight: 700;
+        font-size: 27px;
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .main-container {
+      padding-left: 0px;
+      padding-bottom: 128px;
+
+    }
+  }

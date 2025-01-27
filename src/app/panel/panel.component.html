@@ -7,5 +7,6 @@
   <app-add-task *ngIf="router.url === '/panel/add-task'"></app-add-task>
   <app-contacts *ngIf="router.url === '/panel/contacts'"></app-contacts>
   <app-legal-notice *ngIf="router.url === '/panel/legal-notice'"></app-legal-notice>
+  <app-help *ngIf="router.url === '/panel/help'"></app-help>
   <app-msg-box [@openClose]="helpers.isOpen ? 'open' : 'closed'"></app-msg-box>
 </div>

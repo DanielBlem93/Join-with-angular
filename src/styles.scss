@@ -167,7 +167,8 @@ app-login,
 app-panel,
 app-sing-up,
 app-board,
-app-add-task {
+app-add-task,
+app-help {
   @include dFlex($fDirection: column);
   background-color: $background-white;
   width: 100vw;

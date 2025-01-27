@@ -13,4 +13,5 @@ export const routes: Routes = [
     { path: 'panel/add-task', component: PanelComponent },
     { path: 'panel/contacts', component: PanelComponent },
     { path: 'panel/legal-notice', component: PanelComponent },
+    { path: 'panel/help', component: PanelComponent },
 ];
