@@ -27,10 +27,16 @@ export class TodoBoxComponent {
 
   constructor(private fireService: FirebaseService,
     public helpers: HelpersService,
-    public responsiveService : ResponsiveService
+    public responsiveService: ResponsiveService
   ) { }
 
-  async changeStatus(event: Event, direction: 'up' | 'down') {
+
+  /**
+   *  Change the status of the task
+   * @param direction - 'up' or 'down' to change the status
+   */
+  
+  async changeStatus(direction: 'up' | 'down') {
 
     const statusOrder: Status[] = ['todo', 'in-progress', 'awaiting-feedback', 'done'];
     let currentIndex = statusOrder.indexOf(this.task.status);
@@ -43,11 +49,16 @@ export class TodoBoxComponent {
 
     const newStatus = statusOrder[currentIndex];
     this.task.status = newStatus;
+    this.changeStatusOnDB()
+  }
 
+  /**
+   * Change the status of the task on the database
+   */
+  async changeStatusOnDB() {
     let docRef = await this.fireService.getDocRef(this.fireService.tasksDatabase, this.task.docId);
     await updateDoc(docRef, { status: this.task.status });
   }
-
 
 
 

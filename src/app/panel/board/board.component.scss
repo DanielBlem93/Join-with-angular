@@ -26,6 +26,7 @@
   }
 }
 
+
 .board-header .board-header-search {
   display: flex;
   flex-direction: row;
@@ -33,9 +34,6 @@
   gap: 24px;
 }
 
-app-task-modal {
-  position: absolute;
-}
 
 .input-container {
   height: 51px;
@@ -51,15 +49,14 @@ app-task-modal {
   padding: 13px 21px;
   outline: none;
   border: none;
+  &::placeholder {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    color: #bdbdbd;
+  }
+  
 }
-
-#searchInput ::placeholder {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 19px;
-  color: #bdbdbd;
-}
-
 .search-img {
   position: absolute;
   right: 20px;
@@ -89,40 +86,6 @@ app-task-modal {
   cursor: pointer;
 }
 
-/*======Shows active site=====  */
-#temp-board {
-  background-color: $background-dark-active;
-}
-
-#temp-board p {
-  color: white;
-}
-
-#board-icon-img-hover {
-  display: unset;
-}
-
-#temp-add-task {
-  background-color: unset !important;
-}
-
-#temp-add-task p {
-  color: $font-color-not-active !important;
-}
-
-#add-task-icon-img-hover {
-  display: none !important;
-}
-
-/* ========================================= */
-
-/* drag and drop */
-
-.drag-area {
-  position: relative;
-  height: 600px;
-  width: 250px;
-}
 
 #showTodo {
   position: fixed;
@@ -135,112 +98,13 @@ app-task-modal {
 }
 
 app-task-modal {
-  @include dFlex(center, center);
-}
-
-/* ==============Add Task Popup ================ */
-.dropdown-assinged-to {
-  overflow: auto;
-  height: 250px;
-}
-
-#addTaskPopup {
-  @include dFlex(center, center);
-  position: fixed;
-  margin-left: auto;
-  margin-right: auto;
-  opacity: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 999;
-  transition: 125ms ease-in;
-  transform: translateX(3000px);
-}
-
-.popupAnimation {
-  transform: translateX(0px) !important;
-}
-
-#addTaskPopupContainer {
-  @include dFlex(center, center);
-  position: relative;
-  width: 70%;
-  height: 90%;
-  background-color: $background-white;
-  border-radius: 20px;
-  opacity: 0;
-}
-
-.headline-container {
-  position: relative;
-}
-
-.platzhalter {
-  width: 100%;
-  height: 100%;
-  background-color: $background-dark-active;
-  border-radius: 20px;
-}
-
-.add-task-button {
-  margin-left: 0 !important;
-  background-color: $white;
-}
-
-.typography2T6 {
-  padding: 0;
-}
-
-.typography2T6::placeholder {
-  font-size: 20px;
-}
-
-#description::placeholder {
-  font-size: 20px;
-  opacity: 0.5;
-}
-
-.chegeCategory {
-  display: none;
-}
-.chegeCategory img {
-  width: 25px;
-  height: 20px;
-}
-
-/* Highlight */
-
-.nextPosition {
-  color: $background-white;
-  width: 100%;
-  height: 200px;
-  margin-top: 16px;
-  border-radius: 10px;
-  background-color: $background-white;
-  border: 5px solid $icon;
-}
-
-.emptyFrame {
   position: absolute;
-  top: 32px;
-  left: 0px;
+  @include dFlex(center, center);
 }
 
 /* ==================RESPONSIVE=========================== */
 @media (max-width: 1450px) {
-  #addTaskPopupContainer {
-    width: 90%;
-  }
 
-  main {
-    position: fixed;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-  }
 
   .board-header {
     align-self: flex-start;
@@ -248,13 +112,7 @@ app-task-modal {
 }
 
 @media (max-width: 1333px) {
-  body {
-    margin-bottom: 90px;
-  }
 
-  .buttons-container {
-    margin-bottom: 50px !important;
-  }
 
   .input-container {
     width: 422px;
@@ -264,13 +122,7 @@ app-task-modal {
     margin-left: 0;
   }
 
-  #addTaskPopupContainer {
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-  }
-
-  .board-header {
+ .board-header {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-start;
@@ -291,47 +143,11 @@ app-task-modal {
     width: 95% !important;
   }
 
-  .todo-box {
-    width: 280px;
-  }
-
-  h3 {
-    font-size: 1rem;
-  }
-
-  .editTodoBox {
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-    padding: 10px;
-    margin: 0;
-  }
-
   .board-header-search {
     width: 100%;
     flex-direction: column-reverse;
     align-items: flex-end;
     gap: 10px;
-  }
-
-  .board-body-container {
-    width: 100%;
-
-    align-items: center;
-    justify-content: center;
-  }
-
-  .drag-area {
-    height: auto;
-    flex-basis: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-
-  .board-header h1 {
   }
 
   #btn-add-board {
@@ -343,14 +159,6 @@ app-task-modal {
     height: 50px;
   }
 
-  .width95 {
-    width: 95%;
-  }
-
-  .chegeCategory {
-    display: block;
-  }
-
   .input-container {
     width: 100%;
   }
@@ -360,62 +168,11 @@ app-task-modal {
   .headline {
     font-size: 3rem;
   }
-
-  .editOk {
-    position: inherit;
-  }
 }
 
-@media (max-width: 450px) {
-  .marginLRauto {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .width95 {
-    width: 95%;
-    min-width: 0;
-  }
-
-  #right-side {
-    padding-bottom: 0;
-  }
-
-  .addTaskDescription {
-    width: 95%;
-  }
-
-  .addTaskDropdown {
-  }
-}
-
-@media (max-width: 400px) {
-  .addTaskPriority {
-    align-items: baseline;
-    flex-direction: column;
-    height: 212px;
-    align-items: center;
-  }
-
-  .addTaskPriority button {
-    width: 100%;
-  }
-
-  .addTaskFrame28 {
-    width: 100%;
-  }
-
-  .dropdown {
-    min-width: 300px !important;
-  }
-}
 
 @media (max-width: 350px) {
   body * {
     font-size: 16px;
   }
-}
-
-.addTaskFrame17Recurso11 {
-  display: none;
 }

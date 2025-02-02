@@ -1,0 +1,144 @@
+/* ================ Responsive ========================== */
+
+@media (max-width: 1450px) {
+  main {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1333px) {
+  .main-container {
+    padding-top: 90px;
+  }
+
+  main {
+    padding: 0;
+  }
+  #options {
+    padding-top: 16px;
+    justify-content: unset;
+    width: 100%;
+    height: 100%;
+  }
+  #left-side {
+    height: unset;
+    gap: 0;
+  }
+  #right-side {
+    padding-bottom: 50px;
+  }
+  #assinged-to-dropdown {
+    display: none;
+  }
+
+  main {
+    justify-content: center;
+  }
+  #options {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .addTaskVector4 {
+    display: none;
+  }
+  .addTaskDropdown {
+    margin: 0;
+    &:last-of-type {
+      margin-top: 12px;
+    }
+  }
+  
+  .buttons-container {
+    width: 422px;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 1024px) {
+  .headline-container {
+    padding-top: 32px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    span {
+      font-size: 47px;
+    }
+  }
+
+  main {
+    justify-content: center;
+    left: unset;
+  }
+  #options {
+    margin-right: 0;
+  }
+  #left-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 95% !important;
+  }
+
+  .captions {
+    font-size: $mobileFontSizeMain;
+  }
+
+  #right-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 100px;
+    width: 95%;
+  }
+
+  .addTaskTitle {
+    width: 100%;
+  }
+
+  .input-container {
+    width: 100%;
+  }
+
+  .addTaskDescription {
+    width: 100%;
+  }
+
+  .textarea-container {
+    width: 100%;
+  }
+  .dropdown {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .addTaskDropdown {
+    width: 100%;
+  }
+
+  .addTaskDueDate {
+    width: 100%;
+  }
+
+  .priority-container {
+    width: 100%;
+  }
+
+  .addTaskSubtasks {
+    width: 100%;
+  }
+
+  .subtask {
+    font-size: $mobileFontSizeMain;
+  }
+
+  .buttons-container {
+    width: 100%;
+
+    button > span {
+      font-size: $mobileFontSizeMain;
+    }
+  }
+}
+

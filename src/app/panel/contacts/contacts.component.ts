@@ -111,7 +111,6 @@ export class ContactsComponent implements OnInit {
   }
 
 
-
   /**
    * Opens the "modal" modal by adjusting its position on the screen.
    * Prior to opening, it resets the modal to its initial state.

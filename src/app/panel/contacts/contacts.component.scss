@@ -61,7 +61,6 @@ app-show-contacts-modal {
   border: none;
 }
 
-
 .contacts-list-item {
   @include dFlex(center, start);
   margin: 10px;
@@ -72,7 +71,6 @@ app-show-contacts-modal {
     border-radius: 10px;
   }
 }
-
 
 .contact-list-icon {
   @include dFlex(center, center);
@@ -118,7 +116,6 @@ app-show-contacts-modal {
   border-radius: 3px;
 }
 
-
 @media (max-width: 1600px) {
   #contacts-modal {
     align-items: flex-end;
@@ -133,7 +130,6 @@ app-show-contacts-modal {
 }
 
 @media (max-width: 1200px) {
-
   .contact-header-title {
     width: 300px;
   }
@@ -154,19 +150,10 @@ app-show-contacts-modal {
   }
 }
 
-
 @media (max-width: 1024px) {
   .contact-header-title {
     display: none;
   }
-
-
-  // .content {
-  //   position: static;
-  //   top: auto;
-  //   left: auto;
-  // }
-
 
   #contact-mobile {
     width: 100%;

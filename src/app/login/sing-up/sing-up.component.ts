@@ -18,10 +18,13 @@ import { HelpersService } from '../../services/helpers.service';
   styleUrl: './sing-up.component.scss',
   animations: [msgBoxAnimation]
 })
+
 export class SingUpComponent {
+
+
   username: string = '';
   inputPassword: string = '';
-  repeatPassword: string= ''
+  repeatPassword: string = '';
   inputMail: string = '';
 
 
@@ -29,44 +32,55 @@ export class SingUpComponent {
     public authService: AuthenticationService,
     private fireService: FirebaseService,
     public helpers: HelpersService
-  ) {
-
-  }
+  ) {}
 
 
+  /**
+   * Handles form submission for user sign-up.
+   * @param form The form object containing user inputs.
+   */
   async onSubmit(form: NgForm) {
-
     if (form.valid) {
-      await this.createUser()
-
-    } else
-      this.helpers.toggleMsg('Please fill out the form correctly')
-  }
-
-
-  async createUser() {
-
-    try {
-      await this.authService.createAccount(this.inputMail, this.inputPassword,)
-      const user = this.setUserDatas()
-      await this.addUserToFirestore(await user)
-      this.helpers.toggleMsg('Account created successfully')
-    } catch (error) {
-      this.helpers.toggleMsg('Somthing went wrong')
+      await this.createUser();
+    } else {
+      this.helpers.toggleMsg('Please fill out the form correctly');
     }
   }
 
-  async setUserDatas() {
-    let user = new User()
-    user.username = this.username
-    user.email = this.inputMail
-    await this.authService.updateUsername(this.authService.auth.currentUser!, this.username)
-    return user
+
+  /**
+   * Creates a new user account using the provided email and password.
+   */
+  async createUser() {
+    try {
+      await this.authService.createAccount(this.inputMail, this.inputPassword);
+      const user = this.setUserDatas();
+      await this.addUserToFirestore(await user);
+      this.helpers.toggleMsg('Account created successfully');
+    } catch (error) {
+      this.helpers.toggleMsg('Something went wrong');
+    }
   }
 
+
+  /**
+   * Sets user data including username and email.
+   * @returns A promise that resolves to a User object with the set data.
+   */
+  async setUserDatas(): Promise<User> {
+    let user = new User();
+    user.username = this.username;
+    user.email = this.inputMail;
+    await this.authService.updateUsername(this.authService.auth.currentUser!, this.username);
+    return user;
+  }
+
+  
+  /**
+   * Adds the user data to Firestore.
+   * @param user The user object to be added to Firestore.
+   */
   async addUserToFirestore(user: User) {
-    await this.fireService.addUser(user.toJSON())
-
+    await this.fireService.addUser(user.toJSON());
   }
-
 }

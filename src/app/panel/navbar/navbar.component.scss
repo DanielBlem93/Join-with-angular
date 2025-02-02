@@ -82,14 +82,6 @@
   height: 25px;
 }
 
-.content {
-  display: flex;
-  position: absolute;
-  top: 89px;
-  left: 232px;
-  z-index: 2;
-}
-
 .activeLink {
   background-color: $background-dark-active;
 }
@@ -150,14 +142,6 @@
     right: 40px;
   }
 
-  .content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    z-index: 2;
-  }
-
   .nav-mobile-reiter {
     @include dFlex(center, center, column, 5px);
     color: $font-color-not-active;
@@ -176,7 +160,14 @@
     height: 50px;
     object-fit: cover;
     p {
-      font-size: 10px;
+      font-size: 16px;
+    }
+  }
+}
+@media (max-width: 500px) {
+  .nav-mobile-reiter {
+    p {
+      font-size: 14px;
     }
   }
 }

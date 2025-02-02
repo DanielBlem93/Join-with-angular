@@ -197,7 +197,6 @@ button {
 // Scrollbar
 
 .scrollbar-main {
-
   // overflow x or y : scroll
 
   &::-webkit-scrollbar {
@@ -214,3 +213,70 @@ button {
     border-radius: 3px;
   }
 }
+
+ /* classes for the small color circles */
+
+ $circle-size: 20px;
+ $circle-radius: 50%;
+
+ .circle-pink {
+   height: $circle-size;
+   width: $circle-size;
+   border-radius: $circle-radius;
+   background-color: $pink;
+ }
+
+ .circle-mint {
+   height: $circle-size;
+   width: $circle-size;
+   border-radius: $circle-radius;
+   background-color: $mint;
+ }
+
+ .circle-lightblue {
+   height: $circle-size;
+   width: $circle-size;
+   border-radius: $circle-radius;
+   background-color: $lightblue;
+ }
+
+ .circle-red {
+   height: $circle-size;
+   width: $circle-size;
+   border-radius: $circle-radius;
+   background-color: $red;
+ }
+
+ .circle-green {
+   height: $circle-size;
+   width: $circle-size;
+   border-radius: $circle-radius;
+   background-color: $green;
+ }
+
+ .circle-orange {
+   height: $circle-size;
+   width: $circle-size;
+   border-radius: $circle-radius;
+   background-color: $orange;
+ }
+
+ .circle-purple {
+   height: $circle-size;
+   width: $circle-size;
+   border-radius: $circle-radius;
+   background-color: $purple;
+ }
+
+ .circle-darkblue {
+   height: $circle-size;
+   width: $circle-size;
+   border-radius: $circle-radius;
+   background-color: $darkblue;
+ }
+ .circle-blue {
+   height: $circle-size;
+   width: $circle-size;
+   border-radius: $circle-radius;
+   background-color: $color-blue;
+ }

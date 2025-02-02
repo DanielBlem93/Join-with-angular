@@ -81,38 +81,6 @@ input {
   height: 100vh;
 }
 
-/*  move Image----------------- */
-
-.img-container-mobile {
-  display: none;
-  // display: flex;
-  position: absolute;
-  top: calc(50% - 117px);
-  left: calc(50% - 137px);
-  width: 100px;
-  opacity: 0;
-  transition: all 1s ease-in-out 500ms;
-  z-index: 101;
-
-  img {
-    width: 100px;
-    transition: width 1s ease-in-out 500ms;
-    opacity: 0;
-    transition: all 1s ease-in-out 500ms;
-    z-index: 101;
-  }
-
-  .movedContainer {
-    width: 100px !important;
-    top: 37px;
-    left: 38px;
-  }
-
-  .movedImage {
-    // width: 100px !important;
-  }
-}
-
 .login-img {
   position: absolute;
   right: 20px;
@@ -143,7 +111,44 @@ button {
   padding: 4px 16px;
 }
 
-/* login responsive----------- */
 
-/* mobile-version */
-@import "login.component.mobile.scss";
+@media (max-width: 1000px) {
+  app-header {
+    min-height: 128px;
+  }
+
+  .main-container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .login-submit {
+    flex-direction: column;
+    gap: 21px;
+  }
+
+  .btn-login {
+    width: 180px;
+  }
+
+  .login-guest {
+    width: 180px;
+  }
+}
+
+@media (max-width: 720px) {
+
+  .login-form {
+    padding: 32px 32px;
+  }
+  
+  .input-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .login-form {
+    padding: 32px 0px;
+  }
+}

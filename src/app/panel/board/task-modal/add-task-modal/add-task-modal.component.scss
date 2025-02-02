@@ -60,59 +60,8 @@ app-add-task {
   z-index: 999;
 }
 
-.platzhalter {
-  width: 100%;
-  height: 100%;
-  background-color: $background-dark-active;
-  border-radius: 20px;
-}
-
-.add-task-button {
-  margin-left: 0 !important;
-  background-color: $white;
-}
-
-.typography2T6 {
-  padding: 0;
-}
-
-.typography2T6::placeholder {
-  font-size: 20px;
-}
-
-#description::placeholder {
-  font-size: 20px;
-  opacity: 0.5;
-}
-
-.chegeCategory {
-  display: none;
-}
-.chegeCategory img {
-  width: 25px;
-  height: 20px;
-}
-
-/* Highlight */
-
-.nextPosition {
-  color: $background-white;
-  width: 100%;
-  height: 200px;
-  margin-top: 16px;
-  border-radius: 10px;
-  background-color: $background-white;
-  border: 5px solid $icon;
-}
-
-.emptyFrame {
-  position: absolute;
-  top: 32px;
-  left: 0px;
-}
 
 @media (max-width: 1333px) {
-
   #add-task-close-button {
     height: 56px;
     width: 56px;
@@ -129,7 +78,6 @@ app-add-task {
   }
 }
 @media (max-width: 1024px) {
-
   .headline-container {
     padding: 0 !important;
   }
@@ -138,7 +86,6 @@ app-add-task {
     padding-bottom: 32px !important;
   }
 }
-
 
 @media (max-width: 768px) {
   #addTaskPopupContainer {
@@ -155,7 +102,6 @@ app-add-task {
     border-radius: 0px !important;
   }
 
-  
   .main-container {
     width: 100vw !important;
     justify-content: flex-start !important;

@@ -52,28 +52,32 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   }
 
-blockScroll() {
-  this.ngZone.run(() => {
-    const mainContainer = document.querySelector('.main-container');
-    if (mainContainer) {
-      this.renderer.setStyle(mainContainer, 'overflow', 'hidden');
-      setTimeout(() => {
-        this.renderer.removeStyle(mainContainer, 'overflow');
-      },500);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  });
-}
 
-
-/**
- * Return back to Summary page if user is logged in
- */
-hasLogIn() {
-  if (this.authService.auth.currentUser) {
-    this.helpers.redirectTo('/panel/summary', 0)
+  /**
+   * Block the scroll of the main container while the animation is running
+   */
+  blockScroll() {
+    this.ngZone.run(() => {
+      const mainContainer = document.querySelector('.main-container');
+      if (mainContainer) {
+        this.renderer.setStyle(mainContainer, 'overflow', 'hidden');
+        setTimeout(() => {
+          this.renderer.removeStyle(mainContainer, 'overflow');
+        }, 500);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
   }
-}
+
+
+  /**
+   * Return back to Summary page if user is logged in
+   */
+  hasLogIn() {
+    if (this.authService.auth.currentUser) {
+      this.helpers.redirectTo('/panel/summary', 0)
+    }
+  }
 
 
 
@@ -84,18 +88,18 @@ hasLogIn() {
    * @param form the form from the inputcontainer in the HTML doc
    */
   async onSubmit(form: NgForm) {
-  if (form.valid) {
-    //formular gültig
-    this.loginstatus = await this.loginEmailPassword(form)
-    console.log(this.authService.auth.currentUser)
+    if (form.valid) {
+      //formular gültig
+      this.loginstatus = await this.loginEmailPassword(form)
+      console.log(this.authService.auth.currentUser)
 
-    if (!this.loginstatus) {
-      //  this.helpers.redirectTo('/login',0)
+      if (!this.loginstatus) {
+        //  this.helpers.redirectTo('/login',0)
+      }
+    } else {
+      //formular ungültig
     }
-  } else {
-    //formular ungültig
   }
-}
 
 
 
@@ -103,18 +107,18 @@ hasLogIn() {
    *Log the user into the Firebase with email and passwort 
    */
   async loginEmailPassword(form: NgForm) {
-  const loginEmail = this.inputMail
-  const loginPassword = this.inputPassword
+    const loginEmail = this.inputMail
+    const loginPassword = this.inputPassword
 
-  try {
-    const userCredentail = await signInWithEmailAndPassword(this.authService.auth, loginEmail, loginPassword)
+    try {
+      const userCredentail = await signInWithEmailAndPassword(this.authService.auth, loginEmail, loginPassword)
 
-    return true
-  } catch (err: any) {
-    console.log(err)
-    return false
+      return true
+    } catch (err: any) {
+      console.log(err)
+      return false
+    }
   }
-}
 
 
 
@@ -123,12 +127,12 @@ hasLogIn() {
    */
   async loginGuest() {
 
-  const userCredentail = await signInWithEmailAndPassword(this.authService.auth, 'gast@gast.de', 'gast1234')
-  this.loginstatus = true
-  // this.helpers.redirectTo('panel/summary', 1000)
-  console.log('login as guest')
+    const userCredentail = await signInWithEmailAndPassword(this.authService.auth, 'gast@gast.de', 'gast1234')
+    this.loginstatus = true
+    // this.helpers.redirectTo('panel/summary', 1000)
+    console.log('login as guest')
 
-}
+  }
 
 }
 

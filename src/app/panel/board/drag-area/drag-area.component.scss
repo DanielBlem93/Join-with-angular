@@ -14,11 +14,12 @@
   width: 100%;
   height: 100%;
   padding-bottom: 32px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-#kanban-board::-webkit-scrollbar {
-  display: none;
-}
 
 .board-body-container {
   @include dFlex(center, unset, row, 50px);

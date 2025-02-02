@@ -3,7 +3,7 @@
     <img
       *ngIf="task.status !== 'todo'"
       id="up"
-      (click)="changeStatus($event, 'up')"
+      (click)="changeStatus('up')"
       src="./assets/img/down.png"
       style="rotate: 180deg"
       class="arrow"
@@ -12,7 +12,7 @@
     <img
       *ngIf="task.status !== 'done'"
       id="down"
-      (click)="changeStatus($event, 'down')"
+      (click)="changeStatus('down')"
       src="./assets/img/down.png"
       class="arrow"
     />

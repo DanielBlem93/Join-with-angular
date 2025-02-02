@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Tasks } from '../../../interfaces/tasks';
 import { FirebaseService } from '../../../services/firebase.service';
@@ -16,7 +16,7 @@ import { Task } from '../../../models/task.class';
   templateUrl: './drag-area.component.html',
   styleUrl: './drag-area.component.scss'
 })
-export class DragAreaComponent {
+export class DragAreaComponent implements AfterContentChecked {
   currentTask?: Tasks;
   draggedTask: any;
   sourceArray: any[] = [];
@@ -26,24 +26,35 @@ export class DragAreaComponent {
   @Input() inProgress: Tasks[] = []
   @Input() awaitingFeedback: Tasks[] = []
   @Input() done: Tasks[] = []
-  private dragTimeout: any;
-  private isDragging: boolean = false;
+  isDragging: boolean = false;
 
   constructor(public fireService: FirebaseService, public helpers: HelpersService) { }
 
-  ngOnInit(): void {
+  ngAfterContentChecked(): void {
     this.sortTasks();
   }
 
+  /**
+   *  When the user starts dragging a task, set the isDragging property to true
+   * @param event  The event object
+   */
   onDragStart(event: CdkDragStart) {
     this.isDragging = true;
   }
 
+  /**
+   *  When the user stops dragging a task, set the isDragging property to false and sort the tasks
+   * @param event   The event object
+   */
   onDragEnd(event: CdkDragEnd) {
     this.isDragging = false;
-    this.sortTasks(); // Sortieren Sie die Tasks nach dem Drag-and-Drop
+    this.sortTasks(); //
   }
 
+  /**
+   *  When the user drops a task, move the task to the new container and update the task status
+   * @param event  The event object
+   */
   async drop(event: CdkDragDrop<Tasks[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -58,9 +69,14 @@ export class DragAreaComponent {
       const newStatus = this.getStatusFromContainerId(event.container.id);
       await this.changeTaskStatus(task, newStatus);
     }
-    this.sortTasks(); // Sortieren Sie die Tasks nach dem Drag-and-Drop
+    this.sortTasks();
   }
 
+  /**
+   *  Get the status of the task based on the container ID
+   * @param containerId  The container ID
+   * @returns  The status of the task
+   */
   private getStatusFromContainerId(containerId: string): Status {
     switch (containerId) {
       case 'open':
@@ -76,23 +92,37 @@ export class DragAreaComponent {
     }
   }
 
+  /**
+   *  Change the status of a task
+   * @param task  The task to change the status of
+   * @param status  The new status of the task
+   */
   async changeTaskStatus(task: Tasks, status: Status) {
     let docRef = await this.fireService.getDocRef(this.fireService.tasksDatabase, task.docId);
     task.status = status;
     await updateDoc(docRef, { status: task.status });
   }
 
+  /**
+   *  Show the task details
+   * @param task  The task to show the details of
+   */
   showTask(task: Task) {
     this.currentTask = task;
   }
 
-  private sortTasks(): void {
+  /**
+   *  Hide the task details
+   */
+  private sortTasks() {
     const sortFunction = (a: Tasks, b: Tasks) => {
-      if (a.priority === b.priority) {
-        return new Date(a.date).getTime() - new Date(b.date).getTime();
-      }
       const priorityOrder = { 'urgent': 1, 'medium': 2, 'low': 3 };
-      return priorityOrder[a.priority] - priorityOrder[b.priority];
+
+      if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
+        return priorityOrder[a.priority] - priorityOrder[b.priority];
+      }
+
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
     };
 
     this.todos.sort(sortFunction);
@@ -100,5 +130,4 @@ export class DragAreaComponent {
     this.awaitingFeedback.sort(sortFunction);
     this.done.sort(sortFunction);
   }
-
 }

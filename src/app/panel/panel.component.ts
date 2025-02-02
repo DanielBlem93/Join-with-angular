@@ -35,6 +35,10 @@ export class PanelComponent implements OnInit {
     this.hasLogIn()
   }
 
+  
+  /**
+   * Check if the user is logged in
+   */
   hasLogIn() {
     if (!this.authService.auth.currentUser) {
       this.helpers.redirectTo('/login', 0)
