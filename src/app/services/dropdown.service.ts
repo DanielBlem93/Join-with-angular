@@ -233,7 +233,6 @@ export class DropdownService {
  */
   displayError(message: string) {
     this.catDropDownCtrl.errorMessage = message;
-    console.error(message);
   }
 
   /**

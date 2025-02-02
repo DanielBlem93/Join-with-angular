@@ -89,16 +89,12 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
   async onSubmit(form: NgForm) {
     if (form.valid) {
-      //formular gültig
       this.loginstatus = await this.loginEmailPassword(form)
-      console.log(this.authService.auth.currentUser)
 
       if (!this.loginstatus) {
-        //  this.helpers.redirectTo('/login',0)
+         this.helpers.redirectTo('/login',0)
       }
-    } else {
-      //formular ungültig
-    }
+    } 
   }
 
 
@@ -112,10 +108,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     try {
       const userCredentail = await signInWithEmailAndPassword(this.authService.auth, loginEmail, loginPassword)
-
       return true
     } catch (err: any) {
-      console.log(err)
       return false
     }
   }
@@ -126,12 +120,8 @@ export class LoginComponent implements OnInit, OnDestroy {
    * login guest account with preset Logindata
    */
   async loginGuest() {
-
     const userCredentail = await signInWithEmailAndPassword(this.authService.auth, 'gast@gast.de', 'gast1234')
     this.loginstatus = true
-    // this.helpers.redirectTo('panel/summary', 1000)
-    console.log('login as guest')
-
   }
 
 }

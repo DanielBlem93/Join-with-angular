@@ -50,7 +50,6 @@ export class AddTaskComponent implements OnInit {
    * @param task  the task to populate the form with
    */
   populateForm(task: Tasks): void {
-    console.log('das ist der task', task)
     this.myForm?.controls['title'].setValue(task.title);
     this.myForm?.controls['description'].setValue(task.description);
     this.myForm?.controls['date'].setValue(task.date);

@@ -36,12 +36,10 @@ export class ShowTaskComponent {
     try {
       const taskDocRef = doc(this.fireService.firestore, 'tasks', task.docId);
       await deleteDoc(taskDocRef);
-      console.log(`task with id ${task.docId} deleted`);
       this.helpers.closeModal()
       this.helpers.toggleMsg('Task deleted')
 
     } catch (error) {
-      console.error('Error deleting contact: ', error);
       this.helpers.toggleMsg('Somzthing went wrong')
     }
   }

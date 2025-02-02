@@ -50,7 +50,6 @@ export class AddcontactsModalControlsComponent implements OnInit {
       try {
         this.addContactToDB(data, myForm)
       } catch (error) {
-        console.error('Fehler beim Hinzufügen des Dokuments:', error);
         this.helpers.toggleMsg(`${error}`)
       }
     } else {
@@ -94,7 +93,6 @@ export class AddcontactsModalControlsComponent implements OnInit {
   async addContactToDB(data: Users, form: NgForm) {
     try {
       const docRef = await addDoc(this.fireService.contactsDatabase, data);
-      console.log('Dokument erfolgreich hinzugefügt mit ID:', docRef.id);
       this.helpers.closecontactsModal(form)
       this.helpers.toggleMsg('User successfully created')
     } catch (error) {

@@ -147,7 +147,6 @@ export class HelpersService {
         this.closecontactsModal(myForm)
       }
     } catch (error) {
-      console.log(error)
       this.toggleMsg('Somthing went wrong')
     }
     this.contactsModalControls.showContactInfo = false

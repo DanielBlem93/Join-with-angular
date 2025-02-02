@@ -130,7 +130,6 @@ export class ContactsComponent implements OnInit {
   showContactInfo(contact: Users): void {
     this.helpers.contactsModalControls.showContactInfo = true
     this.helpers.setSelectedContact(contact)
-    console.log('selected contact is:', contact)
   }
 
 

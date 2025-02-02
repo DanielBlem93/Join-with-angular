@@ -37,9 +37,7 @@ export class FirebaseService {
     try {
       const contactDocRef = doc(this.firestore, `contacts/${contactId}`);
       await deleteDoc(contactDocRef);
-      console.log(`Contact with ID ${contactId} deleted successfully.`);
     } catch (error) {
-      console.error('Error deleting contact: ', error);
     }
   }
 

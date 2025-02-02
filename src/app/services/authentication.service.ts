@@ -43,7 +43,6 @@ firebaseApp = initializeApp({
       // https://firebase.google.com/docs/reference/js/auth.user
       if (user) {
         this.afterLogin()
-        console.log(user)
       }
     });
   }
@@ -68,7 +67,6 @@ firebaseApp = initializeApp({
   async signout() {
     await signOut(this.auth)
     this.router.navigate(['/login'])
-    console.log('logged out', this.auth.currentUser)
   }
 
 
@@ -84,7 +82,6 @@ firebaseApp = initializeApp({
     try {
       const userCredentail = await createUserWithEmailAndPassword(this.auth, loginEmail, loginPassword)
     } catch (err: any) {
-      console.log('error from auth function',err)
     }
   }
 

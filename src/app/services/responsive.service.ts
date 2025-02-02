@@ -40,7 +40,6 @@ export class ResponsiveService implements OnDestroy {
   unsubscribe(){
     if (this.observer) {
       this.observer.unsubscribe();
-      console.log('unsubscribe')
     }
   }
 }
