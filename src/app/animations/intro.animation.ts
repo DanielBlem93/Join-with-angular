@@ -7,7 +7,6 @@ export const introAnimation = trigger('introAnimation', [
       width: '{{widthStart}}',
       top: '50%',
       left: '{{leftStart}}',
-      // transform:'translate(-50%, -50%)'
     }),
     { params: { widthStart: '274px', leftStart: '50%' } }
   ),
@@ -17,7 +16,6 @@ export const introAnimation = trigger('introAnimation', [
       width: '{{widthEnd}}',
       top: '10%',
       left: '{{leftEnd}}',
-      // transform:'translate(-50%, -50%)'
     }),
     { params: { widthEnd: '100px', leftEnd: '5%' } }
   ),

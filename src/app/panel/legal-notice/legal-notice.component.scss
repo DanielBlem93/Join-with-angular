@@ -4,6 +4,7 @@
 
 .impressum {
   padding-top: 128px;
+
   width: 70%;
   height: 100%;
 }
@@ -12,10 +13,18 @@
   @include dFlex($fDirection: column);
   height: 100vh;
   overflow-y: scroll;
+  
 }
 
+a:last-child{
+  padding-bottom: 64px;
+}
 @media (max-width: 1024px) {
   .impressum {
     width: 90%;
+  }
+
+  a:last-child{
+    padding-bottom: 128px;
   }
 }

@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SingUpComponent } from './login/sing-up/sing-up.component';
 import { PanelComponent } from './panel/panel.component';
+import { LegalNoticeComponent } from './panel/legal-notice/legal-notice.component';
 
 export const routes: Routes = [
 
@@ -13,5 +14,6 @@ export const routes: Routes = [
     { path: 'panel/add-task', component: PanelComponent },
     { path: 'panel/contacts', component: PanelComponent },
     { path: 'panel/legal-notice', component: PanelComponent },
+    { path: 'legal-notice', component: LegalNoticeComponent },
     { path: 'panel/help', component: PanelComponent },
 ];

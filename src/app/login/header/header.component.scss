@@ -4,8 +4,8 @@
 @import "../login.component.scss";
 
 header {
-  position: relative;
   @include dFlex($justify: flex-end);
+  position: relative;
   opacity: 1;
   padding: 32px 64px 0px;
 }
@@ -46,7 +46,7 @@ header {
   left: 0;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
   header {
     padding: 0;
   }
