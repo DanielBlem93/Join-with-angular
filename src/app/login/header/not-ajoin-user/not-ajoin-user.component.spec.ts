@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotAJoinUserComponent } from './not-ajoin-user.component';
+import { provideRouter } from '@angular/router';
 
 describe('NotAJoinUserComponent', () => {
   let component: NotAJoinUserComponent;
@@ -8,7 +9,8 @@ describe('NotAJoinUserComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NotAJoinUserComponent]
+      imports: [NotAJoinUserComponent],
+      providers: [provideRouter([])]
     })
     .compileComponents();
 

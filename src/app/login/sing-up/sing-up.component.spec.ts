@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SingUpComponent } from './sing-up.component';
+import { appConfig } from '../../app.config';
 
 describe('SingUpComponent', () => {
   let component: SingUpComponent;
@@ -8,10 +9,11 @@ describe('SingUpComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SingUpComponent]
+      imports: [SingUpComponent],
+      providers: [appConfig.providers],
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(SingUpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

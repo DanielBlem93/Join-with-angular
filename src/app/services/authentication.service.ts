@@ -6,7 +6,7 @@ import { HelpersService } from './helpers.service';
 import { FirebaseService } from './firebase.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 
 

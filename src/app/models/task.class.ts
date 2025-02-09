@@ -25,7 +25,7 @@ export class Task {
         this.priority = obj ? obj.priority : 'low';
         this.subtasks = obj ? obj.subtasks : [];
         this.status = obj ? obj.status : 'todo';
-        this.categoryColor = obj ? obj.categoryColor : '';
+        this.categoryColor = obj ? obj.categoryColor : 'grey';
         this.docId = obj ? obj.docId : '';
     }
 

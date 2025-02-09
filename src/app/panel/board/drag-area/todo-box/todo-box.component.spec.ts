@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TodoBoxComponent } from './todo-box.component';
+import { appConfig } from '../../../../app.config';
 
 describe('TodoBoxComponent', () => {
   let component: TodoBoxComponent;
@@ -8,9 +9,10 @@ describe('TodoBoxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TodoBoxComponent]
+      imports: [TodoBoxComponent],
+      providers: [appConfig.providers],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(TodoBoxComponent);
     component = fixture.componentInstance;

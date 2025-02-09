@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditTaskComponent } from './edit-task.component';
+import { appConfig } from '../../../../app.config';
 
 describe('EditTaskComponent', () => {
   let component: EditTaskComponent;
@@ -8,9 +9,10 @@ describe('EditTaskComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditTaskComponent]
+      imports: [EditTaskComponent],
+      providers: [appConfig.providers],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(EditTaskComponent);
     component = fixture.componentInstance;

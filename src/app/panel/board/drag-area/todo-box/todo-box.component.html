@@ -21,7 +21,7 @@
     (click)="helpers.toggleShowTask(task)"
     id="todoBoxHeader3"
     class="todo-box-header"
-    [style]="{ backgroundColor: task.categoryColor }"
+    [style]="{ backgroundColor: task.categoryColor || 'grey' }"
   >
     <h4>{{ task.category }}</h4>
   </div>

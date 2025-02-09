@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AddcontactsModalControlsComponent } from './add-contacts-modal.component';
+import { appConfig } from '../../../app.config';
 
 describe('AddcontactsModalControlsComponent', () => {
   let component: AddcontactsModalControlsComponent;
@@ -8,9 +8,10 @@ describe('AddcontactsModalControlsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddcontactsModalControlsComponent]
+      imports: [AddcontactsModalControlsComponent],
+    providers: [appConfig.providers],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AddcontactsModalControlsComponent);
     component = fixture.componentInstance;

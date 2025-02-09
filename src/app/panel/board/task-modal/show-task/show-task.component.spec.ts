@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShowTaskComponent } from './show-task.component';
+import { appConfig } from '../../../../app.config';
 
 describe('ShowTaskComponent', () => {
   let component: ShowTaskComponent;
@@ -8,7 +9,8 @@ describe('ShowTaskComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ShowTaskComponent]
+      imports: [ShowTaskComponent],
+          providers: [appConfig.providers],
     })
     .compileComponents();
 

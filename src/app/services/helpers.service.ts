@@ -10,7 +10,7 @@ import { FirebaseService } from './firebase.service';
 import { getDocs } from 'firebase/firestore';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class HelpersService {
   currentTask: Tasks = new Task();

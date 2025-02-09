@@ -5,10 +5,11 @@ import { introAnimation } from '../../animations/intro.animation';
 import { ResponsiveService } from '../../services/responsive.service';
 import { NotAJoinUserComponent } from "./not-ajoin-user/not-ajoin-user.component";
 
+
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ CommonModule, NotAJoinUserComponent],
+  imports: [ CommonModule, NotAJoinUserComponent,],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   animations: [introAnimation]

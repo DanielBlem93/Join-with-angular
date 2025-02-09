@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DragAreaComponent } from './drag-area.component';
+import { FirebaseService } from '../../../services/firebase.service';
+import { appConfig } from '../../../app.config';
+
 
 describe('DragAreaComponent', () => {
   let component: DragAreaComponent;
@@ -8,9 +11,10 @@ describe('DragAreaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DragAreaComponent]
+      imports: [DragAreaComponent],
+    providers: [appConfig.providers],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DragAreaComponent);
     component = fixture.componentInstance;
