@@ -22,4 +22,12 @@ describe('SingUpComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should create a new user account', async () => {
+    component.inputMail = 'testbed@test.de'
+    component.inputPassword = 'test123456'
+    const user = await component.createUser();
+    expect(user).toBeTruthy;
+  })
+
 });

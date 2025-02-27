@@ -2,6 +2,24 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.6.
 
+## Create your own environment
+
+create a enviroment.ts file in your src/app folder
+
+copy this in your enviroment.ts file and connect it with your google firebase:
+
+export const environment = {
+  production: false,
+  firebaseConfig: {
+    apiKey: "your-api-key",
+    authDomain: "your-auth-domain",
+    projectId: "your-project-id",
+    storageBucket: "your-storage-bucket",
+    messagingSenderId: "your-messaging-sender-id",
+    appId: "your-app-id"
+  }
+};
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

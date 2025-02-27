@@ -48,4 +48,4 @@ Thumbs.db
 
 .codegpt
 
-'src/app/enviroment.ts'
+src/app/enviroment.ts

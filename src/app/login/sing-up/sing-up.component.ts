@@ -57,8 +57,10 @@ export class SingUpComponent {
       const user = this.setUserDatas();
       await this.addUserToFirestore(await user);
       this.helpers.toggleMsg('Account created successfully');
+      return user;
     } catch (error) {
       this.helpers.toggleMsg('Something went wrong');
+      return null;
     }
   }
 

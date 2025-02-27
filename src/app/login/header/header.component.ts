@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { introAnimation } from '../../animations/intro.animation';
 import { ResponsiveService } from '../../services/responsive.service';
