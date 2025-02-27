@@ -52,7 +52,7 @@
   font-weight: 400;
   color: $lightBlack;
   max-height: 256px;
-  overflow-y: scroll;
+
 }
 
 .modal-date {
@@ -175,6 +175,7 @@
   }
 
   .modal-text {
+    overflow-y: scroll;
     font-size: $mobileFontSizeMain;
     max-height: 100px;
   }
